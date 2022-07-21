@@ -1,0 +1,45 @@
+.content {
+    grid-area: content;
+
+    background-color: rgba(200, 243, 206, 0.586);
+    border: 1px solid rgba(104, 133, 104, 0.586);
+    padding: 10px 10px;
+    border-radius: 10px 10px 0 10px;
+    margin-right: 10px;
+}
+
+.main-pic-wrapper {
+    display: flex;
+    height: 15%;
+}
+
+.main-pic {
+    width: 100%;
+
+}
+
+.avatar-description {
+    display: flex;
+
+
+    margin: 10px 0;
+    column-gap: 20px;
+
+}
+
+.avatar {
+    width: 20%;
+}
+
+.avatar img {
+    width: 100%;
+}
+
+/* .description {
+  flex-grow: 1;
+} */
+
+.user-name {
+    font-size: 30px;
+    line-height: 0px;
+}

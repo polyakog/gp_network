@@ -1,0 +1,19 @@
+.nav {
+    grid-area: nav;
+    background-color: rgba(90, 172, 108, 0.586);
+    /* background-color: rgba(33, 104, 50, 0.586); */
+    border: 1px solid rgba(19, 61, 29, 0.586);
+    padding: 20px 20px;
+    border-radius: 10px 10px 10px 0;
+    margin-left: 10px;
+}
+
+.nav a {
+    text-decoration: none;
+
+}
+
+.nav a:hover {
+    color: brown;
+    font-weight: bold;
+}
