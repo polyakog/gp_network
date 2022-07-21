@@ -1,5 +1,5 @@
 import React from "react";
-import './components/Nav';
+import './Nav.css';
 
 
 const Nav = () => {
@@ -7,12 +7,12 @@ const Nav = () => {
     return (
         <nav className='nav'>
             <div>
-                <div><a href="">Profile</a></div>
-                <div><a href="">Messages</a></div>
-                <div><a href="">News</a></div>
-                <div><a href="">Music</a></div>
+                <div><a href="#s">Profile</a></div>
+                <div><a href="#s">Messages</a></div>
+                <div><a href="#s">News</a></div>
+                <div><a href="#s">Music</a></div>
                 <br />
-                <div><a href="">Settings</a></div>
+                <div><a href="#s">Settings</a></div>
 
             </div>
         </nav>
