@@ -8,12 +8,16 @@
     margin-left: 10px;
 }
 
-.nav a {
+.profile_link {
     text-decoration: none;
 
 }
 
-.nav a:hover {
-    color: brown;
+.profile_link:hover {
+    color: rgb(63, 19, 19);
     font-weight: bold;
+}
+
+.profile_link.active {
+    color: rgb(212, 28, 28);
 }

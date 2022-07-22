@@ -1,0 +1,46 @@
+.profile {
+    grid-area: prof;
+
+    background-color: rgba(200, 243, 206, 0.5);
+    border: 1px solid rgba(104, 133, 104, 0.5);
+    padding: 10px 10px;
+    border-radius: 10px 10px 0 10px;
+    margin-right: 10px;
+}
+
+.main_pic_wrapper {
+    display: flex;
+    height: 15%;
+}
+
+.main_pic {
+    width: 100%;
+
+}
+
+.avatar_description {
+    display: flex;
+
+
+    margin: 10px 0;
+    column-gap: 20px;
+
+}
+
+.avatar {
+    width: 18%;
+}
+
+.avatar img {
+    width: 100%;
+    border-radius: 10px;
+    border: 3px solid rgba(104, 133, 104, 0.6);
+    box-shadow: 2px 5px 10px 3px rgba(34, 60, 80, 0.37) ;
+}
+
+
+.user_name {
+    font-size: 20px;
+    font-weight: bold;
+    
+}

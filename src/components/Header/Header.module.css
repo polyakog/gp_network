@@ -13,12 +13,13 @@
     margin-right: 10px;
 }
 
-.header-logo {
+.header_logo {
     width: 50px;
 
 }
 
-.header-name {
+.header_name {
     flex-grow: 1;
     text-align: center;
+    color: #ed151f;
 }
