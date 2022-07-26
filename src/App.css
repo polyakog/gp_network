@@ -12,14 +12,22 @@ grid-template-rows: 80px 5fr;
 
 grid-template-areas: 
 "header header"
-"nav prof";
+"nav cont";
 
 grid-gap: 10px;
 user-select: none;
-
-
 }
 
+
+.App-wrapper-content {
+      grid-area: cont;
+      
+        background-color: rgba(200, 243, 206, 0.5);
+        border: 1px solid rgba(104, 133, 104, 0.5);
+        padding: 10px 10px;
+        border-radius: 10px 10px 0 10px;
+        margin-right: 10px;
+}
 
 
 
