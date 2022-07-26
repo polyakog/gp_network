@@ -1,44 +1,96 @@
 .post {
-    
+
     background-color: rgba(224, 246, 151, 0.853);
     /* border: 1px solid rgba(104, 133, 104, 0.586); */
+    border-radius: 10px;
     padding: 10px 10px;
-        margin-top: 5px;
-        
+    margin-top: 5px;
+
 }
+
 
 .user {
     display: flex;
     align-items: center;
 }
 
-.user img{
+.user img {
     height: 50px;
     border-radius: 25px;
-    }
+}
 
 .user span {
     margin: 10px;
     font-style: italic;
     color: rgba(122, 94, 94, 0.688);
-    }
+}
+
+.Item {
+    margin-top: 5px;
+
+    /* border-color: rgba(34, 60, 80, 0.271); */
+    background-color: rgb(255, 250, 209);
+    border-style: groove;
+
+    padding: 5px;
+    box-shadow: 2px 5px 5px 2px rgba(34, 60, 80, 0.271);
+
+
+}
+
+.Item::before {
+    content: '';
+
+
+
+    border-radius: 100% 50%;
+    width: 30%;
+    height: 60%;
+    background-color: rgba(73, 73, 165, 0.01);
+
+    position: absolute;
+    bottom: -20%;
+}
+
+.Item::after {
+    content: '';
+    border-radius: 100% 50%;
+    /* border-radius: 100% 50%; */
+
+    z-index: -1; /* показывает утопание */
+    width: 30%;
+    height: 60%;
+    background-color: #4949a548;
+
+    position: absolute;
+    bottom: -5%;
+}
+
+
+.underPost {
+    display: inline-flex;
+    margin-top: 10px;
+    column-gap: 20px;
+    color: rgba(57, 57, 141, 0.878);
+    font-size: 12px;
+
+}
 
 .like {
-    
-    margin-top: 10px;
+
     height: 25px;
     width: 25px;
     border-radius: 13px;
     border: 1px solid blue;
-    
-    
+
 }
 
-.like > img {
+.like>img {
+
     height: 15px;
     margin: 5px;
-    
 }
+
 .like:hover {
     background-color: rgba(61, 61, 165, 0.441);
 }
@@ -46,7 +98,3 @@
 .like::selection {
     background-color: rgba(32, 32, 195, 0.614);
 }
-
-
-
-

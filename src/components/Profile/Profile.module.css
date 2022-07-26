@@ -38,6 +38,16 @@
     box-shadow: 2px 5px 10px 3px rgba(34, 60, 80, 0.37) ;
 }
 
+.avatar::before {
+    
+    content: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Henkel-Logo.svg/640px-Henkel-Logo.svg.png");
+    opacity: 0.1;
+
+transform: scale(0.2);
+                position: absolute;
+                    top: 0px;
+                    right: -150px;
+}
 
 .user_name {
     font-size: 20px;

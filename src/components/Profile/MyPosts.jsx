@@ -17,10 +17,11 @@ const MyPosts = () => {
 
             </div>
 
-            <Post />
-            <Post />
-            <Post />
-            <Post />
+            <Post message='Very interesting' likeCount='21' Name='Alexey'/>
+            <Post message='How to add data?' likeCount='2' Name='Anton' />
+            <Post message='finally. It is a new good network' likeCount='56' Name='Peter' />
+            <Post message="I'm agree" likeCount='10' Name='Martin' />
+           
 
 
         </div>
