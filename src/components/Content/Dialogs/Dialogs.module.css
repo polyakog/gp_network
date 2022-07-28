@@ -4,4 +4,43 @@ h2 {
 
 .wrapper {
     box-shadow: 1px 1px 5px 3px rgba(37, 35, 35, 0.351) inset;
+    padding: 20px;
+}
+
+.dialogWindow {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.dialogs {
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.dialogs>.dialog {
+    font-weight: normal
+}
+
+.dialogs a {
+    text-decoration: none;
+    color: rgba(32, 88, 88, 0.897);
+}
+
+.dialogs a.active {
+    text-decoration: none;
+    color: rgba(218, 206, 44, 0.897);
+}
+
+.messages {
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.messages>.message {
+    font-weight: normal
 }
