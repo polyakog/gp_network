@@ -2,7 +2,7 @@
 
 .main_pic_wrapper {
     display: flex;
-    height: 15%;
+    max-height: 20vh;
 }
 
 .main_pic {

@@ -8,6 +8,11 @@
     margin-left: 10px;
 }
 
+.links {
+    display:flex;
+    flex-direction: column;
+}
+
 .profile_link {
     text-decoration: none;
 
