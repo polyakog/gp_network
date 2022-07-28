@@ -1,6 +1,7 @@
 import React from "react";
 import css from './Nav.module.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
 
 
 const Nav = () => {
@@ -15,12 +16,13 @@ const Nav = () => {
                 <br />
                 <div ><a className={css.profile_link} href="/settings">Settings</a></div> */}
             <div className={css.links}>
-                <Link className={css.profile_link} to="/profile"> Profile </Link>
-                <Link className={css.profile_link} to="/dialogs"> Messages </Link>
-                <Link className={css.profile_link} to="/news"> News </Link>
-                <Link className={css.profile_link} to="/music"> Music </Link>
+               
+                <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/profile"> Profile </NavLink>
+                <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/dialogs"> Messages </NavLink>
+                <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/news"> News </NavLink>
+                <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/music"> Music </NavLink>
                 <br />
-                <Link className={css.profile_link} to="/settings"> Settings </Link>
+                <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/settings"> Settings </NavLink>
                           
 
 

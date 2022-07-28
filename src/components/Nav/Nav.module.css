@@ -13,16 +13,19 @@
     flex-direction: column;
 }
 
-.profile_link {
+.nav>.links a {
     text-decoration: none;
+    color: rgb(11, 8, 59);
 
 }
 
-.profile_link:hover {
+.nav>.links a:hover {
     color: rgb(63, 19, 19);
     font-weight: bold;
 }
 
-.profile_link.active {
+.nav>.links a.activeLink {
     color: rgb(212, 28, 28);
+    font-weight: bold;
+    font-size: 18px;
 }
