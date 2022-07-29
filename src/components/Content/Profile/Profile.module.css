@@ -1,9 +1,10 @@
 body {
-    cursor: url(../Settings/Cursors/Umbrella/Arrow.cur), auto;
+    cursor: url(../Settings/Cursors/Apostle/Arrow.cur), auto;
+    /* cursor: url(../Settings/Cursors/Umbrella/Arrow2.cur), auto; */
 }
 
 a:hover {
-    cursor: url(../Settings/Cursors/Umbrella/Link.cur), auto;
+    cursor: url(../Settings/Cursors/Apostle/UpArrow.cur), auto;
 }
 
 

@@ -29,11 +29,13 @@
     margin-top: 5px;
 
     /* border-color: rgba(34, 60, 80, 0.271); */
-    background-color: rgb(255, 250, 209);
-    border-style: groove;
+    background-color: rgb(250, 249, 247);
+    border-style:inset;
+    border-width: 5px;
+    border-color: rgb(98, 64, 39);
 
     padding: 5px;
-    box-shadow: 2px 5px 5px 2px rgba(34, 60, 80, 0.271);
+    box-shadow: 2px 2px 4px 1px rgba(23, 40, 54, 0.412) inset;
 
 
 }
