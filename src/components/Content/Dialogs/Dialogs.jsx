@@ -9,6 +9,11 @@ const DialogData = (props) => {
     )
 }
 
+const MessageData = (props) => {
+    return (
+                 <div className={css.message}>{props.text}</div>
+    )
+}
 
 
 const Dialogs = (props) => {
@@ -33,8 +38,11 @@ const Dialogs = (props) => {
                 <div className={css.messages}>
                         Messages
                         <p></p>
-                    <div className={css.message}>Hi, I have a request from the customer</div> 
-                    <div className={css.message}>happy to hear</div> 
+                    <MessageData id="1" name="Gennadij" text="Hi, I have a request from the customer" />
+                    <MessageData id="1" name="Gennadij" text="happy to hear" />
+                    <MessageData id="1" name="Gennadij" text="What is your plans?" />
+                    <MessageData id="1" name="Gennadij" text="preparation" /> 
+                    
                 </div>
                     
 

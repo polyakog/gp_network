@@ -10,6 +10,7 @@ h2 {
 .dialogWindow {
     display: grid;
     grid-template-columns: 1fr 3fr;
+
 }
 
 .dialogs {
@@ -18,10 +19,12 @@ h2 {
     display: flex;
     flex-direction: column;
 
+
 }
 
 .dialogs>.dialog {
-    font-weight: normal
+    font-weight: normal;
+    padding-top: 10px;
 }
 
 .dialogs a {
@@ -42,5 +45,6 @@ h2 {
 }
 
 .messages>.message {
-    font-weight: normal
+    font-weight: normal;
+    padding-top: 10px;
 }

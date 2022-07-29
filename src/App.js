@@ -14,7 +14,6 @@ import Settings from './components/Content/Settings/Settings';
 
 function App() {
   return (
-
     <div className="App-wrapper">
 
       <Header />
@@ -30,8 +29,8 @@ function App() {
         </Routes>
       </div>
 
-    </div >
 
+    </div>
   );
 }
 
