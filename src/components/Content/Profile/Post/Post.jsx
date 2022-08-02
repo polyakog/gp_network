@@ -9,7 +9,7 @@ const Post = (props) => {
         <div className={css.post}>
             <div className={css.user}>
                 <img src="https://cdn1.flamp.ru/1ade70d2f2f936f3ced673e84d129204.jpg" alt="" />
-                <span>Name: {props.Name} </span>
+                <span>{props.Name}: </span>
             </div>
 
             <div className={css.Item}>
@@ -17,7 +17,7 @@ const Post = (props) => {
 
             </div>
             <div className={css.underPost}>
-                likes {props.likeCount}
+                likes: {props.likeCount}
                 <div className={css.like}>
                     <img src="https://pngicon.ru/file/uploads/like.png" alt="" srcset="" />
                 </div>

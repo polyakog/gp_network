@@ -2,52 +2,73 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import css from './Dialogs.module.css';
 
-const DialogData = (props) => {
-    return (
-        <NavLink className={({ isActive }) => (isActive ? (css.dialog + " " + css.active) : css.dialog)} to={'/dialogs/'+props.id}>{props.name}</NavLink>
 
-    )
-}
+                        /* Выносим стрелочную функцию (работает как шаблон действий) */
+        const DialogItem = (props) => {
+            return (
+                <NavLink className={({ isActive }) => (isActive ? (css.dialog + " " + css.active) : css.dialog)} to={'/dialogs/' + props.id}>
+                    {props.name}
+                </NavLink>
 
-const MessageData = (props) => {
-    return (
-                 <div className={css.message}>{props.text}</div>
-    )
-}
+            )
+        }
+
+                        /* Выносим стрелочную функцию (работает как шаблон действий) */
+        const MessageItem = (props) => {
+            return (
+                <div className={css.message}>
+                    {props.name} (ID{props.id}): {props.text}
+                </div>
+            )
+        }   
 
 
+                     /* Выполнение UI (user Interface) */
 const Dialogs = (props) => {
-    return (
-        <div className={css.wrapper} >
-            <h2> Dialog window</h2> 
-            
-            <div className={css.dialogWindow}>
-                <div className={css.dialogs}>
+
+                    /* Базы данных */
+            let dialogData = [
+                { id: 1, name: "Gennadij" },
+                { id: 2, name: "Alexey" },
+                { id: 3, name: "Sergey" },
+                { id: 4, name: "Anton" },
+                { id: 5, name: "Dhaval" },
+                { id: 6, name: "David" }
+            ]
+
+            let messageData = [
+                { id: 3, name: "Sergey", text: "Hi, I have a request from the customer" },
+                { id: 1, name: "Gennadij", text: "happy to hear" },
+                { id: 3, name: "Sergey", text: "What is your plans?" },
+                { id: 1, name: "Gennadij", text: "preparation" }
+            ]
+
+
+                    /* Обработка массива, чтобы исключить повторения. */
+                    /* Автоматически данные заносятся в новый массив из старого  */
+    let dialogElements  = dialogData.map (d => (<DialogItem id={d.id} name={d.name} />))
+    let messageElements = messageData.map(m => (<MessageItem id={m.id} name={m.name} text={m.text} />))
+
+        return (
+            <div className={css.wrapper} >
+                <h2> Dialog window</h2>
+
+                <div className={css.dialogWindow}>
+                    <div className={css.dialogs}>
                         Dialogs
                         <p></p>
-                    <DialogData id="1" name="Gennadij"/>
-                    <DialogData id="2" name="Alexey"/>
-                    <DialogData id="3" name="Sergey"/>
-                    <DialogData id="4" name="Anton"/>
-                    <DialogData id="5" name="Dhaval"/>
-                    <DialogData id="6" name="David"/>
+                            {dialogElements}
+                    </div>
 
-                    
-                </div>
-
-                <div className={css.messages}>
+                    <div className={css.messages}>
                         Messages
                         <p></p>
-                    <MessageData id="1" name="Gennadij" text="Hi, I have a request from the customer" />
-                    <MessageData id="1" name="Gennadij" text="happy to hear" />
-                    <MessageData id="1" name="Gennadij" text="What is your plans?" />
-                    <MessageData id="1" name="Gennadij" text="preparation" /> 
-                    
-                </div>
-                    
+                            {messageElements}
+                    </div>
 
+
+                </div>
             </div>
-        </div>
     )
 }
 
