@@ -3,6 +3,7 @@ import css from './Post.module.css';
 
 
 
+        /* Визуализация одного поста */
 const Post = (props) => {
 
     return (

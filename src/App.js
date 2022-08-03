@@ -12,7 +12,9 @@ import Settings from './components/Content/Settings/Settings';
 
 
 
-function App() {
+
+
+const App = (props) => {
   return (
     <div className="App-wrapper">
 
@@ -21,8 +23,8 @@ function App() {
 
       <div className='App-wrapper-content'>
         <Routes>
-          <Route path='/profile/*' element={<Profile />} />
-          <Route path='/dialogs/*' element={<Dialogs />} />
+          <Route path='/profile/*' element={<Profile postData={props.postData} />} />
+          <Route path='/dialogs/*' element={<Dialogs dialogData={props.dialogData} messageData={props.messageData} />} />
           <Route path='/news/*' element={<News />} />
           <Route path='/music/*' element={<Music />} />
           <Route path='/settings/*' element={<Settings />} />
