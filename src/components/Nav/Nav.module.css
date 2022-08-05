@@ -6,6 +6,7 @@
     padding: 20px 20px;
     border-radius: 10px 10px 10px 0;
     margin-left: 10px;
+    
 }
 
 .links {
@@ -28,4 +29,9 @@
     color: rgb(212, 28, 28);
     font-weight: bold;
     font-size: 18px;
+}
+
+.friends {
+    margin-top: 50px;
+
 }

@@ -71,6 +71,15 @@
     <dataObject id="DataObject_0pl7bp8" />
     <task id="Activity_156y521" name="Nav">
       <incoming>Flow_1uf1tx4</incoming>
+      <dataOutputAssociation id="DataOutputAssociation_0ujb4ue">
+        <targetRef>DataObjectReference_1m288rs</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation id="DataOutputAssociation_0z1qenb">
+        <targetRef>DataObjectReference_03skm96</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation id="DataOutputAssociation_0gkx0kp">
+        <targetRef>DataObjectReference_1d74xoy</targetRef>
+      </dataOutputAssociation>
     </task>
     <task id="Activity_1gr2oqu" name="Header">
       <incoming>Flow_0556xe7</incoming>
@@ -99,6 +108,12 @@
     <dataObject id="DataObject_02jbdfr" />
     <dataObjectReference id="DataObjectReference_1s0unud" name="MessageItem" dataObjectRef="DataObject_0ivl1rv" />
     <dataObject id="DataObject_0ivl1rv" />
+    <dataObjectReference id="DataObjectReference_1m288rs" name="Friends" dataObjectRef="DataObject_05glu2z" />
+    <dataObject id="DataObject_05glu2z" />
+    <dataObjectReference id="DataObjectReference_03skm96" name="Friends" dataObjectRef="DataObject_13ori8q" />
+    <dataObject id="DataObject_13ori8q" />
+    <dataObjectReference id="DataObjectReference_1d74xoy" name="Friends" dataObjectRef="DataObject_1qbqugb" />
+    <dataObject id="DataObject_1qbqugb" />
     <group id="Group_06abiab" categoryValueRef="CategoryValue_1thssro" />
     <group id="Group_0uucisn" categoryValueRef="CategoryValue_1budsaj" />
   </process>
@@ -110,39 +125,9 @@
   </category>
   <bpmndi:BPMNDiagram id="BpmnDiagram_1">
     <bpmndi:BPMNPlane id="BpmnPlane_1" bpmnElement="Process_1">
-      <bpmndi:BPMNEdge id="Flow_0nsm3v4_di" bpmnElement="Flow_0nsm3v4">
-        <omgdi:waypoint x="490" y="260" />
-        <omgdi:waypoint x="595" y="260" />
-        <omgdi:waypoint x="595" y="170" />
-        <omgdi:waypoint x="690" y="170" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1uf1tx4_di" bpmnElement="Flow_1uf1tx4">
-        <omgdi:waypoint x="800" y="300" />
-        <omgdi:waypoint x="950" y="300" />
-        <omgdi:waypoint x="950" y="330" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0556xe7_di" bpmnElement="Flow_0556xe7">
-        <omgdi:waypoint x="800" y="300" />
-        <omgdi:waypoint x="1090" y="300" />
-        <omgdi:waypoint x="1090" y="330" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1fu4nz8_di" bpmnElement="Flow_1fu4nz8">
-        <omgdi:waypoint x="750" y="320" />
-        <omgdi:waypoint x="750" y="350" />
-        <omgdi:waypoint x="380" y="350" />
-        <omgdi:waypoint x="380" y="460" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_052p3km_di" bpmnElement="Flow_052p3km">
-        <omgdi:waypoint x="750" y="320" />
-        <omgdi:waypoint x="750" y="350" />
-        <omgdi:waypoint x="670" y="350" />
-        <omgdi:waypoint x="670" y="460" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0tdiihi_di" bpmnElement="Flow_0tdiihi">
-        <omgdi:waypoint x="670" y="540" />
-        <omgdi:waypoint x="670" y="560" />
-        <omgdi:waypoint x="595" y="560" />
-        <omgdi:waypoint x="595" y="580" />
+      <bpmndi:BPMNEdge id="Flow_0n2peiw_di" bpmnElement="Flow_0n2peiw">
+        <omgdi:waypoint x="750" y="210" />
+        <omgdi:waypoint x="750" y="240" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1jnuyq6_di" bpmnElement="Flow_1jnuyq6">
         <omgdi:waypoint x="670" y="540" />
@@ -150,16 +135,54 @@
         <omgdi:waypoint x="730" y="560" />
         <omgdi:waypoint x="730" y="580" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0n2peiw_di" bpmnElement="Flow_0n2peiw">
-        <omgdi:waypoint x="750" y="210" />
-        <omgdi:waypoint x="750" y="240" />
+      <bpmndi:BPMNEdge id="Flow_0tdiihi_di" bpmnElement="Flow_0tdiihi">
+        <omgdi:waypoint x="670" y="540" />
+        <omgdi:waypoint x="670" y="560" />
+        <omgdi:waypoint x="595" y="560" />
+        <omgdi:waypoint x="595" y="580" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_052p3km_di" bpmnElement="Flow_052p3km">
+        <omgdi:waypoint x="750" y="320" />
+        <omgdi:waypoint x="750" y="350" />
+        <omgdi:waypoint x="670" y="350" />
+        <omgdi:waypoint x="670" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fu4nz8_di" bpmnElement="Flow_1fu4nz8">
+        <omgdi:waypoint x="750" y="320" />
+        <omgdi:waypoint x="750" y="350" />
+        <omgdi:waypoint x="380" y="350" />
+        <omgdi:waypoint x="380" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0556xe7_di" bpmnElement="Flow_0556xe7">
+        <omgdi:waypoint x="800" y="300" />
+        <omgdi:waypoint x="1090" y="300" />
+        <omgdi:waypoint x="1090" y="330" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uf1tx4_di" bpmnElement="Flow_1uf1tx4">
+        <omgdi:waypoint x="800" y="300" />
+        <omgdi:waypoint x="950" y="300" />
+        <omgdi:waypoint x="950" y="330" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0nsm3v4_di" bpmnElement="Flow_0nsm3v4">
+        <omgdi:waypoint x="490" y="260" />
+        <omgdi:waypoint x="595" y="260" />
+        <omgdi:waypoint x="595" y="170" />
+        <omgdi:waypoint x="690" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_1hcentk_di" bpmnElement="Task_1hcentk">
+        <omgdc:Bounds x="700" y="240" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_09pp4wi_di" bpmnElement="Activity_09pp4wi">
         <omgdc:Bounds x="390" y="220" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_1hcentk_di" bpmnElement="Task_1hcentk">
-        <omgdc:Bounds x="700" y="240" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_0yzxqmk_di" bpmnElement="Activity_0yzxqmk">
+        <omgdc:Bounds x="330" y="460" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_132zzod_di" bpmnElement="Activity_132zzod">
+        <omgdc:Bounds x="620" y="460" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0oubcx9_di" bpmnElement="Activity_0oubcx9">
@@ -188,16 +211,12 @@
           <omgdc:Bounds x="868" y="753" width="23" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1gr2oqu_di" bpmnElement="Activity_1gr2oqu">
-        <omgdc:Bounds x="1040" y="330" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_156y521_di" bpmnElement="Activity_156y521">
         <omgdc:Bounds x="900" y="330" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0pzvkmt_di" bpmnElement="Activity_0pzvkmt">
-        <omgdc:Bounds x="700" y="130" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_1gr2oqu_di" bpmnElement="Activity_1gr2oqu">
+        <omgdc:Bounds x="1040" y="330" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_1c5g6pa_di" bpmnElement="DataStoreReference_1c5g6pa">
@@ -206,32 +225,38 @@
           <omgdc:Bounds x="277" y="203" width="45" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataStoreReference_0v4ffjg_di" bpmnElement="DataStoreReference_0v4ffjg">
-        <omgdc:Bounds x="365" y="115" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="355" y="83" width="69" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_0n5urza_di" bpmnElement="DataStoreReference_0n5urza">
         <omgdc:Bounds x="455" y="115" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <omgdc:Bounds x="453" y="83" width="53" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_132zzod_di" bpmnElement="Activity_132zzod">
-        <omgdc:Bounds x="620" y="460" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0uwv40m" bpmnElement="DataObjectReference_0gjafes">
-        <omgdc:Bounds x="282" y="695" width="36" height="50" />
+      <bpmndi:BPMNShape id="DataStoreReference_0v4ffjg_di" bpmnElement="DataStoreReference_0v4ffjg">
+        <omgdc:Bounds x="365" y="115" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="273" y="752" width="54" height="14" />
+          <omgdc:Bounds x="355" y="83" width="69" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0pzvkmt_di" bpmnElement="Activity_0pzvkmt">
+        <omgdc:Bounds x="700" y="130" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0ib7a3s_di" bpmnElement="DataObjectReference_0ib7a3s">
         <omgdc:Bounds x="222" y="695" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <omgdc:Bounds x="213" y="752" width="54" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_036exf1_di" bpmnElement="DataObjectReference_036exf1">
+        <omgdc:Bounds x="432" y="695" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="417" y="752" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0uwv40m" bpmnElement="DataObjectReference_0gjafes">
+        <omgdc:Bounds x="282" y="695" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="273" y="752" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0yr767u" bpmnElement="DataObjectReference_0t9bwt2">
@@ -246,15 +271,47 @@
           <omgdc:Bounds x="487" y="752" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataObjectReference_036exf1_di" bpmnElement="DataObjectReference_036exf1">
-        <omgdc:Bounds x="432" y="695" width="36" height="50" />
+      <bpmndi:BPMNShape id="DataObjectReference_1m288rs_di" bpmnElement="DataObjectReference_1m288rs">
+        <omgdc:Bounds x="882" y="455" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="417" y="752" width="67" height="14" />
+          <omgdc:Bounds x="882" y="512" width="37" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0yzxqmk_di" bpmnElement="Activity_0yzxqmk">
-        <omgdc:Bounds x="330" y="460" width="100" height="80" />
-        <bpmndi:BPMNLabel />
+      <bpmndi:BPMNShape id="BPMNShape_0sml940" bpmnElement="DataObjectReference_03skm96">
+        <omgdc:Bounds x="942" y="455" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="942" y="512" width="37" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1rbsenv" bpmnElement="DataObjectReference_1d74xoy">
+        <omgdc:Bounds x="1002" y="455" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1002" y="512" width="37" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0ujb4ue_di" bpmnElement="DataOutputAssociation_0ujb4ue">
+        <omgdi:waypoint x="932" y="410" />
+        <omgdi:waypoint x="911" y="455" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0z1qenb_di" bpmnElement="DataOutputAssociation_0z1qenb">
+        <omgdi:waypoint x="953" y="410" />
+        <omgdi:waypoint x="956" y="455" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0gkx0kp_di" bpmnElement="DataOutputAssociation_0gkx0kp">
+        <omgdi:waypoint x="976" y="410" />
+        <omgdi:waypoint x="1005" y="455" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Group_06abiab_di" bpmnElement="Group_06abiab">
+        <omgdc:Bounds x="304" y="410" width="432" height="140" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="500" y="417" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_0uucisn_di" bpmnElement="Group_0uucisn">
+        <omgdc:Bounds x="260" y="60" width="280" height="260" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="390" y="67" width="20" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataInputAssociation_04d0nmv_di" bpmnElement="DataInputAssociation_04d0nmv">
         <omgdi:waypoint x="325" y="253" />
@@ -267,18 +324,6 @@
       <bpmndi:BPMNEdge id="DataInputAssociation_139u3w6_di" bpmnElement="DataInputAssociation_139u3w6">
         <omgdi:waypoint x="468" y="165" />
         <omgdi:waypoint x="440" y="220" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0nlyl2n_di" bpmnElement="DataOutputAssociation_0nlyl2n">
-        <omgdi:waypoint x="750" y="660" />
-        <omgdi:waypoint x="767" y="695" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_1y7nucu_di" bpmnElement="DataOutputAssociation_1y7nucu">
-        <omgdi:waypoint x="772" y="659" />
-        <omgdi:waypoint x="812" y="696" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_1w0636j_di" bpmnElement="DataOutputAssociation_1w0636j">
-        <omgdi:waypoint x="780" y="651" />
-        <omgdi:waypoint x="862" y="703" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_089hk8j_di" bpmnElement="DataOutputAssociation_089hk8j">
         <omgdi:waypoint x="330" y="500" />
@@ -305,18 +350,18 @@
         <omgdi:waypoint x="522" y="500" />
         <omgdi:waypoint x="522" y="695" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Group_0uucisn_di" bpmnElement="Group_0uucisn">
-        <omgdc:Bounds x="260" y="60" width="280" height="260" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="390" y="67" width="20" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Group_06abiab_di" bpmnElement="Group_06abiab">
-        <omgdc:Bounds x="304" y="410" width="432" height="140" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="500" y="417" width="40" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0nlyl2n_di" bpmnElement="DataOutputAssociation_0nlyl2n">
+        <omgdi:waypoint x="750" y="660" />
+        <omgdi:waypoint x="767" y="695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1y7nucu_di" bpmnElement="DataOutputAssociation_1y7nucu">
+        <omgdi:waypoint x="772" y="659" />
+        <omgdi:waypoint x="812" y="696" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1w0636j_di" bpmnElement="DataOutputAssociation_1w0636j">
+        <omgdi:waypoint x="780" y="651" />
+        <omgdi:waypoint x="862" y="703" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>

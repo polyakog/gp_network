@@ -1,20 +1,17 @@
 import React from "react";
 import css from './Nav.module.css';
 import { NavLink } from 'react-router-dom';
+import Friends from './Friends/Friends';
 
 
 
-const Nav = () => {
+const Nav = (props) => {
+
+    let friendElements = props.state.friendsData.friendsId1.map(d => (<Friends id={d.id} name={d.name} />))
     
     return (
         <nav className={css.nav}>
             
-                {/* <div ><a className={`${css.profile_link} ${css.active}`} href="/profile">Profile</a></div>
-                <div ><a className={css.profile_link} href="/dialogs">Messages</a></div>
-                <div ><a className={css.profile_link} href="/news">News</a></div>
-                <div ><a className={css.profile_link} href="/music">Music</a></div>
-                <br />
-                <div ><a className={css.profile_link} href="/settings">Settings</a></div> */}
             <div className={css.links}>
                
                 <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/profile"> Profile </NavLink>
@@ -23,10 +20,16 @@ const Nav = () => {
                 <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/music"> Music </NavLink>
                 <br />
                 <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/settings"> Settings </NavLink>
-                          
-
-
+                
+                   
             </div>
+            <div className={css.friends}>
+                <h1>My Friends</h1>
+                {friendElements}
+                
+                
+            </div>
+                
         </nav>
     );
 }

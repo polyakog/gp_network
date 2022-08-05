@@ -14,22 +14,32 @@ h2 {
 }
 
 .dialogs {
-    font-weight: bold;
-
-    display: flex;
+    display:flexbox;
     flex-direction: column;
-
+    font-weight: bold;
+  align-items: center;
+  position: relative;
 
 }
 
-.dialogs>.dialog {
+.dialog>.user span{
+    margin-top: 0px;
+    position: absolute;
+    
+    
+}
+
+.dialog>.user {
     font-weight: normal;
-    padding-top: 10px;
+    margin-top: 10px;
+    
 }
 
 .dialogs a {
     text-decoration: none;
     color: rgba(32, 88, 88, 0.897);
+
+    
 }
 
 .dialogs a.active {
@@ -42,9 +52,27 @@ h2 {
 
     display: flex;
     flex-direction: column;
+    
+    
 }
 
 .messages>.message {
     font-weight: normal;
     padding-top: 10px;
+    
+}
+
+img {
+    height: 30px;
+    border-radius: 15px;
+}
+
+.user span {
+    margin-left: 10px;
+
+}
+
+.activeM {
+    color: red;
+    font-weight: bold;
 }
