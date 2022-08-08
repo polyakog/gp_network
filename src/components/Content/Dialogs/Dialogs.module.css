@@ -14,37 +14,37 @@ h2 {
 }
 
 .dialogs {
-    display:flexbox;
+    display: flexbox;
     flex-direction: column;
     font-weight: bold;
-  align-items: center;
-  position: relative;
+    align-items: center;
+    position: relative;
 
 }
 
-.dialog>.user span{
+.dialog>.user span {
     margin-top: 0px;
     position: absolute;
-    
-    
+
+
 }
 
 .dialog>.user {
     font-weight: normal;
     margin-top: 10px;
-    
+
 }
 
 .dialogs a {
     text-decoration: none;
     color: rgba(32, 88, 88, 0.897);
 
-    
+
 }
 
 .dialogs a.active {
     text-decoration: none;
-    color: rgba(218, 206, 44, 0.897);
+    color: rgba(255, 0, 0, 0.754);
 }
 
 .messages {
@@ -52,19 +52,20 @@ h2 {
 
     display: flex;
     flex-direction: column;
-    
-    
+
+
 }
 
 .messages>.message {
     font-weight: normal;
     padding-top: 10px;
-    
+
 }
 
 .dialogWindow img {
     height: 30px;
     border-radius: 15px;
+    border: 2px solid yellow;
 }
 
 .user span {
@@ -75,4 +76,54 @@ h2 {
 .activeM {
     color: red;
     font-weight: bold;
+}
+
+.active>.user img {
+    border: 2px solid red;
+
+}
+
+.dialog>.user:hover img {
+    border: 4px solid rgb(0, 255, 26);
+}
+
+.dialog>.user:hover span {
+    font-weight: bold;
+}
+
+.newMessageButton:hover {
+
+    border-color: rgb(222, 99, 99);
+    background: radial-gradient(circle, rgba(222, 58, 58, 1) 0%, rgba(136, 7, 7, 1) 100%);
+    color: aliceblue;
+    font-weight: bold;
+}
+
+.addMessage {
+    display: grid;
+    grid-template-columns: auto fit-content(100px);
+    margin-top: 20px;
+    text-align: center;
+    gap: 10px;
+}
+
+.newMessageButton {
+    max-height: 50px;
+
+    padding: 5px;
+    font-size: 13px;
+
+    border-width: 3px;
+    border-color: gold;
+    border-style: outset;
+    background-color: goldenrod;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.472);
+    margin-left: 10px;
+
+}
+
+.NewMessagetText {
+    padding: 5px;
+    font-size: 13px;
 }

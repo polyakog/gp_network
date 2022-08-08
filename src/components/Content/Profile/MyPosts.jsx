@@ -27,9 +27,9 @@ const MyPosts = (props) => {
 
             <h3>My posts</h3>
             <div className={css.NewPost}>
-                <textarea className={css.NewPostText} ref={newPostElem} >Write your post here</textarea>
+                <textarea className={css.NewPostText} ref={newPostElem} rows="4">Write your post here</textarea>
                                 {/* Запускаем функцию addPost при нажатии "onClick" */}
-                <a className={css.addPostButton} onClick={addPost}>Add post</a> 
+                <button className={css.addPostButton} onClick={addPost}>Add post</button> 
                 
 
                 {/* Визуализация самих постов */}

@@ -12,7 +12,7 @@
 .NewPost {
     display: grid;
     grid-template-columns: auto fit-content(100px);
-    margin-top: 10px;
+    margin-top: 20px;
     text-align: center;
     gap: 10px;
 }
@@ -24,7 +24,7 @@
 }
 
 .addPostButton {
-    min-height: max-content;
+    max-height: 40px;
 
     padding: 10px;
     font-size: 14px;
@@ -44,7 +44,7 @@
     background: radial-gradient(circle, rgba(222, 58, 58, 1) 0%, rgba(136, 7, 7, 1) 100%);
     color: aliceblue;
     font-weight: bold;
-    font-weight: bold;
+   
 
     /* cursor: url(../Settings/Cursors/Umbrella/Link.cur),auto; */
     
