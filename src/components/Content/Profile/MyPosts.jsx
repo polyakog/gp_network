@@ -19,7 +19,7 @@ const MyPosts = (props) => {
                 /* Создаем команду для кнопки */
     let addPost = () => {
         let text = newPostElem.current.value;
-            alert(text);
+            props.addPost(text);
     }
 
     return (
