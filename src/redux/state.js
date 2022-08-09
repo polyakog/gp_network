@@ -1,3 +1,5 @@
+import { rerender } from './../render';
+
 /* Базы данных в объекте state*/
 
 let state = {
@@ -52,11 +54,22 @@ let state = {
 }
 
 
-export let addPost = (postMessage) => {
+export let addPost = (text) => {
 
-    let newPost = {id: 7, message: postMessage, likeCount: 0, Name: 'Michail'};
+    let newPost = {id: 7, message: text, likeCount: 0, Name: 'Michail'};
     state.profilePage.postData.push(newPost);
-    alert(state.profilePage.postData[6].Name+': '+state.profilePage.postData[6].message)
+    rerender(state)
+    // alert(state.profilePage.postData[6].Name + ': ' + text)
+    
+}
+
+export let changePost = (text) => {
+
+    let newPost = { id: 7, message: text, likeCount: 0, Name: 'Michail' };
+    state.profilePage.postData.push(newPost);
+    alert(state.profilePage.postData.Name + ': ' + text)
+   
+
 }
 
 
