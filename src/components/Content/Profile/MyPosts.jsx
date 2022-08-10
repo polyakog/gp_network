@@ -5,7 +5,7 @@ import Post from './Post/Post';
 
             /* Визуализация разела постов */ 
 
-const MyPosts = (props) => {
+let MyPosts = (props) => {
 
  
                 /* Обработка массива postData, чтобы исключить повторения команд. */
@@ -15,13 +15,14 @@ const MyPosts = (props) => {
                 /* Создаем ссылку */
     let newPostElem = React.createRef ();
 
-                /* Создаем команду для кнопки */
+
+
+                /* Создаем команды на клик кнопки и изменение текстэриа */
     let addPostClick = () => {
-        let text = newPostElem.current.value;
-            props.addPost(text);
+        props.addPost();
     }
 
-    let textChange = () => {
+    let onPostChange = () => {
         let text = newPostElem.current.value;
         props.changePost(text);
     }
@@ -31,7 +32,7 @@ const MyPosts = (props) => {
 
             <h3>My posts</h3>
             <div className={css.NewPost}>
-                <textarea className={css.NewPostText} ref={newPostElem} rows="4" onChange={textChange}>Write your post here</textarea>
+                <textarea className={css.NewPostText} ref={newPostElem} rows="4" onChange={onPostChange} value={props.newPostData}/>
                                 {/* Запускаем функцию addPost при нажатии "onClick" */}
                 <button className={css.addPostButton} onClick={addPostClick}>Add post</button> 
                 
@@ -41,9 +42,7 @@ const MyPosts = (props) => {
             <div className={css.posts}> 
               {postElements}  
             </div>
-            
-
-                     
+                               
 
 
         </div>

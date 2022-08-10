@@ -15,7 +15,8 @@ import css from './../Dialogs.module.css';
                          
 
                         <img src="https://cdn1.flamp.ru/1ade70d2f2f936f3ced673e84d129204.jpg" alt="" />
-                        <span> {props.name} (ID{props.id}):{props.text} </span>
+                        <span className={css.userMessage}> {props.name} (ID{props.id}): </span>
+                        <div>- {props.text} </div>
                           
                     </div>
                     

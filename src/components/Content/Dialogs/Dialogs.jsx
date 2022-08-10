@@ -12,16 +12,19 @@ const Dialogs = (props) => {
 
                     /* Обработка массива, чтобы исключить повторения. */
                     /* Автоматически данные заносятся в новый массив из старого  */
-    let dialogElements = props.state.dialogData.map (d => (<DialogItem id={d.id} name={d.name} />))
-    let messageElements = props.state.messageData.map(m => (<MessageItem id={m.id} name={m.name} text={m.text} />))
-
+    let dialogElements = props.dialogsPage.dialogData.map (d => (<DialogItem id={d.id} name={d.name} />))
+    let messageElements = props.dialogsPage.messageData.map(m => (<MessageItem id={m.id} name={m.name} text={m.text} />))
 
 let newMessageElement = React.createRef ();
+
 let addMessage = () => {
-    let text = newMessageElement.current.value
-    alert(text)
+    props.addMessage();
 }
 
+let onMessageChange = () => {
+    let text = newMessageElement.current.value;
+    props.changeMessage(text);
+}
         
         return (
             <div className={css.wrapper} >
@@ -39,7 +42,7 @@ let addMessage = () => {
                         <p></p>
                             {messageElements}
                         <div className={css.addMessage}>
-                            <textarea className={css.NewMessagetText} rows="4" ref={newMessageElement}>text</textarea>
+                            <textarea className={css.NewMessagetText} rows="4" ref={newMessageElement} onChange={onMessageChange} value={props.dialogsPage.newMessageData}/>
                             <button className={css.newMessageButton} onClick={addMessage}>Add message</button>
 
                         </div>
