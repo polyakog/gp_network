@@ -14,7 +14,7 @@ let state = {
             { id: 6, message: 'I will upload all data', likeCount: 53, Name: 'Gennadij' }
         ],
 
-         newPostData: 'Enter your first post ',
+         newPostText: 'Enter your first post ',
     },
 
     dialogsPage: {
@@ -34,7 +34,7 @@ let state = {
             { id: 1, name: "Gennadij", text: "preparation" }
         ],
         
-        newMessageData: 'Enter your message',
+        newMessageText: 'Enter your message',
     },
 
     sidebar: {
@@ -61,26 +61,26 @@ let state = {
 
 export let addPost = () => {
 
-    let newPost = { id: 7, message: state.profilePage.newPostData, likeCount: 0, Name: 'Michail'};
+    let newPost = { id: 7, message: state.profilePage.newPostText, likeCount: 0, Name: 'Michail'};
     state.profilePage.postData.push(newPost);
-    state.profilePage.newPostData = 'Enter your next post';
+    state.profilePage.newPostText = 'Enter your next post';
     rerender(state);        
 }
 
-export let changePost = (text) => {
-    state.profilePage.newPostData = text; 
+export let updateNewPostText = (newText) => {
+    state.profilePage.newPostText = newText; 
     rerender(state);  
 }
 
 export let addMessage = () => {
-    let newMessage = { id: 1, name: "Gennadij", text: state.dialogsPage.newMessageData };
+    let newMessage = { id: 1, name: "Gennadij", text: state.dialogsPage.newMessageText };
     state.dialogsPage.messageData.push(newMessage);
-    state.dialogsPage.newMessageData = 'next message';
+    state.dialogsPage.newMessageText = 'next message';
     rerender(state);
 }
 
-export let changeMessage = (text) => {
-    state.dialogsPage.newMessageData=text;
+export let updateNewMessageText = (newText) => {
+    state.dialogsPage.newMessageText = newText;
     rerender(state);
 }
 

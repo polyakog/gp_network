@@ -24,7 +24,7 @@ let MyPosts = (props) => {
 
     let onPostChange = () => {
         let text = newPostElem.current.value;
-        props.changePost(text);
+        props.updateNewPostText(text);
     }
 
     return (
@@ -32,7 +32,7 @@ let MyPosts = (props) => {
 
             <h3>My posts</h3>
             <div className={css.NewPost}>
-                <textarea className={css.NewPostText} ref={newPostElem} rows="4" onChange={onPostChange} value={props.newPostData}/>
+                <textarea className={css.NewPostText} ref={newPostElem} rows="4" onChange={onPostChange} value={props.newPostText}/>
                                 {/* Запускаем функцию addPost при нажатии "onClick" */}
                 <button className={css.addPostButton} onClick={addPostClick}>Add post</button> 
                 

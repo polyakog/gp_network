@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css'
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
-import { addMessage, addPost, changeMessage, changePost } from './redux/state';
+import { addMessage, addPost, updateNewPostText, updateNewMessageText } from './redux/state';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,9 +15,10 @@ root.render(
       <App 
         state={state} 
         addPost={addPost} 
-        changePost={changePost}
+        updateNewPostText={updateNewPostText}
         addMessage={addMessage}
-        changeMessage={changeMessage}
+        updateNewMessageText={updateNewMessageText}
+
         />
     </BrowserRouter >
   </React.StrictMode>

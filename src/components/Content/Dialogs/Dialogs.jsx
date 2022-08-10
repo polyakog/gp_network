@@ -23,7 +23,7 @@ let addMessage = () => {
 
 let onMessageChange = () => {
     let text = newMessageElement.current.value;
-    props.changeMessage(text);
+    props.updateNewMessageText(text);
 }
         
         return (
@@ -42,7 +42,7 @@ let onMessageChange = () => {
                         <p></p>
                             {messageElements}
                         <div className={css.addMessage}>
-                            <textarea className={css.NewMessagetText} rows="4" ref={newMessageElement} onChange={onMessageChange} value={props.dialogsPage.newMessageData}/>
+                            <textarea className={css.NewMessagetText} rows="4" ref={newMessageElement} onChange={onMessageChange} value={props.dialogsPage.newMessageText}/>
                             <button className={css.newMessageButton} onClick={addMessage}>Add message</button>
 
                         </div>
