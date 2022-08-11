@@ -40,7 +40,7 @@
 
 }
 
-.Item::before {
+/* .Item::before {
     content: '';
 
 
@@ -52,7 +52,7 @@
 
     position: absolute;
     bottom: -20%;
-}
+} */
 
 .Item::after {
     content: '';

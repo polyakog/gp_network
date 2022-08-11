@@ -1,8 +1,16 @@
-import { rerender } from './../render';
+     /* Задаем пустую функцию для присвоение ей потом перерисовки. Если нет присвоения, то будет алерт */
+let rerenderState = () => {
+    window.alert ("Error: state was changed but not rerendered")
+}
+
+
+
 
 /* Базы данных в объекте state*/
 
 let state = {
+
+    
 
     profilePage: {
         postData: [
@@ -59,30 +67,36 @@ let state = {
 }
 
 
-export let addPost = () => {
+export const addPost = () => {
 
     let newPost = { id: 7, message: state.profilePage.newPostText, likeCount: 0, Name: 'Michail'};
     state.profilePage.postData.push(newPost);
     state.profilePage.newPostText = 'Enter your next post';
-    rerender(state);        
+    rerenderState(state);        
 }
 
-export let updateNewPostText = (newText) => {
+export const updateNewPostText = (newText) => {
     state.profilePage.newPostText = newText; 
-    rerender(state);  
+    rerenderState(state);  
 }
 
-export let addMessage = () => {
+export const addMessage = () => {
     let newMessage = { id: 1, name: "Gennadij", text: state.dialogsPage.newMessageText };
     state.dialogsPage.messageData.push(newMessage);
     state.dialogsPage.newMessageText = 'next message';
-    rerender(state);
+    rerenderState(state);
 }
 
-export let updateNewMessageText = (newText) => {
+export const updateNewMessageText = (newText) => {
     state.dialogsPage.newMessageText = newText;
-    rerender(state);
+    rerenderState(state);
 }
+
+    /* Передается функция rerender и она присваиватся пустой функции rerenderState  */ 
+export const transferFunction = (observer) => {
+    rerenderState = observer; /* патерн observer */
+}
+
 
 
 export default state;
