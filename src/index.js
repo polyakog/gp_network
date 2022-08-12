@@ -1,32 +1,26 @@
 import reportWebVitals from './reportWebVitals';
-import state, { addMessage, addPost, updateNewPostText, updateNewMessageText, transferFunction } from './redux/state';
+// import state, { addMessage, addPost, updateNewPostText, updateNewMessageText, transferFunction } from './redux/state';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css'
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
+import store from './redux/state';
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-let rerender = (state) => {
+let rerender = () => {
     root.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App
-                    state={state}
-                    addPost={addPost}
-                    updateNewPostText={updateNewPostText}
-                    addMessage={addMessage}
-                    updateNewMessageText={updateNewMessageText}
-
-                />
+                <App store={store}/>
             </BrowserRouter >
         </React.StrictMode>
     );
 }
-rerender(state);
-transferFunction(rerender);
+rerender(store.state);
+store.transferFunction(rerender);
 
 
 

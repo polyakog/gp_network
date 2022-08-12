@@ -1,16 +1,15 @@
-     /* Задаем пустую функцию для присвоение ей потом перерисовки. Если нет присвоения, то будет алерт */
-let rerenderState = () => {
+let store = {
+   
+    
+    /* Задаем пустую функцию для присвоение ей потом перерисовки. Если нет присвоения, то будет алерт */
+rerenderState () {
     window.alert ("Error: state was changed but not rerendered")
-}
-
-
+},
 
 
 /* Базы данных в объекте state*/
 
-let state = {
-
-    
+state: {
 
     profilePage: {
         postData: [
@@ -64,39 +63,47 @@ let state = {
 
     },
 
+},
+
+getState () {
+    return this._state;
+},
+
+
+addPost () {
+    let newPost= { id: 7, message: this.state.profilePage.newPostText, likeCount: 0, Name: 'Michail'};
+    this.state.profilePage.postData.push(newPost);
+    this.state.profilePage.newPostText = 'Enter your next post';
+    this.rerenderState(this.state);  
+    
+},
+
+updateNewPostText (newText) {
+    this.state.profilePage.newPostText = newText; 
+    this.rerenderState(this.state);  
+
+},
+
+addMessage () {
+    let newMessage = { id: 1, name: "Gennadij", text: this.state.dialogsPage.newMessageText };
+    this.state.dialogsPage.messageData.push(newMessage);
+    this.state.dialogsPage.newMessageText = 'next message';
+    this.rerenderState(this.state);
+},
+
+updateNewMessageText (newText) {
+    this.state.dialogsPage.newMessageText = newText;
+    this.rerenderState(this.state);
+},
+
+    /* Передается функция rerender (через свойство observer) и она присваиватся пустой функции rerenderState  */
+transferFunction (observer) {
+    this.rerenderState = observer; /* патерн observer */
+},
+
 }
 
 
-export const addPost = () => {
 
-    let newPost = { id: 7, message: state.profilePage.newPostText, likeCount: 0, Name: 'Michail'};
-    state.profilePage.postData.push(newPost);
-    state.profilePage.newPostText = 'Enter your next post';
-    rerenderState(state);        
-}
-
-export const updateNewPostText = (newText) => {
-    state.profilePage.newPostText = newText; 
-    rerenderState(state);  
-}
-
-export const addMessage = () => {
-    let newMessage = { id: 1, name: "Gennadij", text: state.dialogsPage.newMessageText };
-    state.dialogsPage.messageData.push(newMessage);
-    state.dialogsPage.newMessageText = 'next message';
-    rerenderState(state);
-}
-
-export const updateNewMessageText = (newText) => {
-    state.dialogsPage.newMessageText = newText;
-    rerenderState(state);
-}
-
-    /* Передается функция rerender и она присваиватся пустой функции rerenderState  */ 
-export const transferFunction = (observer) => {
-    rerenderState = observer; /* патерн observer */
-}
-
-
-
-export default state;
+// export default state;
+export default store;

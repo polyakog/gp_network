@@ -1,6 +1,4 @@
-// import logo from './logo.svg';
 import './App.css';
-
 import Header from './components/Header/Header';
 import Nav from './components/Nav/Nav';
 import { Routes, Route } from 'react-router-dom';
@@ -13,26 +11,17 @@ import Settings from './components/Content/Settings/Settings';
 
 
 
-
 const App = (props) => {
   return (
     <div className="App-wrapper">
 
       <Header />
-      <Nav state={props.state.sidebar}/>
+      <Nav sidebar={props.store.state.sidebar}/>
 
       <div className='App-wrapper-content'>
         <Routes>
-          <Route path='profile' element={<Profile 
-                                                  profilePage={props.state.profilePage} 
-                                                  addPost={props.addPost} 
-                                                  updateNewPostText={props.updateNewPostText} 
-              />} />
-          <Route path='dialogs/*' element={<Dialogs 
-                                                  dialogsPage={props.state.dialogsPage} 
-                                                  addMessage={props.addMessage}
-                                                  updateNewMessageText={props.updateNewMessageText}
-                />} />
+          <Route path='profile' element={<Profile store={props.store} />} />
+          <Route path='dialogs/*' element={<Dialogs store={props.store} />} />
           <Route path='news' element={<News />} />
           <Route path='music' element={<Music />} />
           <Route path='settings' element={<Settings />} />
