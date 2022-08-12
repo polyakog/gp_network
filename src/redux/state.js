@@ -2,14 +2,14 @@ let store = {
    
     
     /* Задаем пустую функцию для присвоение ей потом перерисовки. Если нет присвоения, то будет алерт */
-rerenderState () {
+_callSubscriber () {
     window.alert ("Error: state was changed but not rerendered")
 },
 
 
 /* Базы данных в объекте state*/
 
-state: {
+_state: {
 
     profilePage: {
         postData: [
@@ -71,34 +71,42 @@ getState () {
 
 
 addPost () {
-    let newPost= { id: 7, message: this.state.profilePage.newPostText, likeCount: 0, Name: 'Michail'};
-    this.state.profilePage.postData.push(newPost);
-    this.state.profilePage.newPostText = 'Enter your next post';
-    this.rerenderState(this.state);  
+    let newPost= { 
+        id: 7, 
+        message: this._state.profilePage.newPostText, 
+        ikeCount: 0, 
+        Name: 'Michail'
+    };
+    this._state.profilePage.postData.push(newPost);
+    this._state.profilePage.newPostText = 'Enter your next post';
+    this._callSubscriber(this._state);  
     
 },
 
 updateNewPostText (newText) {
-    this.state.profilePage.newPostText = newText; 
-    this.rerenderState(this.state);  
+    this._state.profilePage.newPostText = newText; 
+    this._callSubscriber(this._state);  
 
 },
 
 addMessage () {
-    let newMessage = { id: 1, name: "Gennadij", text: this.state.dialogsPage.newMessageText };
-    this.state.dialogsPage.messageData.push(newMessage);
-    this.state.dialogsPage.newMessageText = 'next message';
-    this.rerenderState(this.state);
+    let newMessage = { 
+        id: 1, 
+        name: "Gennadij", 
+        text: this._state.dialogsPage.newMessageText };
+    this._state.dialogsPage.messageData.push(newMessage);
+    this._state.dialogsPage.newMessageText = 'next message';
+    this._callSubscriber(this._state);
 },
 
 updateNewMessageText (newText) {
-    this.state.dialogsPage.newMessageText = newText;
-    this.rerenderState(this.state);
+    this._state.dialogsPage.newMessageText = newText;
+    this._callSubscriber(this._state);
 },
 
     /* Передается функция rerender (через свойство observer) и она присваиватся пустой функции rerenderState  */
 transferFunction (observer) {
-    this.rerenderState = observer; /* патерн observer */
+    this._callSubscriber = observer; /* патерн observer */
 },
 
 }

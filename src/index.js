@@ -10,16 +10,20 @@ import store from './redux/state';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-let rerender = () => {
+let rerender = (state) => {
     root.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App store={store}/>
+                <App state={state} 
+                    addPost={store.addPost.bind(store)} 
+                    updateNewPostText={store.updateNewPostText.bind(store)}
+                    addMessage={store.addMessage.bind(store)}
+                    updateNewMessageText={store.updateNewMessageText.bind(store)} />
             </BrowserRouter >
         </React.StrictMode>
     );
 }
-rerender(store.state);
+rerender(store.getState());
 store.transferFunction(rerender);
 
 
