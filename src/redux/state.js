@@ -1,14 +1,6 @@
 let store = {
-   
-    
-    /* Задаем пустую функцию для присвоение ей потом перерисовки. Если нет присвоения, то будет алерт */
-_callSubscriber () {
-    window.alert ("Error: state was changed but not rerendered")
-},
-
-
+       
 /* Базы данных в объекте state*/
-
 _state: {
 
     profilePage: {
@@ -65,10 +57,48 @@ _state: {
 
 },
 
+    /* Задаем пустую функцию для присвоение ей потом перерисовки. Если нет присвоения, то будет алерт */
+_callSubscriber () {
+    window.alert ("Error: state was changed but not rerendered")
+},
+
 getState () {
     return this._state;
 },
 
+    /* Передается функция rerender (через свойство observer) и она присваиватся пустой функции rerenderState  */
+subcriber (observer) {
+    this._callSubscriber = observer; /* патерн observer */
+},
+
+dispatch (action) {
+if (action.type === 'ADD-POST') {
+    let newPost = {
+        id: 7,
+        message: this._state.profilePage.newPostText,
+        ikeCount: 0,
+        Name: 'Michail'
+    };
+    this._state.profilePage.postData.push(newPost);
+    this._state.profilePage.newPostText = 'Enter your next post';
+    this._callSubscriber(this._state);
+} else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+    this._state.profilePage.newPostText = action.newText;
+    this._callSubscriber(this._state);
+} else if (action.type === 'ADD-MESSAGE') {
+    let newMessage = {
+        id: 1,
+        name: "Gennadij",
+        text: this._state.dialogsPage.newMessageText
+    };
+    this._state.dialogsPage.messageData.push(newMessage);
+    this._state.dialogsPage.newMessageText = 'next message';
+    this._callSubscriber(this._state);
+} else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+    this._state.dialogsPage.newMessageText = action.newText;
+    this._callSubscriber(this._state);
+};
+},
 
 addPost () {
     let newPost= { 
@@ -104,14 +134,7 @@ updateNewMessageText (newText) {
     this._callSubscriber(this._state);
 },
 
-    /* Передается функция rerender (через свойство observer) и она присваиватся пустой функции rerenderState  */
-transferFunction (observer) {
-    this._callSubscriber = observer; /* патерн observer */
-},
 
 }
 
-
-
-// export default state;
 export default store;

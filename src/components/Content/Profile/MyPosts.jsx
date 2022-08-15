@@ -19,15 +19,14 @@ let MyPosts = (props) => {
     let newPostElem = React.createRef ();
 
 
-
                 /* Создаем команды на клик кнопки и изменение текстэриа */
     let addPostClick = () => {
-        props.addPost();
+        props.dispatch({type: 'ADD-POST'});
     }
 
     let onPostChange = () => {
         let text = newPostElem.current.value;
-        props.updateNewPostText(text);
+        props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', newText: text});
     }
 
     return (
