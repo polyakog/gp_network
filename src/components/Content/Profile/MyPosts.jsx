@@ -1,32 +1,30 @@
 import React from "react";
 import css from './MyPosts.module.css';
 import Post from './Post/Post';
+import { addPostActionCreator, updateNewPostTextActionCreator } from './../../../redux/state';
 
 
 
             /* Визуализация разела постов */ 
 
 let MyPosts = (props) => {
-
  
                 /* Обработка массива postData, чтобы исключить повторения команд. */
                 /* Автоматически данные заносятся в новый цикл "p" из массива "postData" */
-    
-   
+       
     let postElements = props.postData.map (p => (<Post message={p.message} likeCount={p.likeCount} Name={p.Name} />) );
 
                 /* Создаем ссылку */
     let newPostElem = React.createRef ();
 
-
                 /* Создаем команды на клик кнопки и изменение текстэриа */
     let addPostClick = () => {
-        props.dispatch({type: 'ADD-POST'});
+        props.dispatch(addPostActionCreator ());
     }
 
     let onPostChange = () => {
         let text = newPostElem.current.value;
-        props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', newText: text});
+        props.dispatch(updateNewPostTextActionCreator(text));
     }
 
     return (
@@ -44,9 +42,7 @@ let MyPosts = (props) => {
             <div className={css.posts}> 
               {postElements}  
             </div>
-                               
-
-
+            
         </div>
     );
 }
