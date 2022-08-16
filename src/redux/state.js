@@ -38,7 +38,7 @@ let store = {
                 { id: 1, name: "Gennadij", text: "preparation" }
             ],
 
-            newMessageText: 'Enter your message',
+            newMessageText: '',
         },
 
         sidebar: {
@@ -160,7 +160,7 @@ export const updateNewPostTextActionCreator = (text) => {
 }
 
 
-export const addMessageActionCreator = () => ({ type: ADD_MESSAGE })
+export const sendMessageActionCreator = () => ({ type: ADD_MESSAGE })
 
 export const updateNewMessageTextActionCreator = (text) => 
 ({ type: UPDATE_NEW_MESSAGE_TEXT, newText: text })
