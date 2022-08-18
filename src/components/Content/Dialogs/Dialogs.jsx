@@ -2,7 +2,7 @@ import React from 'react';
 import css from './Dialogs.module.css';
 import DialogItem from './DialogItems/DialogItems';
 import MessageItem from './MessageItems/MessageItems';
-import { sendMessageActionCreator, updateNewMessageTextActionCreator } from '../../../redux/state';
+import { sendMessageActionCreator, updateNewMessageTextActionCreator } from '../../../redux/dialogs-reducer';
 
                      /* Выполнение UI (user Interface) */
 
