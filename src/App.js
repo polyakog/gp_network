@@ -11,6 +11,7 @@ import Settings from './components/Content/Settings/Settings';
 
 
 const App = (props) => {
+  
   return (
     <div className="App-wrapper">
 

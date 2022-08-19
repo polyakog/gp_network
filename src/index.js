@@ -5,12 +5,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css'
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
-import store from './redux/store';
+import store from './redux/redux-store';
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 let rerender = (state) => {
+    
     root.render(
         <React.StrictMode>
             <BrowserRouter>
@@ -20,7 +22,10 @@ let rerender = (state) => {
     );
 }
 rerender(store.getState());
-store.subcriber(rerender);
+
+        /* subscribe запускается при изменениях в state */
+store.subscribe(() => {rerender(store.getState())});
+
 
 
 

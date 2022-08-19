@@ -19,10 +19,12 @@ let MyPosts = (props) => {
 
                 /* Создаем команды на клик кнопки и изменение текстэриа */
     let addPostClick = () => {
+        
         props.dispatch(addPostActionCreator ());
     }
 
     let onPostChange = () => {
+        
         let text = newPostElem.current.value;
         props.dispatch(updateNewPostTextActionCreator(text));
     }

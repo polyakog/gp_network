@@ -72,7 +72,7 @@ let store = {
     },
 
     /* Передается функция rerender (через свойство observer) и она присваиватся пустой функции rerenderState  */
-    subcriber(observer) {
+    subscribe(observer) {
         this._callSubscriber = observer; /* патерн observer */
     },
 
