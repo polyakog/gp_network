@@ -2,7 +2,7 @@ import React from 'react';
 import css from './Dialogs.module.css';
 import DialogItem from './DialogItems/DialogItems';
 import MessageItem from './MessageItems/MessageItems';
-import { sendMessageActionCreator, updateNewMessageTextActionCreator } from '../../../redux/dialogs-reducer';
+
 
                      /* Выполнение UI (user Interface) */
 
@@ -15,14 +15,13 @@ const Dialogs = (props) => {
     let messageElements = props.dialogsPage.messageData.map(m => (<MessageItem id={m.id} name={m.name} text={m.text} />));
     
 
-
 let onSendMessageClick = () => {
-    props.dispatch(sendMessageActionCreator());
+   props.sendMessage();
 }
 
 let onMessageChange = (e) => {
     let text = e.target.value;
-    props.dispatch(updateNewMessageTextActionCreator(text));
+    props.updateNewMessageText(text);
 }
         
         return (

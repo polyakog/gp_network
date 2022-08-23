@@ -1,7 +1,8 @@
 import React from "react";
 import css from './MyPosts.module.css';
 import Post from './Post/Post';
-import { addPostActionCreator, updateNewPostTextActionCreator } from './../../../redux/profile-reducer';
+
+
 
 
 
@@ -20,13 +21,14 @@ let MyPosts = (props) => {
                 /* Создаем команды на клик кнопки и изменение текстэриа */
     let addPostClick = () => {
         
-        props.dispatch(addPostActionCreator ());
+        props.addPost();
     }
 
     let onPostChange = () => {
         
         let text = newPostElem.current.value;
-        props.dispatch(updateNewPostTextActionCreator(text));
+        props.updateNewPostText(text)
+       
     }
 
     return (
