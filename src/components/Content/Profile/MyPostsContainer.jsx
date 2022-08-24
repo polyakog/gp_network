@@ -1,4 +1,5 @@
 import React from "react";
+import StoreContext from "../../../StoreContext";
 import { addPostActionCreator, updateNewPostTextActionCreator } from './../../../redux/profile-reducer';
 import MyPosts from "./MyPosts";
 
@@ -6,25 +7,36 @@ import MyPosts from "./MyPosts";
 
             /* Визуализация разела постов */ 
 
-let MyPostsContainer = (props) => {
+const MyPostsContainer = (props) => {
  
- let state = props.store.getState();
+ return <StoreContext.Consumer> 
+        {(store) => {
+
+    
+    let state = store.getState();
 
                 /* Создаем команды на клик кнопки и изменение текстэриа */
     let onAddPost = () => {
         
-        props.store.dispatch(addPostActionCreator ());
+        store.dispatch(addPostActionCreator ());
     }
 
     let onPostChange = (text) => {
         
-        props.store.dispatch(updateNewPostTextActionCreator(text));
+        store.dispatch(updateNewPostTextActionCreator(text));
     }
 
-    return (<MyPosts postData={state.profilePage.postData} 
+    return <MyPosts postData={state.profilePage.postData} 
         newPostText={state.profilePage.newPostText} 
         addPost={onAddPost} 
-        updateNewPostText={onPostChange} />)
+        updateNewPostText={onPostChange} />
+
+         }
+     }
+     </StoreContext.Consumer>
+
+
+ 
 
 }
 

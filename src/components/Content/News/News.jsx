@@ -5,7 +5,12 @@ import css from "./News.module.css";
 const News = () => {
 return (
     <div>
-        News
+        <h1 className={css.headName}>News</h1>
+
+        No content
+        
+
+
         
         
     </div>
