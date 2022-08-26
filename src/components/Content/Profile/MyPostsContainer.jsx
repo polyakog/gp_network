@@ -1,43 +1,31 @@
-import React from "react";
-import StoreContext from "../../../StoreContext";
 import { addPostActionCreator, updateNewPostTextActionCreator } from './../../../redux/profile-reducer';
 import MyPosts from "./MyPosts";
+import { connect } from 'react-redux/es/exports';
 
 
 
-            /* Визуализация разела постов */ 
 
-const MyPostsContainer = (props) => {
- 
- return <StoreContext.Consumer> 
-        {(store) => {
+let mapStateToProps = (state) => {
+    return {
+        postData: state.profilePage.postData,
+        newPostText: state.profilePage.newPostText
 
-    
-    let state = store.getState();
-
-                /* Создаем команды на клик кнопки и изменение текстэриа */
-    let onAddPost = () => {
-        
-        store.dispatch(addPostActionCreator ());
     }
-
-    let onPostChange = (text) => {
-        
-        store.dispatch(updateNewPostTextActionCreator(text));
-    }
-
-    return <MyPosts postData={state.profilePage.postData} 
-        newPostText={state.profilePage.newPostText} 
-        addPost={onAddPost} 
-        updateNewPostText={onPostChange} />
-
-         }
-     }
-     </StoreContext.Consumer>
-
-
- 
-
 }
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        addPost: () => {
+            dispatch(addPostActionCreator())
+        },
+
+        updateNewPostText: (text) => {
+            dispatch(updateNewPostTextActionCreator(text))
+        }
+    }
+}
+
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
 export default MyPostsContainer;

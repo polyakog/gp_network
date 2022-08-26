@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Копирование даннных у объекта к объекту</title>
+</head>
+
+<body>
+    <script>
+
+        let age = 18
+        let age2 = age;
+
+        var a = {
+            name: "it-kamasutra.com",
+            maxStudentsCount: 10,
+            isOnline: true,
+            classroom: {
+                teacher: {
+                    name: 'Dimych',
+                    age: 25
+                },
+                students: ['Gennadij', 'Andrey', 'Ivan', 'Dmitriy']
+            }
+
+        }
+
+            /* Копирование данных у объекта "а" без ссылки на него */
+        var b = { ...a };
+        b.classroom = { ...a.classroom }
+        b.classroom.students = [...a.classroom.students];
+        b.classroom.students = ['Petr', 'Alexandr', 'Andrey', 'Evgeniy'];
+
+        b.classroom.teacher = { ...a.classroom.teacher }
+        b.classroom.teacher = {
+            name: 'Anton',
+            age: 35
+        }
+
+        b.name = 'JS'
+
+
+
+
+
+    </script>
+</body>
+
+</html>
