@@ -1,8 +1,8 @@
 import React from "react";
 import css from './Profile.module.css';
-
 import ProfileInfo from "./ProfileInfo";
-import MyPostsContainer from "./MyPostsContainer";
+import MyPostsContainer from './MyPostsContainer';
+
 
 
 

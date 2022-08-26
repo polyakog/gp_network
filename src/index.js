@@ -1,18 +1,18 @@
 import reportWebVitals from './reportWebVitals';
-// import state, { addMessage, addPost, updateNewPostText, updateNewMessageText, transferFunction } from './redux/state';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css'
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import store from './redux/redux-store';
-import { Provider } from './StoreContext';
+import { Provider } from 'react-redux';
+
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-let rerender = (state) => {
+// let rerender = () => {
 
     root.render(
         <React.StrictMode>
@@ -23,11 +23,11 @@ let rerender = (state) => {
             </BrowserRouter >
         </React.StrictMode>
     );
-}
-rerender();
+// }
+// rerender();
 
-/* subscribe запускается при изменениях в state */
-store.subscribe(() => { rerender() });
+// /* subscribe запускается при изменениях в state */
+// store.subscribe(() => { rerender() });
 
 
 
