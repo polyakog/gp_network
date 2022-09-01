@@ -19,6 +19,7 @@ const Nav = (props) => {
                 <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/news"> News </NavLink>
                 <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/music"> Music </NavLink>
                 <br />
+                <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/users"> Users </NavLink>
                 <NavLink className={({ isActive }) => (isActive ? css.activeLink : css.link)} to="/settings"> Settings </NavLink>
                 
                    

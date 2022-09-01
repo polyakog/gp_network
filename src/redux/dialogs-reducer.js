@@ -24,8 +24,7 @@ let initialState = {
 
 const dialogsReducer = (state = initialState, action) => {
 
-    let stateCopy;
-    
+       
     switch (action.type) {
         case ADD_MESSAGE: 
             let newMessage = {
@@ -42,20 +41,17 @@ const dialogsReducer = (state = initialState, action) => {
                 /* 2 способ - через конкат */
             // stateCopy.messageData = state.messageData.concat (newMessage);
                 /* 3 способ - просто добавить в нужное место newMessage */
-            stateCopy = { ...state,
+            return { ...state,
                 newMessageText: 'next message',
                 messageData: [...state.messageData, newMessage]           
             };
             
-                        
-            return stateCopy;
+             
 
         case UPDATE_NEW_MESSAGE_TEXT: 
-            stateCopy = { ...state,
+            return { ...state,
             newMessageText: action.newText
-            }
-          
-            return stateCopy;
+            };
     
         default:
             return state;
