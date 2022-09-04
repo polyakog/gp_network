@@ -3,23 +3,21 @@ import css from './Users.module.css'
 
 const Users = (props) => {
 
-if (props.users.length === 0) {
-    props.setUsers (
-        [
+    let users = [
         { id: 1, followed: false, imgURL: "https://android-obzor.com/wp-content/uploads/2022/02/20-6.jpg", name: 'Gennadij', status: 'text', locaction: { city: 'Samara', country: 'Russia' } },
-        { id: 2, followed: true, imgURL: 'https://android-obzor.com/wp-content/uploads/2022/02/24-7.jpg', name: 'Anton', status: 'text', locaction: { city: 'Moscow', country: 'Russia' } },
+        // { id: 2, followed: true, imgURL: 'https://android-obzor.com/wp-content/uploads/2022/02/24-7.jpg', name: 'Anton', status: 'text', locaction: { city: 'Moscow', country: 'Russia' } },
         { id: 3, followed: false, imgURL: 'https://android-obzor.com/wp-content/uploads/2022/02/29-7.jpg', name: 'Aleksey', status: 'text', locaction: { city: 'Rostov-on-don', country: 'Russia' } }
     ]
-        
-        )
+    
+    if (props.users.length === 1) {
+        console.log('перед setUsers' + props.users.length)
+        props.setUsers (users)
 }
+    console.log('после setUsers' + props.users.length)
     
+               
 
-
-    
-
-    let usersElement = props.users.map(u => (
-        <div key={u.id} className={css.usersElement}>
+    let usersElement = props.users.map(u => <div key={u.id} className={css.usersElement}>
 
             <div ><img alt='avatar' className={css.imageUsers} src={u.imgURL} /></div>
             <div className={css.usersData}>
@@ -38,11 +36,7 @@ if (props.users.length === 0) {
 
         </div>
 
-    ));
-
-    // { id: 1, followed: false, imgURL: "https://android-obzor.com/wp-content/uploads/2022/02/20-6.jpg", name: 'Gennadij', status: 'text', locaction: { city: 'Samara', country: 'Russia' } },
-
-
+    );
 
 
     return (
@@ -50,6 +44,8 @@ if (props.users.length === 0) {
             <h2>Users</h2>
             <div>
                 {usersElement}
+                
+                
             </div>
         </div>
 

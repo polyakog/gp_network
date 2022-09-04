@@ -11,8 +11,8 @@ const Dialogs = (props) => {
                     /* Обработка массива, чтобы исключить повторения. */
                     /* Автоматически данные заносятся в новый массив из старого  */
    
-    let dialogElements = props.dialogsPage.dialogData.map (d => (<DialogItem id={d.id} name={d.name} />));
-    let messageElements = props.dialogsPage.messageData.map(m => (<MessageItem id={m.id} name={m.name} text={m.text} />));
+    let dialogElements = props.dialogsPage.dialogData.map(d => (<DialogItem key={d.id} id={d.id} name={d.name} />));
+    let messageElements = props.dialogsPage.messageData.map(m => (<MessageItem key={m.id} id={m.id} name={m.name} text={m.text} />));
     
 
 let onSendMessageClick = () => {

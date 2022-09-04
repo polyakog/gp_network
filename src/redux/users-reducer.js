@@ -5,7 +5,11 @@ const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS ='SET_USERS'
 
 let initialState = {
-    users: []
+    users: [
+        { id: 5, followed: true, imgURL: 'https://android-obzor.com/wp-content/uploads/2022/02/24-7.jpg', name: 'Anton', status: 'text', locaction: { city: 'Moscow', country: 'Russia' } },
+        // { id: 3, followed: false, imgURL: 'https://android-obzor.com/wp-content/uploads/2022/02/29-7.jpg', name: 'Aleksey', status: 'text', locaction: { city: 'Rostov-on-don', country: 'Russia' } }
+
+    ]
 };
 
 
@@ -37,11 +41,12 @@ const usersReducer = (state=initialState, action) => {
             
         };
 
-        case SET_USERS:
-         return {
-            ...state, 
-            users: [...state.users, ...action.users]
-    }
+        case SET_USERS: {
+            return {...state, 
+                users: [...state.users, ...action.users]
+                
+            }
+        }
         default:
             return state;
   
