@@ -1,10 +1,25 @@
 const pageNumberEl = document.querySelector('#img-number');
-const clickMeButton = document.querySelector("#get-images");
+const getImagesButton = document.querySelector("#get-images");
+const createTaskButton = document.querySelector('#create-task');
 const getTasksButtom = document.querySelector('#show-tasks');
+const deleteTaskButtom = document.querySelector('#delete-task');
+const deleteTaskNumber = document.querySelector('#id-data');
+const createTaskText = document.querySelector('#task-text');
 
-clickMeButton.addEventListener("click", () => {
+const updateTaskNumber = document.querySelector('#id-update');
+const updateTaskText = document.querySelector('#title-update');
+const updateTaskButtom = document.querySelector('#update-task');
+
+
+getImagesButton.addEventListener("click", () => {
     const promis = getImages(pageNumberEl.value);
     promis.then(onImageRecieved);
+});
+
+createTaskButton.addEventListener('click', () => {
+    createTask(createTaskText.value).then((data) => {
+        console.log(data);
+    });
 });
 
 getTasksButtom.addEventListener('click', () => {
@@ -12,10 +27,22 @@ getTasksButtom.addEventListener('click', () => {
     promis.then(onTaskRecieved);
 });
 
-createTask("work").then((data) =>{
+updateTaskButtom.addEventListener('click', () => {
+    debugger;
+    const updatedTaskId = updateTaskNumber.value;
+    const updateTaskTitle = updateTaskText.value;
+    const promis = updateTask(updatedTaskId, updateTaskTitle);
+    promis.then(onTaskUpdated);
+})
 
-console.log(data);
-});
+deleteTaskButtom.addEventListener('click', ()=>{
+    const taskId = deleteTaskNumber.value
+    deleteTaskNumber.value = '';
+    const promis = deleteTask(taskId);
+    promis.then(onTaskDeleted);
+})
+
+
 
 function onImageRecieved(data) {
     data.map(el => {
@@ -30,12 +57,30 @@ function onImageRecieved(data) {
 }
 
 function onTaskRecieved(data) {
+
+    const result = document.querySelector('#tasks-result');
+        result.innerHTML = '';
+
     data.map(el => {
         const li = document.createElement('li');
         li.innerHTML = el.title +" ID:"+ el.id;
-        document.querySelector('#tasks-result').appendChild(li);
+        result.appendChild(li);
 
     });
+}
+
+function onTaskDeleted() {   
+
+    const promis = getTask();
+    promis.then(onTaskRecieved);
+
+}
+
+function onTaskUpdated() {
+
+    const promis = getTask();
+    promis.then(onTaskRecieved);
+
 }
 
 

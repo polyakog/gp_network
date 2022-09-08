@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Ajax-jquery</title>
+    <title>Ajax-jquery-axios</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
@@ -18,18 +18,50 @@
         <label for="img-number">Enter image number</label>
         <input type="number" id="img-number">
     </div>
-    <div><img src="https://neurohive.io/wp-content/uploads/2019/04/nlp-javascript-e1554683850610.jpg" alt="test" srcset="" id="img-address"></div>
+    <div><img src="https://neurohive.io/wp-content/uploads/2019/04/nlp-javascript-e1554683850610.jpg" alt="test"
+            srcset="" id="img-address"></div>
+
+    <p></p>
+    <p></p>
+    <p></p>
+
     <div>
-        <button id="show-tasks">Show Tasks</button>
+        <label for="task-text">Enter task (post)</label>
+        <input type="text" id="task-text">
+        <button id="create-task">Create Task</button>
+    </div>
+
+    <p></p>
+    <div>
+        <button id="show-tasks">Show Tasks (get)</button>
+
     </div>
     <ul id="tasks-result"></ul>
+    <p></p>
+
+
+    <div>
+        <label for="id-data">Enter id number to delete</label>
+        <input type="text" id="id-data">
+        <button id="delete-task">Delete Task</button>
+    </div>
+    <p></p>
+
+    <div>
+        <label for="id-update">Enter id number to update</label>
+        <input type="text" id="id-update">
+        <label for="title-update">Enter new task title to update</label>
+        <input type="text" id="title-update">
+        <button id="update-task">Update Task</button>
+
+    </div>
 
 
 
-                    <!-- axios -->
+    <!-- axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-                      <!-- jquery -->
+    <!-- jquery -->
     <!-- <script src="https://code.jquery.com/jquery-2.2.4.js"
         integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" 
         crossorigin="anonymous"></script> -->
