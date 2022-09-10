@@ -1,7 +1,8 @@
-import { followAC, unfollowAC } from '../../../redux/users-reducer';
+// import React from 'react';
+import { followAC, unfollowAC, setUsersAC } from '../../../redux/users-reducer';
 import { connect } from 'react-redux/es/exports';
 import Users from './Users';
-import { setUsersAC } from './../../../redux/users-reducer';
+
 
 
 

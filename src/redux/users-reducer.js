@@ -6,7 +6,7 @@ const SET_USERS ='SET_USERS'
 
 let initialState = {
     users: [
-        { id: 5, followed: true, imgURL: 'https://android-obzor.com/wp-content/uploads/2022/02/24-7.jpg', name: 'Anton', status: 'text', locaction: { city: 'Moscow', country: 'Russia' } },
+        // { id: 5, followed: true, imgURL: 'https://android-obzor.com/wp-content/uploads/2022/02/24-7.jpg', name: 'Anton', status: 'text', locaction: { city: 'Moscow', country: 'Russia' } },
         // { id: 3, followed: false, imgURL: 'https://android-obzor.com/wp-content/uploads/2022/02/29-7.jpg', name: 'Aleksey', status: 'text', locaction: { city: 'Rostov-on-don', country: 'Russia' } }
 
     ]
