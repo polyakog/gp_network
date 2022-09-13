@@ -7,7 +7,7 @@
     padding: 10px;
     margin-top: 5px;
     display: grid;
-    grid-template-columns: 15% minmax(min-content, 100%);
+    grid-template-columns: 150px minmax(min-content, 100%);
     grid-template-rows: 150px 40px;
     gap: 10px;
 }
@@ -66,4 +66,8 @@
         background: radial-gradient(circle, rgba(222, 58, 58, 1) 0%, rgba(136, 7, 7, 1) 100%);
         color: aliceblue;
         font-weight: bold;
+}
+
+.sectedPage {
+    font-weight: bold;
 }
