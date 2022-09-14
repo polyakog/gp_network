@@ -20,8 +20,7 @@ const Users =(props) => {
           <div>
             {pages.map(p => {
             return <span key={p} className={props.currentPage === p ? css.sectedPage : ""}
-                onClick={() => { props.onPageChanged(p); }}>{p}  </span>
-                       
+                onClick={() => { props.onPageChanged(p); }}>{p}  </span>                     
             })
             }
             
