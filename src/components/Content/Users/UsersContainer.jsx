@@ -4,6 +4,7 @@ import { followAC, unfollowAC, setUsersAC, setCurrentPageAC, setTotalUsersCountA
 import { connect } from 'react-redux/es/exports';
 import Users from './Users';
 import Preloader from './../../common/Preloader/Preloader'
+import css from './Users.module.css'
 
 
 
@@ -33,7 +34,8 @@ class UsersContainer extends React.Component {
     }
 
     render() {
-        return <>
+        return <div className={css.main}>
+            <h2>Users</h2>
                         {/* Выбираем показ загрузки (пока не загрузились данные) или демонстрацию юзерс */}
             {this.props.isFetching 
             ? <Preloader /> 
@@ -48,7 +50,7 @@ class UsersContainer extends React.Component {
             
 
             
-        </>
+                </div>
     }
 }
 

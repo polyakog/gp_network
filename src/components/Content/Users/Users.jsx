@@ -14,9 +14,8 @@ const Users =(props) => {
     }
 
     return (
-        <div className={css.main}>
-           <h2>Users</h2>
-           
+        <div >
+                      
           <div>
             {pages.map(p => {
             return <span key={p} className={props.currentPage === p ? css.sectedPage : ""}
