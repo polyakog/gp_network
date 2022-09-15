@@ -1,4 +1,4 @@
-import preloader from './../../../assets/Preloader/preloader5.gif';
+import preloader from './../../../assets/Preloader/preloader1.gif';
 import React from 'react';
 
 
