@@ -1,16 +1,21 @@
 import React from "react";
+import Preloader from "../../common/Preloader/Preloader";
 import css from './ProfileInfo.module.css';
 
 
 
 const ProfileInfo = (props) => {
 
+    if (!props.profile) {
+        return <Preloader/>
+    }
+
     return (
         <div >
             {/* Main pic */}
-            <div className={css.avatar_description}>
+                        <div className={css.avatar_description}>
                 <div className={css.avatar}>
-                    <img src="https://i.pinimg.com/originals/3e/9c/04/3e9c049cd8ffcbb3f0df3255fc1f47ee.png" alt="" />
+                    <img src={props.profile.photos.large} alt="" />
                 </div>
 
                 <div className={css.description}>

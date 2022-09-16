@@ -1,5 +1,6 @@
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 let initialState = {
     postData: [
@@ -12,6 +13,7 @@ let initialState = {
     ],
 
     newPostText: 'Enter your first post ',
+    profile: null,
 };
 
 
@@ -37,7 +39,12 @@ const profileReducer = (state = initialState, action) => {
             stateCopy.newPostText = action.newText;
             return stateCopy;
         }
-            
+
+        case SET_USER_PROFILE: {
+            return {...state, profile: action.profile}
+        }
+          
+             
     
         default:
             return state;
@@ -49,19 +56,9 @@ const profileReducer = (state = initialState, action) => {
 }
 
 /* Создание объектов action */
-export const addPostActionCreator = () => {
-    return {
-        type: ADD_POST
-    }
-
-}
-
-export const updateNewPostTextActionCreator = (text) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: text
-    };
-}
+export const addPostActionCreator = () => ( {type: ADD_POST })
+export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text })
+export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 
 
 
