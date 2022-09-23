@@ -1,33 +1,75 @@
 import React from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import css from './ProfileInfo.module.css';
+import { render } from '@testing-library/react';
+import jobLooker from '../../../assets/images/jobLooker.webp'
 
 
 
 const ProfileInfo = (props) => {
 
     if (!props.profile) {
-        return <Preloader/>
+        return <Preloader />
     }
+
+    // let Linker = (link) => {
+    //     debugger
+    //     let linkElement = `props.profile.contacts.`+link        
+    //     if (linkElement !== null) { 
+    //         return <li> {link + ": " + props.profile.contacts.facebook +linkElement}</li> 
+       
+        
+    // }
+    
+    //  }
+
+     
 
     return (
         <div >
             {/* Main pic */}
-                        <div className={css.avatar_description}>
+            <div className={css.avatar_description}>
                 <div className={css.avatar}>
                     <img src={props.profile.photos.large} alt="" />
                 </div>
 
                 <div className={css.description}>
-                    <p className={css.user_name}>Gennadij Polyakov</p>
+                    <p className={css.user_name}>{props.profile.fullName}</p>
+                    <p>About me: {props.profile.aboutMe}</p>
+                    
+                        <img src={jobLooker} alt="looking for a job" className={props.profile.lookingForAJob
+                             ? css.lookingForAJob
+                        : css.lookingForAJob + " "+ css.false
+                            } />
+                        
+                        
+
+                    {/* <img src={props.profile.lookingForAJob
+                        ? jobLooker
+                        : null} alt="looking for a job" className={css.lookingForAJob} />  */}
+                    <p> {props.profile.lookingForAJob
+                        ? ("Looking for a job: " + props.profile.lookingForAJobDescription)
+                        : null} 
+                    </p>
                     <br />
-                    <p>Region: Russia</p>
-                    <p>Unit: ACM</p>
-                    <p>Position: Application Engineering</p>
+                    <div className={css.contacts}>Contacts:
+                    <ul>
+
+                            {/* {Linker("facebook")} */}
+
+                        {props.profile.contacts.facebook !== null ? <li> {"Facebook: " + props.profile.contacts.facebook }   </li> : null}
+                        {props.profile.contacts.website !== null ? <li> {"Website: " + props.profile.contacts.website}      </li> : null}
+                        {props.profile.contacts.vk !== null ? <li>{"VK: " + props.profile.contacts.vk}                </li> : null}
+                        {props.profile.contacts.github !== null ? <li>{"Github: " + props.profile.contacts.github}        </li> : null}
+                        {props.profile.contacts.youtube !== null ? <li>{"youtube: " + props.profile.contacts.youtube}        </li> : null}
+                        {props.profile.contacts.twitter !== null ? <li>{"twitter: " + props.profile.contacts.twitter}        </li> : null}
+                    </ul>
+                    </div>
+
                 </div>
             </div>
 
-            
+
 
         </div>
     );

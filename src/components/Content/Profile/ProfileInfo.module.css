@@ -31,11 +31,31 @@
 }
 
 .description {
-    margin-left: 20px;
+    margin-left: 30px;
+    line-height: 10px;
+}
+
+.description .contacts{
+    margin: 10px;
+    line-height: 0px;
+}
+
+.description .contacts ul {
+    line-height: 16px;
+    font-style: italic;
 }
 
 .user_name {
     font-size: 20px;
     font-weight: bold;
+    margin-left: 40px
 
+}
+
+.lookingForAJob {
+    width: 80px;
+   }
+
+.false {
+    opacity: 30%;
 }
