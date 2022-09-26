@@ -33,20 +33,20 @@ const ProfileInfo = (props) => {
                     <img src={props.profile.photos.large} alt="" />
                 </div>
 
+                
+
                 <div className={css.description}>
                     <p className={css.user_name}>{props.profile.fullName}</p>
                     <p>About me: {props.profile.aboutMe}</p>
+
+                    <p>ID: {props.profile.userId}</p>
                     
                         <img src={jobLooker} alt="looking for a job" className={props.profile.lookingForAJob
                              ? css.lookingForAJob
-                        : css.lookingForAJob + " "+ css.false
-                            } />
+                        : css.lookingForAJob + " "+ css.false } />
                         
                         
 
-                    {/* <img src={props.profile.lookingForAJob
-                        ? jobLooker
-                        : null} alt="looking for a job" className={css.lookingForAJob} />  */}
                     <p> {props.profile.lookingForAJob
                         ? ("Looking for a job: " + props.profile.lookingForAJobDescription)
                         : null} 
@@ -55,7 +55,6 @@ const ProfileInfo = (props) => {
                     <div className={css.contacts}>Contacts:
                     <ul>
 
-                            {/* {Linker("facebook")} */}
 
                         {props.profile.contacts.facebook !== null ? <li> {"Facebook: " + props.profile.contacts.facebook }   </li> : null}
                         {props.profile.contacts.website !== null ? <li> {"Website: " + props.profile.contacts.website}      </li> : null}
