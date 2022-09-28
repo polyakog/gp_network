@@ -8,22 +8,19 @@ import jobLooker from '../../../assets/images/jobLooker.webp'
 
 const ProfileInfo = (props) => {
 
-    if (!props.profile) {
+
+        if (!props.profile) {
         return <Preloader />
     }
 
-    // let Linker = (link) => {
-    //     debugger
-    //     let linkElement = `props.profile.contacts.`+link        
-    //     if (linkElement !== null) { 
-    //         return <li> {link + ": " + props.profile.contacts.facebook +linkElement}</li> 
-       
-        
-    // }
-    
-    //  }
+    if (!props.userId) {
+        return (
+            <div>
+                <h1>Please Login</h1>
 
-     
+            </div>
+        )
+    }
 
     return (
         <div >

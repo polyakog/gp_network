@@ -12,8 +12,7 @@ let MyPosts = (props) => {
  
                 /* Обработка массива postData, чтобы исключить повторения команд. */
                 /* Автоматически данные заносятся в новый цикл "p" из массива "postData" */
-       
-    let postElements = props.postData.map (p => (<Post message={p.message} likeCount={p.likeCount} Name={p.Name} />) );
+    let postElements = props.postData.map(p => (<Post key={p.id} message={p.message} likeCount={p.likeCount} Name={p.Name} />) );
 
                 /* Создаем ссылку */
     let newPostElem = React.createRef ();
