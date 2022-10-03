@@ -1,8 +1,8 @@
 import React from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import css from './ProfileInfo.module.css';
-import { render } from '@testing-library/react';
 import jobLooker from '../../../assets/images/jobLooker.webp'
+import noPic from '../../../assets/images/noPic.jpg'
 
 
 
@@ -27,7 +27,7 @@ const ProfileInfo = (props) => {
             {/* Main pic */}
             <div className={css.avatar_description}>
                 <div className={css.avatar}>
-                    <img src={props.profile.photos.large} alt="" />
+                    <img src={!props.profile.photos.large ? noPic : props.profile.photos.large} alt="avatar" />
                 </div>
 
                 

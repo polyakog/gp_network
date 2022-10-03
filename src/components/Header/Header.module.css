@@ -33,6 +33,11 @@
     color: #ed151f;
 }
 
+.userData {
+    flex-grow: 1;
+   
+}
+
 .login {
     flex-grow: 1;
     color: beige;
@@ -55,4 +60,8 @@
 .userPhoto {
     border-radius: 25px;
     height: 50px;
+}
+
+.userName {
+    font-size: 11px;
 }

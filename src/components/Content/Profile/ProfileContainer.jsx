@@ -2,8 +2,9 @@ import React from "react";
 import Profile from "./Profile";
 import { connect } from 'react-redux/es/exports';
 import * as axios from "axios";
-import { setUserProfile } from './../../../redux/profile-reducer';
+import { profileToggleIsFetching, setUserProfile } from './../../../redux/profile-reducer';
 import { useParams } from "react-router-dom";
+import Preloader from './../../common/Preloader/Preloader';
 
 
 
@@ -11,19 +12,35 @@ import { useParams } from "react-router-dom";
 class ProfileContainer extends React.Component {
     
     componentDidMount (){
-        
+        this.props.profileToggleIsFetching(true)
         let userId = this.props.params.userId;
+        
         if (!userId) { userId = this.props.userId; }
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-            this.props.setUserProfile(response.data)
+        if (this.props.userId !==null) { 
+          
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId, {
+            withCredentials: true
+        })
+                .then(response => {
+                    
+                    this.props.setUserProfile(response.data)
+                    this.props.profileToggleIsFetching(false)
                 });
+
+       }
+       
+
     }
 
     render (){
             return (
-                <Profile {...this.props} profile={this.props.profile}/>
+
+                
+                    this.props.isFetching
+                        ? <Preloader />
+                        : <Profile {...this.props} profile={this.props.profile} />
+                
+                
         )
     }
     }
@@ -37,10 +54,11 @@ let WithUrlDataContainerComponent = (props) => {
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    isFetching: state.profilePage.isFetching,
 });
 
-    
 
-export default connect(mapStateToProps, { setUserProfile })(WithUrlDataContainerComponent);
+
+export default connect(mapStateToProps, { setUserProfile, profileToggleIsFetching })(WithUrlDataContainerComponent);
 

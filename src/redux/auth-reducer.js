@@ -52,7 +52,7 @@ export const setAuthUserData = (userId, email, login) => ({ type: SET_USER_DATA,
 
 export const setAuthUserPhoto = (userPhoto) => ({ type: SET_USER_PHOTO, userPhoto })
 
-export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
+export const authToggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 
 
 export default authReducer;

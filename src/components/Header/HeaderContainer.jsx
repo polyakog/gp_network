@@ -2,8 +2,7 @@ import React from "react";
 import { connect } from 'react-redux/es/exports';
 import * as axios from "axios";
 import Header from "./Header";
-import { setAuthUserData, setAuthUserPhoto } from './../../redux/auth-reducer';
-import { toggleIsFetching } from "../../redux/users-reducer";
+import { setAuthUserData, setAuthUserPhoto, authToggleIsFetching } from './../../redux/auth-reducer';
 import Preloader from "../common/Preloader/Preloader";
 import css from './Header.module.css';
 
@@ -12,7 +11,7 @@ import css from './Header.module.css';
 class HeaderContainer extends React.Component {
     
     componentDidMount (){
-        this.props.toggleIsFetching(true)
+        this.props.authToggleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
             withCredentials: true
         })
@@ -21,27 +20,20 @@ class HeaderContainer extends React.Component {
                 if (response.data.resultCode===0) {
                 let { id, email, login } = response.data.data;
                     this.props.setAuthUserData(id, email, login);
-                    this.props.toggleIsFetching(false)
-                                        }
 
-                             
-                });  
+                        let userId = this.props.userId;
+                        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
+                            .then(response => {
+                                this.props.setAuthUserPhoto(response.data.photos.small)
 
-    }
-
-    componentDidUpdate() {
-        
-            if (this.props.userId != null) {
-            let userId = this.props.userId;
-            axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-                .then(response => {
-                    this.props.setAuthUserPhoto(response.data.photos.small)
+                            })
                     
-                })
-        }
-        this.props.toggleIsFetching(false)
+                    this.props.authToggleIsFetching(false)
+                                        }
+            });  
+
     }
- 
+
 
     render (){
         
@@ -67,7 +59,7 @@ let mapStateToProps = (state) => ({
     
     });
 
-    
 
-export default connect(mapStateToProps, { setAuthUserData, setAuthUserPhoto, toggleIsFetching })(HeaderContainer);
+
+export default connect(mapStateToProps, { setAuthUserData, setAuthUserPhoto, authToggleIsFetching })(HeaderContainer);
 

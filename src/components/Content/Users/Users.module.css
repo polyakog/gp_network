@@ -28,44 +28,37 @@
     box-shadow: 2px 2px 4px 1px rgba(23, 40, 54, 0.412) inset;
 }
 
-.button button  {
+.button button {
     max-height: 50px;
-    width: 100px;
-
+    width: 120px;
     padding: 5px;
     font-size: 13px;
-
+    font-weight: bold;
+    color:white;
     border-width: 3px;
-    border-color: rgba(255, 217, 0, 0.2);
     border-style: outset;
-    background-color: rgba(218, 165, 32, 0.2);
-    border-radius: 5px;
+    border-radius: 25px;
+    margin-left: 10px;
+
+    border-color: #5eab45;
+    background: radial-gradient(circle,rgba(83, 243, 157, 0.774) 0%, rgb(35, 98, 64) 100%);
     box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.2);
-    margin-left: 10px;
-
 }
 
-.button button.activeButton {
-    max-height: 50px;
-    width: 100px;
+.button button.unfollow {
 
-    padding: 5px;
-    font-size: 13px;
-
-    border-width: 3px;
-    border-color: gold;
-    border-style: outset;
-    background-color: goldenrod;
-    border-radius: 5px;
-    box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.5);
-    margin-left: 10px;
-
-}
-.button button:hover {
     border-color: rgb(222, 99, 99);
-        background: radial-gradient(circle, rgba(222, 58, 58, 1) 0%, rgba(136, 7, 7, 1) 100%);
-        color: aliceblue;
-        font-weight: bold;
+    background: radial-gradient(circle, rgba(222, 58, 58, 1) 0%, rgba(136, 7, 7, 1) 100%);
+    box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.5);
+
+
+}
+
+.button button:hover {
+    border-color: gold;
+    background: goldenrod;
+    box-shadow: 2px 2px 3px 2px rgba(234, 219, 100, 0.5);
+    
 }
 
 .sectedPage {
