@@ -3,6 +3,7 @@ import css from './Users.module.css'
 import userPhoto from '../../../assets/images/noPic.jpg'
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import { usersAPI } from './../../../api/api';
 
 
 const Users =(props) => {
@@ -54,39 +55,21 @@ const Users =(props) => {
                                 ? <button className={css.unfollow} onClick={() => { 
                                    
                                     
-
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                        withCredentials: true,
-                                        headers: {
-                                            "API-KEY": "89e75385-5661-4b9f-a401-c56e8784e40b"
+                                    usersAPI.unfollowUsers(u.id).then (data =>{
+                                        if (data.resultCode === 0) {
+                                            props.unfollow(u.id)
                                         }
-                                    })
-                                        .then(response => {
-                                            if (response.data.resultCode == 0) {
-                                                props.unfollow(u.id)
+                                    });
 
-                                            }
-                                        });
-                                  
-
-
-
-                                }}>Unfollow {u.id}</button>
+                                    }}>Unfollow {u.id}</button>
 
                                 : <button className={css.follow} onClick={() => { 
                                     
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                        withCredentials: true,
-                                        headers: {
-                                            "API-KEY": "89e75385-5661-4b9f-a401-c56e8784e40b"
+                                    usersAPI.followUsers(u.id).then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.follow(u.id)
                                         }
-                                    })
-                                        .then(response => {
-                                            if (response.data.resultCode ==0) {
-                                                props.follow(u.id) 
-
-                                            }
-                                        });
+                                    });
 
                                 
                                 }}>Follow me! {u.id}</button>
