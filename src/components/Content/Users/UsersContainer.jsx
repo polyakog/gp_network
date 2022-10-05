@@ -1,11 +1,11 @@
 import React from 'react';
-import * as axios from "axios";
-import { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching } from '../../../redux/users-reducer';
 import { connect } from 'react-redux/es/exports';
-import Users from './Users';
-import Preloader from './../../common/Preloader/Preloader'
-import css from './Users.module.css'
+import { follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unfollow, toggleFollowingProgess } from '../../../redux/users-reducer';
 import { usersAPI } from './../../../api/api';
+import Preloader from './../../common/Preloader/Preloader';
+import Users from './Users';
+import css from './Users.module.css';
+
 
 
 class UsersContainer extends React.Component {
@@ -44,6 +44,8 @@ class UsersContainer extends React.Component {
                     users={this.props.users}
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
+                    toggleFollowingProgess={this.props.toggleFollowingProgess}
+                    followingInProgress={this.props.followingInProgress}
                 />}
                        
                 </div>
@@ -58,10 +60,11 @@ let mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         slicePage: state.usersPage.slicePage,
         isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress,
 
     }
 }
 
-const UsersContainer2 = connect(mapStateToProps, { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching })(UsersContainer)
+const UsersContainer2 = connect(mapStateToProps, { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowingProgess  })(UsersContainer)
 
 export default UsersContainer2;

@@ -61,6 +61,11 @@
     
 }
 
+.button button:disabled {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+
 .sectedPage {
     font-weight: bold;
 }
