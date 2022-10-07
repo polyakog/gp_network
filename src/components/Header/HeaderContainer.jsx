@@ -5,48 +5,48 @@ import Header from "./Header";
 import { setAuthUserData, setAuthUserPhoto, authToggleIsFetching } from './../../redux/auth-reducer';
 import Preloader from "../common/Preloader/Preloader";
 import css from './Header.module.css';
+import { usersAPI } from "../../api/api";
 
 
 
 class HeaderContainer extends React.Component {
-    
-    componentDidMount (){
+
+    componentDidMount() {
+
         this.props.authToggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
-            .then(response => {
-                
-                if (response.data.resultCode===0) {
-                let { id, email, login } = response.data.data;
+        usersAPI.authUsers()
+            .then(data => {
+
+                if (data.resultCode === 0) {
+                    let { id, email, login } = data.data;
                     this.props.setAuthUserData(id, email, login);
 
-                        let userId = this.props.userId;
-                        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-                            .then(response => {
-                                this.props.setAuthUserPhoto(response.data.photos.small)
+                    let userId = this.props.userId;
+                    usersAPI.userData(userId)
+                        .then(data => {
+                            this.props.setAuthUserPhoto(data.photos.small)
 
-                            })
-                    
+                        })
+
                     this.props.authToggleIsFetching(false)
-                                        }
-            });  
+                }
+            });
 
     }
 
 
-    render (){
-        
+    render() {
+
         return (<div className={css.header}>
-                {this.props.isFetching
-                    ? <Preloader/>
-                : <Header {...this.props}/>
-                }
-            </div>
-                
+            {this.props.isFetching
+                ? <Preloader />
+                : <Header {...this.props} />
+            }
+        </div>
+
         )
     }
-    }
+}
 
 
 
@@ -56,8 +56,8 @@ let mapStateToProps = (state) => ({
     isFetching: state.auth.isFetching,
     userId: state.auth.userId,
     userPhoto: state.auth.userPhoto
-    
-    });
+
+});
 
 
 
