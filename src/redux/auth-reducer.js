@@ -1,3 +1,5 @@
+import { authAPI, usersAPI } from "../api/api";
+
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_USER_PHOTO = 'SET_USER_PHOTO'
@@ -22,7 +24,7 @@ const authReducer = (state = initialState, action) => {
                 ...action.data,
                 isAuth: true
             };
-debugger
+
         case SET_USER_PHOTO:
             return {
                 ...state,
@@ -56,3 +58,22 @@ export const authToggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING,
 
 
 export default authReducer;
+
+export const getAuthUserData = (userId) => (dispatch) => {
+        dispatch(authToggleIsFetching(true));
+        authAPI.me().then(data => {
+
+        if (data.resultCode === 0) {
+        let { id, email, login } = data.data;
+        dispatch(setAuthUserData(id, email, login));
+        
+        /* запрос фото пользователя */
+        usersAPI.getProfile(userId)
+        .then(data => {
+        dispatch(setAuthUserPhoto(data.photos.small));
+        dispatch(authToggleIsFetching(false));
+        })
+       
+            }
+        });
+    }

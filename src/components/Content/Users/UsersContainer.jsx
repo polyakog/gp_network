@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux/es/exports';
-import { follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unfollow, toggleFollowingProgess } from '../../../redux/users-reducer';
-import { usersAPI } from './../../../api/api';
+import { follow, setCurrentPage, unfollow, getUsers } from '../../../redux/users-reducer';
+
 import Preloader from './../../common/Preloader/Preloader';
 import Users from './Users';
 import css from './Users.module.css';
@@ -11,24 +11,14 @@ import css from './Users.module.css';
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(101)
-            });
 
-    }
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+          }
 
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
- 
-        });
-
+        this.props.getUsers(pageNumber, this.props.pageSize) /* - thunk  */
+      
     }
 
     render() {
@@ -65,6 +55,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-const UsersContainer2 = connect(mapStateToProps, { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowingProgess  })(UsersContainer)
+
+const UsersContainer2 = connect(mapStateToProps, { setCurrentPage, follow, unfollow, getUsers  })(UsersContainer)
 
 export default UsersContainer2;

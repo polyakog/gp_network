@@ -41,16 +41,7 @@ export const usersAPI = {
 
     },
 
-    authUsers () {
-        return instance.get(`auth/me`)
-            .then(response => {
-
-                    return response.data
-                });
-
-    },
-
-    userData(userId) {
+    getProfile(userId) {
         return instance.get(`profile/` + userId)
             .then(response => {
 
@@ -58,12 +49,16 @@ export const usersAPI = {
             });
 
     },
+}
 
-    
+export const authAPI = {
+    me () {
+        return instance.get(`auth/me`)
+            .then(response => {
 
-
-
-
+                return response.data
+            });
+    }
 
 }
 
