@@ -2,6 +2,7 @@ import React from 'react';
 import css from './Dialogs.module.css';
 import DialogItem from './DialogItems/DialogItems';
 import MessageItem from './MessageItems/MessageItems';
+import { Navigate } from 'react-router-dom';
 
 
                      /* Выполнение UI (user Interface) */
@@ -24,6 +25,8 @@ let onMessageChange = (e) => {
     props.updateNewMessageText(text);
 }
         
+    if (!props.isAuth) return <Navigate to='/login'/>
+
         return (
             <div className={css.wrapper} >
                 <h2> Dialog window</h2>

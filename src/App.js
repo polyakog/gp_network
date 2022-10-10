@@ -8,6 +8,7 @@ import Settings from './components/Content/Settings/Settings';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import NavContainer from './components/Nav/NavContainer';
 import UsersContainer2 from './components/Content/Users/UsersContainer';
+import Login from './components/Login/Login';
 
 
 
@@ -29,7 +30,7 @@ const App = (props) => {
           
           {/* <Route path='profile' element={<ProfileContainer/>} > */}
           <Route path='profile' element={<ProfileContainer/>} >
-              <Route path=':userId' element={<ProfileContainer/>} />
+            <Route path=':userId' element={<ProfileContainer/>} />
           </Route>
           <Route path='dialogs/*' element={<DialogsContainer />} />
           <Route path='news' element={<News />} />
@@ -37,6 +38,9 @@ const App = (props) => {
           <Route path='users' element={<UsersContainer2 />}/>
 
           <Route path='settings' element={<Settings />} />
+          <Route path='login' element={<Login />} />
+          
+
         </Routes>
       </div>
 
