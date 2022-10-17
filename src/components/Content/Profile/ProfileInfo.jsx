@@ -13,14 +13,6 @@ const ProfileInfo = (props) => {
         return <Preloader />
     }
 
-    if (!props.userId) {
-        return (
-            <div>
-                <h1>Please Login</h1>
-
-            </div>
-        )
-    }
 
     return (
         <div >

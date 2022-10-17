@@ -59,6 +59,8 @@ export const authToggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING,
 
 export default authReducer;
 
+
+    /* Thunk */
 export const getAuthUserData = (userId) => (dispatch) => {
         dispatch(authToggleIsFetching(true));
         authAPI.me().then(data => {

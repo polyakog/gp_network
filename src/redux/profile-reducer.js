@@ -81,7 +81,7 @@ export const getUserProfile = (userId) => {
     return (dispatch) => {
         dispatch(profileToggleIsFetching(true));
 
-                                                   
+                                                  
         usersAPI.getProfile(userId)
                 .then(data => {
                     dispatch(setUserProfile(data));

@@ -22,7 +22,8 @@ class HeaderContainer extends React.Component {
 
         return (<div className={css.header}>
             {this.props.isFetching
-                ? <Preloader />
+                // ? <Preloader />
+                ? <Header {...this.props} />
                 : <Header {...this.props} />
             }
         </div>

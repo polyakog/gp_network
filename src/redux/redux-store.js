@@ -9,11 +9,12 @@ import ThunkMiddleware from "redux-thunk";
 
 
 let reducers = combineReducers({
+    auth: authReducer,
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
-    auth: authReducer,
+    
 }); 
 
 const store = createStore(reducers, applyMiddleware(ThunkMiddleware));
