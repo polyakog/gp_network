@@ -6,6 +6,7 @@ import Preloader from './../../common/Preloader/Preloader';
 import Users from './Users';
 import css from './Users.module.css';
 import { withAuthRedirect } from './../../../hoc/withAuthRedirect';
+import compose from './../Dialogs/DialogsContainer';
 
 
 
@@ -56,4 +57,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default withAuthRedirect(connect(mapStateToProps, { setCurrentPage, follow, unfollow, getUsers  })(UsersContainer));
+export default compose (
+    connect(mapStateToProps, { setCurrentPage, follow, unfollow, getUsers }),
+    withAuthRedirect
+)(UsersContainer);
