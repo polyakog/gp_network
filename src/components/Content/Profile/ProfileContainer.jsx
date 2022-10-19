@@ -2,11 +2,11 @@ import React from "react";
 import Profile from "./Profile";
 import { connect } from 'react-redux/es/exports';
 import { getUserProfile } from './../../../redux/profile-reducer';
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import Preloader from './../../common/Preloader/Preloader';
 import { withAuthRedirect } from './../../../hoc/withAuthRedirect';
-import { compose } from "redux";
-import { withRouter } from "../../../hoc/withRouter";
+
+
 
 
 
@@ -44,9 +44,7 @@ let mapStateToProps = (state) => ({
     
 });
 
-export default compose (
-    connect(mapStateToProps, { getUserProfile }),
-    withRouter,
-    withAuthRedirect /* HOC */
-) (ProfileContainer)
+let WithUrlDataContainerComponent = (props) => {return <AuthRedirectComponent {...props} params={useParams()} />}
+
+export default connect(mapStateToProps, { getUserProfile })(WithUrlDataContainerComponent);
 
