@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux/es/exports';
 import { follow, setCurrentPage, unfollow, getUsers } from '../../../redux/users-reducer';
-
 import Preloader from './../../common/Preloader/Preloader';
 import Users from './Users';
 import css from './Users.module.css';
 import { withAuthRedirect } from './../../../hoc/withAuthRedirect';
-import compose from './../Dialogs/DialogsContainer';
+import { compose } from 'redux';
 
 
 
