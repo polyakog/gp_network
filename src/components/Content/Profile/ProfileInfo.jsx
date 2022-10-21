@@ -3,6 +3,9 @@ import Preloader from "../../common/Preloader/Preloader";
 import css from './ProfileInfo.module.css';
 import jobLooker from '../../../assets/images/jobLooker.webp'
 import noPic from '../../../assets/images/noPic.jpg'
+import ProfileStatus from './ProfileStatus';
+import { getAuthUserData } from './../../../redux/auth-reducer';
+
 
 
 
@@ -16,12 +19,18 @@ const ProfileInfo = (props) => {
 
     return (
         <div >
-            {/* Main pic */}
+            
             <div className={css.avatar_description}>
                 <div className={css.avatar}>
                     <img src={!props.profile.photos.large ? noPic : props.profile.photos.large} alt="avatar" />
+                <div> 
+                    My status:
+                     <ProfileStatus status={'hello'}/>
+                </div>
+                
                 </div>
 
+                
                 
 
                 <div className={css.description}>
