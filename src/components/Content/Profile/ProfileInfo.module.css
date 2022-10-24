@@ -81,20 +81,41 @@
     opacity: 30%;
 }
 
-i {
+
+
+.status {
+
+    display: flex;
+    padding: 5px;
+}
+
+.status button {
+    font-size: 16px;
+    border-width: 3px;
+    border-color: gold;
+    border-style: outset;
+    background-color: goldenrod;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.472);
+
+    margin-left: 5px;
+    height: 40px;
+}
+
+.status button i {
     font-size: 25px;
     font-style: normal;
     color: rgb(110, 6, 6);
     font-weight: bold;
 }
 
-.status {
-    display: flex;
-    padding: 5px;      
+.status button:hover {
+    border-color: rgb(222, 99, 99);
+    background: radial-gradient(circle, rgba(222, 58, 58, 1) 0%, rgba(136, 7, 7, 1) 100%);
+    color: aliceblue;
+    font-weight: bold;
 }
 
-.status button {
-    margin-left: 5px;
-    border-radius: 10px;
-    height: 40px;
+.status button:hover i {
+    color: white;
 }
