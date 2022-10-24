@@ -1,9 +1,10 @@
-import { usersAPI } from './../api/api';
+import { profileAPI, usersAPI } from './../api/api';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const SET_STATUS = 'SET_STATUS'
 
 let initialState = {
     postData: [
@@ -18,6 +19,7 @@ let initialState = {
     newPostText: 'Enter your first post ',
     profile: null,
     isFetching: false,
+    status: null,
     
 };
 
@@ -56,8 +58,11 @@ const profileReducer = (state = initialState, action) => {
             }
         }
 
-                
-             
+        case SET_STATUS: {
+            return { ...state, status: action.status }
+        }
+
+                             
     
         default:
             return state;
@@ -73,6 +78,7 @@ export const addPostActionCreator = () => ( {type: ADD_POST })
 export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const profileToggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
+export const setStatus = (status) => ({ type: SET_STATUS, status })
 
 export default profileReducer
 
@@ -93,3 +99,24 @@ export const getUserProfile = (userId) => {
 
     }
 
+/* thunk */
+export const getUserStatus = (userId) => {
+    return (dispatch) => {
+        profileAPI.getStatus(userId)
+            .then(response => {
+                dispatch(setStatus(response.data));
+                });
+    }
+}
+
+
+/* thunk */
+export const updateUserStatus = (status) => {
+    return (dispatch) => {
+        profileAPI.updateStatus(status)
+            .then(response => {
+                if (response.data.resultCode===0)
+                    dispatch(setStatus(status));
+            });
+    }
+}
