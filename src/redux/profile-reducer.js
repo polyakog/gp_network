@@ -1,51 +1,30 @@
 import { profileAPI, usersAPI } from './../api/api';
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 const SET_STATUS = 'SET_STATUS'
 
 let initialState = {
     postData: [
-        { id: 1, message: 'Very interesting', likeCount: 21, Name: 'Alexey' },
-        { id: 2, message: 'How to add data?', likeCount: 2, Name: 'Anton' },
-        // { id: 3, message: 'finally. It is a new good network', likeCount: 51, Name: 'Peter' },
-        // { id: 4, message: "I'm agree", likeCount: 41, Name: 'Martin' },
-        // { id: 5, message: 'We can share info here', likeCount: 44, Name: 'Alexey' },
-        // { id: 6, message: 'I will upload all data', likeCount: 53, Name: 'Gennadij' }
-    ],
-
-    newPostText: 'Enter your first post ',
+        { id: 1, postId:1, message: 'Very interesting', likeCount: 21, Name: 'Alexey' },
+        { id: 2, postId:2, message: 'How to add data?', likeCount: 2, Name: 'Anton' },
+         ],
     profile: null,
     isFetching: false,
     status: null,
     
 };
 
-
 const profileReducer = (state = initialState, action) => {
-    
     switch (action.type) {
         case ADD_POST: {
-            let newPost = {
-                id: 7,
-                message: state.newPostText,
-                likeCount: 0,
-                Name: 'Michail'
-            };
-            let stateCopy = {...state};
-            stateCopy.postData = [...state.postData] 
-            stateCopy.postData.push(newPost);
-            stateCopy.newPostText = 'Enter your next post';
-            return stateCopy; 
+            let postId = state.postData.length+1
+            return {
+                ...state,
+                postData: [...state.postData, { id: 3, postId: postId, message: action.newPostText, likeCount: 0, Name: 'Michail'} ]
+            }                     
         }   
-
-        case UPDATE_NEW_POST_TEXT: {
-            let stateCopy = { ...state };
-            stateCopy.newPostText = action.newText;
-            return stateCopy;
-        }
 
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
@@ -74,8 +53,7 @@ const profileReducer = (state = initialState, action) => {
 }
 
 /* Создание объектов action */
-export const addPostActionCreator = () => ( {type: ADD_POST })
-export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text })
+export const addPostActionCreator = (newPostText) => ({ type: ADD_POST, newPostText })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const profileToggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 export const setStatus = (status) => ({ type: SET_STATUS, status })

@@ -9,7 +9,7 @@ const Login = (props) => {
     }
 
     return <div className={css.wrapper}>
-        <h2>Login Form</h2>
+        <h2>Login</h2>
         <div>
             <LoginReduxForm onSubmit={onSubmit}/>
         </div>
@@ -18,17 +18,16 @@ const Login = (props) => {
 
 const LoginForm =(props) => {
     
-    // const {handleSubmit} = props
-    // return <form onSubmit={props.onSubmit(handleSubmit)}>
     return <form onSubmit={props.handleSubmit}> 
         <div>
-            <label >Login:</label>
+            <label >LOGIN</label>
             <div>
               <Field name='login' component='input' type='text' placeholder="your login name"/>  
+              <p></p>
             </div>
         </div>
         <div>
-            <label >Password:</label>
+            <label >PASSWORD</label>
             <div>
                 <Field name='password' component='input' type='text' placeholder="your password" />
             </div>

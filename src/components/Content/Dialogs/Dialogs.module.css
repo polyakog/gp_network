@@ -97,13 +97,7 @@ h2 {
     font-weight: bold;
 }
 
-.newMessageButton:hover {
 
-    border-color: rgb(222, 99, 99);
-    background: radial-gradient(circle, rgba(222, 58, 58, 1) 0%, rgba(136, 7, 7, 1) 100%);
-    color: aliceblue;
-    font-weight: bold;
-}
 
 .addMessage {
     display: grid;
@@ -111,6 +105,10 @@ h2 {
     margin-top: 20px;
     text-align: center;
     gap: 10px;
+}
+
+.onSendMessageClick {
+    margin-top: 15px;
 }
 
 .newMessageButton {
@@ -129,7 +127,25 @@ h2 {
 
 }
 
-.NewMessagetText {
-    padding: 5px;
-    font-size: 13px;
+.newMessageButton:hover {
+
+    border-color: rgb(222, 99, 99);
+    background: radial-gradient(circle, rgba(222, 58, 58, 1) 0%, rgba(136, 7, 7, 1) 100%);
+    color: aliceblue;
+    font-weight: bold;
 }
+
+
+
+.NewMessagetTextarea {
+    padding: 10px;
+    font-size: 13px;
+    border-radius: 5px;
+
+    background-color: rgba(237, 244, 241, 0.928);
+        color: rgb(25, 20, 20);
+        border: solid 3px rgba(2, 36, 20, 0.861);
+        border-style: inset;
+        box-shadow: 5px 4px 3px -2px rgba(34, 60, 80, 0.3) inset;
+}
+

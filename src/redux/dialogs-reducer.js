@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
 
 let initialState = {
@@ -8,51 +7,34 @@ let initialState = {
         { id: 2, name: "Sergey" },
         { id: 3, name: "Alexey" },
         { id: 4, name: "Anton" },
-        { id: 5, name: "Dhaval" },
+        { id: 5, name: "Jhon" },
         { id: 6, name: "David" }
     ],
 
     messageData: [
-        { id: 2, name: "Sergey", text: "Hi, I have a request from the customer" },
-        { id: 1, name: "Gennadij", text: "happy to hear" },
-        { id: 2, name: "Sergey", text: "What is your plans?" },
-        { id: 1, name: "Gennadij", text: "preparation" }
+        { id: 2, idMessage: 1, name: "Sergey", text: "Hi, I have a request from the customer" },
+        { id: 1, idMessage: 2, name: "Gennadij", text: "happy to hear" },
+        { id: 2, idMessage: 3, name: "Sergey", text: "What is your plans?" },
+        { id: 1, idMessage: 4, name: "Gennadij", text: "preparation" }
     ],
 
-    newMessageText: '',
 };
 
 const dialogsReducer = (state = initialState, action) => {
 
        
     switch (action.type) {
+        
         case ADD_MESSAGE: 
-            let newMessage = {
-                id: 1,
-                name: "Gennadij",
-                text: state.newMessageText
-            };
+        
+            
+            let idMessage = state.messageData.length+1
 
-            // stateCopy={...state};
-                /* Разные способы добавления: */
-                /* 1 способ - через пуш */
-            // stateCopy.messageData=[...state.messageData];
-            // stateCopy.messageData.push(newMessage);
-                /* 2 способ - через конкат */
-            // stateCopy.messageData = state.messageData.concat (newMessage);
-                /* 3 способ - просто добавить в нужное место newMessage */
             return { ...state,
-                newMessageText: 'next message',
-                messageData: [...state.messageData, newMessage]           
+                messageData: [...state.messageData, { id: 1, idMessage: idMessage, name: "Gennadij",  text: action.newText}]           
             };
             
-             
-
-        case UPDATE_NEW_MESSAGE_TEXT: 
-            return { ...state,
-            newMessageText: action.newText
-            };
-    
+       
         default:
             return state;
     }
@@ -61,10 +43,7 @@ const dialogsReducer = (state = initialState, action) => {
 }
 
             /* Создание объектов action */
-export const sendMessageActionCreator = () => ({ type: ADD_MESSAGE })
-
-export const updateNewMessageTextActionCreator = (text) =>
-    ({ type: UPDATE_NEW_MESSAGE_TEXT, newText: text })
+export const sendMessageActionCreator = (newText) => ({ type: ADD_MESSAGE, newText })
 
 
 export default dialogsReducer
