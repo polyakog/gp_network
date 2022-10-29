@@ -21,4 +21,5 @@ button:hover {
     background: radial-gradient(circle, rgba(222, 58, 58, 1) 0%, rgba(136, 7, 7, 1) 100%);
     color: aliceblue;
     font-weight: bold;
+    cursor: url(../Content/Settings/Cursors/DeCody/arrow.cur), auto;
 }

@@ -29,10 +29,10 @@
     margin-top: 5px;
 
     /* border-color: rgba(34, 60, 80, 0.271); */
-    background-color: rgb(250, 249, 247);
+    background-color: rgb(234, 190, 155);
     border-style:inset;
-    border-width: 5px;
-    border-color: rgb(98, 64, 39);
+    
+    border: solid 3px rgb(98, 64, 39);
 
     padding: 5px;
     box-shadow: 2px 2px 4px 1px rgba(23, 40, 54, 0.412) inset;
@@ -42,8 +42,6 @@
 
 /* .Item::before {
     content: '';
-
-
 
     border-radius: 100% 50%;
     width: 30%;

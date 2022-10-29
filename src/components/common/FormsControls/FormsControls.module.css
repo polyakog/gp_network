@@ -1,0 +1,39 @@
+:root {
+    --redC: rgb(173, 15, 15);
+}
+
+.errorSpan {
+    display: flex;
+    text-align: start;
+    margin: 0 0 10px 50px;
+    color: var(--redC);
+    font-weight: bold;
+
+}
+
+.label{
+    display: flex;
+text-align: start;
+margin-left: 5px;
+}
+
+.Textarea {
+    display: flex;
+    justify-content: center;
+    width: 99%;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+div.errorTextarea {
+    margin-top: 5px;
+    display: flex;
+    border: solid 2px var(--redC);
+    border-radius: 10px;
+    overflow: hidden;
+    
+   }
+
+
+

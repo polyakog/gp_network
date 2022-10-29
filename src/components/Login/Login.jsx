@@ -4,7 +4,9 @@ import { Field, reduxForm } from 'redux-form'
 
 
 const Login = (props) => {
+   
     const onSubmit= (formData) => {
+        debugger
         console.log(formData)
     }
 

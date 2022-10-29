@@ -1,21 +1,33 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
+import { required, maxLengthCreator, minLengthCreator } from "../../../utils/validators";
+import { Textarea } from "../../common/FormsControls/FormsControls";
 import css from './MyPosts.module.css';
 import Post from './Post/Post';
 
+let maxLength10 = maxLengthCreator(10);
+let minLength2 = minLengthCreator(2);
 
-
-const AddnewPostForm = (props) => {
+let AddnewPostForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={css.NewPost}>
-            <Field component='textarea' name='newPostText' className={css.NewPostText} rows="4" placeholder='Enter your post' />
+            <Field
+                name='newPostText'
+                type='text'
+                component={Textarea}
+                label='Add your post here:'
+                placeholder='Enter your post'  
+                rows="4"                            
+                validate={[required, maxLength10, minLength2]}
+                
+            />
             {/* Запускаем функцию addPost при нажатии "onClick" */}
             <button className={css.addPostButton}>Add post</button>
         </form>
     )
 }
 
-AddnewPostForm = reduxForm({ form: 'ProfileAddNewPostForm' })(AddnewPostForm)
+const AddnewPostFormRedux = reduxForm({ form: 'ProfileAddNewPostForm' })(AddnewPostForm)
 
 
 
@@ -28,7 +40,7 @@ let MyPosts = (props) => {
     /* Создаем команды на клик кнопки */
 
     const onAddPost = (value) => {
-        
+        debugger
         return (
             props.addPost(value.newPostText)
         )
@@ -38,7 +50,7 @@ let MyPosts = (props) => {
         <div className={css.postsBlock}>
 
             <h3>My posts</h3>
-            <AddnewPostForm onSubmit={onAddPost} />
+            <AddnewPostFormRedux onSubmit={onAddPost} />
             {/* Визуализация самих постов */}
             <div className={css.posts}>
                 {postElements}

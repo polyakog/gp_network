@@ -18,35 +18,12 @@
     gap: 10px;
 }
 
-.NewPostText {
-    padding: 5px;
-    font-size: 14px;
-
-}
 
 .addPostButton {
-    max-height: 40px;
-
-    padding: 10px;
-    font-size: 14px;
-
-    border-width: 3px;
-    border-color: gold;
-    border-style: outset;
-    background-color: goldenrod;
-    border-radius: 5px;
-    box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.472);
+    padding: 5px;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-top: 25px;
 
 }
 
-.addPostButton:hover {
-
-    border-color: rgb(222, 99, 99);
-    background: radial-gradient(circle, rgba(222, 58, 58, 1) 0%, rgba(136, 7, 7, 1) 100%);
-    color: aliceblue;
-    font-weight: bold;
-   
-
-    /* cursor: url(../Settings/Cursors/Umbrella/Link.cur),auto; */
-    
-}
