@@ -2,19 +2,11 @@
     --redC: rgb(173, 15, 15);
 }
 
-.errorSpan {
+
+.label {
     display: flex;
     text-align: start;
-    margin: 0 0 10px 50px;
-    color: var(--redC);
-    font-weight: bold;
-
-}
-
-.label{
-    display: flex;
-text-align: start;
-margin-left: 5px;
+    margin-left: 5px;
 }
 
 .Textarea {
@@ -32,8 +24,23 @@ div.errorTextarea {
     border: solid 2px var(--redC);
     border-radius: 10px;
     overflow: hidden;
-    
-   }
 
+}
 
+.warningWrap {
+    margin: 5px 50px;
+    display: flex;
+    align-items: center;
+}
 
+.signPic {
+    height: 20px;
+}
+
+.errorSpan {
+    margin-left: 5px;
+    text-align: start;
+    color: var(--redC);
+    font-weight: bold;
+
+}

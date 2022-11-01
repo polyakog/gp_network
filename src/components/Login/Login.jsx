@@ -8,13 +8,13 @@ import { Input } from "../common/FormsControls/FormsControls";
 const Login = (props) => {
 
     const onSubmit = (formData) => {
-        debugger
+        
         console.log(formData)
     }
 
-    return <div className={css.wrapper}>
-        <h2>Login</h2>
-        <div>
+    return <div >
+        
+        <div >
             <LoginReduxForm onSubmit={onSubmit} />
         </div>
     </div>
@@ -24,9 +24,9 @@ const LoginForm = (props) => {
     const maxLength15 = maxLengthCreator(15)
     const maxLength20 = maxLengthCreator(20)
     
-    return <form onSubmit={props.handleSubmit}>
-        <div>
-            {/* <label >LOGIN</label> */}
+    return <form className={css.loginForm} onSubmit={props.handleSubmit}>
+        <div >
+            <h2 className={css.formHead}>Login</h2>
             <div>
                 <Field
                     name='login'
@@ -41,9 +41,7 @@ const LoginForm = (props) => {
             </div>
         </div>
         <div>
-            {/* <label >PASSWORD</label> */}
             <div>
-                
                 <Field
                     name='password'
                     label='PASSWORD'
@@ -55,6 +53,7 @@ const LoginForm = (props) => {
             </div>
 
         </div>
+        <p></p>
         <div>
             <Field
                 name='rememberMe'

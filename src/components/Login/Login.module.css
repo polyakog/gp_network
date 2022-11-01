@@ -1,5 +1,17 @@
-h2 {
-    color: #ed151f;
+.loginForm {
+    width: 50%;
+    border: double 3px var(--redC);
+    border-radius: 10px;
+    margin: 50px 10% 20px;
+    padding: 0px 25px 15px 15px;
+    box-shadow: 11px 11px 8px 3px rgba(34, 60, 80, 0.8);
+    background-color: rgba(52, 158, 142, 0.5);
+    
+}
+
+h2.formHead {
+    color: var(--redC);
+    
 }
 
 
