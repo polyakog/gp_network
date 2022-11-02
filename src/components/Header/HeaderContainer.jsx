@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux/es/exports';
 import Header from "./Header";
-import { getAuthUserData } from './../../redux/auth-reducer';
-import Preloader from "../common/Preloader/Preloader";
+import { getAuthUserData, logout } from './../../redux/auth-reducer';
 import css from './Header.module.css';
 
 
@@ -21,11 +20,15 @@ class HeaderContainer extends React.Component {
     render() {
 
         return (<div className={css.header}>
-            {this.props.isFetching
+
+            
+            <Header {...this.props} /> 
+
+            {/* {this.props.isFetching
                 // ? <Preloader />
                 ? <Header {...this.props} />
                 : <Header {...this.props} />
-            }
+            } */}
         </div>
 
         )
@@ -37,13 +40,12 @@ class HeaderContainer extends React.Component {
 let mapStateToProps = (state) => ({
     login: state.auth.login,
     isAuth: state.auth.isAuth,
-    isFetching: state.auth.isFetching,
+    // isFetching: state.auth.isFetching,
     userId: state.auth.userId,
     userPhoto: state.auth.userPhoto
 
 });
 
 
-
-export default connect(mapStateToProps, { getAuthUserData })(HeaderContainer);
+export default connect(mapStateToProps, { getAuthUserData, logout })(HeaderContainer);
 
