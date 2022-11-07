@@ -1,17 +1,17 @@
 .loginForm {
     width: 50%;
-    border: double 3px var(--redC);
+    border: double 3px var(--greenC);
     border-radius: 10px;
     margin: 50px 10% 20px;
     padding: 0px 25px 15px 15px;
     box-shadow: 11px 11px 8px 3px rgba(34, 60, 80, 0.8);
     background-color: rgba(52, 158, 142, 0.5);
-    
+
 }
 
 h2.formHead {
     color: var(--redC);
-    
+
 }
 
 
@@ -34,4 +34,35 @@ button:hover {
     color: aliceblue;
     font-weight: bold;
     cursor: url(../Content/Settings/Cursors/DeCody/arrow.cur), auto;
+}
+
+.formError {
+    margin: 5px 50px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+
+    display: flex;
+    border: solid 2px var(--redC);
+    border-radius: 10px;
+    text-align: start;
+    color: var(--redC);
+    font-weight: bold;
+}
+
+.errorSignPic {
+    height: 20px;
+}
+
+.errorSpan {
+    margin-left: 5px;
+}
+
+.errorField {
+    margin-top: 5px;
+    border: solid 2px var(--redC);
+    background-color: rgba(255, 0, 0, 0.328);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 101%;
 }

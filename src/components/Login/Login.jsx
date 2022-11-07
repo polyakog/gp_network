@@ -1,11 +1,13 @@
 import React from "react";
 import css from '../Login/Login.module.css'
+
 import { Field, reduxForm } from 'redux-form'
 import { maxLengthCreator, required } from "../../utils/validators";
 import { Input } from "../common/FormsControls/FormsControls";
 import { connect } from 'react-redux/es/exports';
 import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
+import sign from "./../../assets/images/sign4.jpg"
 
 
 const Login = (props) => {
@@ -34,7 +36,7 @@ const LoginForm = (props) => {
 
     return <form className={css.loginForm} onSubmit={props.handleSubmit}>
         <h2 className={css.formHead}>Login</h2>
-        <div>
+        <div className={props.error ? css.errorField : ''}>
             <Field
                 name='email'
                 label='LOGIN'
@@ -45,7 +47,7 @@ const LoginForm = (props) => {
             />
         </div>
         <p></p>
-        <div>
+        <div className={props.error ? css.errorField : ''}>
             <Field
                 name='password'
                 label='PASSWORD'
@@ -64,6 +66,15 @@ const LoginForm = (props) => {
             />
             remember me
         </div>
+    {props.error &&
+    <div className={css.formError}>
+            <img className={css.errorSignPic} src={sign} alt="" />
+            <span className={css.errorSpan}> {props.error} </span>
+        </div>
+        
+    }
+        
+
         <div>
             <button className={css.loginButton} >Login</button>
         </div>
