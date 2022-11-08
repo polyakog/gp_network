@@ -12,25 +12,19 @@ const Users = (props) => {
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
-
     }
 
     return (
         <div >
-
             <div>
                 {pages.map(p => {
                     return <span key={p} className={props.currentPage === p ? css.sectedPage : ""}
                         onClick={() => { props.onPageChanged(p); }}>{p}  </span>
                 })
                 }
-
             </div>
-
             <div>
-                {
-                    props.users.map(u => <div key={u.id} className={css.usersElement}>
-
+                {props.users.map(u => <div key={u.id} className={css.usersElement}>
 
                         <div >
                             <NavLink to={"/profile/" + u.id} >
@@ -40,8 +34,6 @@ const Users = (props) => {
                                         : userPhoto} className={css.imageUsers} />
                             </NavLink>
                         </div>
-
-
                         <div className={css.usersData}>
                             <div>Name: {u.name}</div>
                             <div>ID:{u.id}</div>
@@ -62,17 +54,10 @@ const Users = (props) => {
                                     onClick={() => { props.follow(u.id) }}>
                                     Follow me! {u.id}</button>
                             }
-
                         </div>
-
-
                     </div>
-
                     )
                 }
-
-
-
             </div>
         </div>
 

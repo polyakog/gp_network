@@ -6,7 +6,7 @@ import { getUserProfile, getUserStatus, updateUserStatus } from './../../../redu
 import Preloader from './../../common/Preloader/Preloader';
 import { withAuthRedirect } from './../../../hoc/withAuthRedirect';
 import { compose } from "redux";
-import { withRouter } from "../../../hoc/withRouter";
+import { WithRouter } from "../../../hoc/WithRouter";
 
 
 
@@ -17,7 +17,7 @@ class ProfileContainer extends React.Component {
     componentDidMount (){
 
         let userId = this.props.params.userId;
-        if (!userId) { userId = 26059; }
+        if (!userId) { userId = this.props.userId; }
        
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)    
@@ -50,13 +50,14 @@ let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     isFetching: state.profilePage.isFetching,
     status: state.profilePage.status,
+    userId: state.auth.userId
     
 });
 
 
 export default compose (
     connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus}),
-    withRouter,
+    WithRouter,
     withAuthRedirect
 )(ProfileContainer);
 

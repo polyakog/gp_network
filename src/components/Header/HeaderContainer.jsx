@@ -23,12 +23,7 @@ class HeaderContainer extends React.Component {
 
             
             <Header {...this.props} /> 
-
-            {/* {this.props.isFetching
-                // ? <Preloader />
-                ? <Header {...this.props} />
-                : <Header {...this.props} />
-            } */}
+           
         </div>
 
         )
@@ -40,7 +35,6 @@ class HeaderContainer extends React.Component {
 let mapStateToProps = (state) => ({
     login: state.auth.login,
     isAuth: state.auth.isAuth,
-    // isFetching: state.auth.isFetching,
     userId: state.auth.userId,
     userPhoto: state.auth.userPhoto
 
