@@ -1,5 +1,5 @@
 import { stopSubmit } from "redux-form";
-import { authAPI, usersAPI } from "../api/api";
+import { authAPI, profileAPI} from "../api/api";
 
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 const SET_USER_DATA = 'SET_USER_DATA'
@@ -62,7 +62,7 @@ export default authReducer;
 
 
     /* Thunk */
-export const getAuthUserData = (userId) => (dispatch) => {
+export const getAuthUserData = () => (dispatch) => {
     
         dispatch(authToggleIsFetching(true));
         authAPI.me().then(data => {
@@ -72,7 +72,7 @@ export const getAuthUserData = (userId) => (dispatch) => {
         dispatch(setAuthUserData(id, email, login, true));
         
         /* запрос фото пользователя */
-        usersAPI.getProfile(userId)
+            profileAPI.getProfile(id)
         .then(data => {
         dispatch(setAuthUserPhoto(data.photos.small));
         dispatch(authToggleIsFetching(false));
