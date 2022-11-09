@@ -2,11 +2,12 @@ import React from "react";
 import Profile from "./Profile";
 import { connect } from 'react-redux/es/exports';
 import { getUserProfile, getUserStatus, updateUserStatus } from './../../../redux/profile-reducer';
-// import { useParams } from "react-router-dom";
 import Preloader from './../../common/Preloader/Preloader';
 import { withAuthRedirect } from './../../../hoc/withAuthRedirect';
 import { compose } from "redux";
-import { WithRouter } from "../../../hoc/WithRouter";
+import { withRouter } from "../../../hoc/withRouter";
+import { withNavigate } from '../../../hoc/withNavigate';
+
 
 
 
@@ -15,9 +16,15 @@ import { WithRouter } from "../../../hoc/WithRouter";
 class ProfileContainer extends React.Component {
     
     componentDidMount (){
-
+               
         let userId = this.props.params.userId;
         if (!userId) { userId = this.props.userId; }
+    //    debugger 
+            
+            if (!userId) { 
+                this.props.navigate('/login'); /* не обязательно, можно удалить. Для инфы */
+             }
+       
        
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)    
@@ -30,7 +37,7 @@ class ProfileContainer extends React.Component {
                                             
 
                     this.props.isFetching
-                        ? <Preloader />
+                    ? <Preloader message='profile loading' />
                         : <Profile 
                             {...this.props} 
                             profile={this.props.profile} 
@@ -55,10 +62,13 @@ let mapStateToProps = (state) => ({
 });
 
 
+
+ 
 export default compose (
     connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus}),
-    WithRouter,
-    withAuthRedirect
+    withRouter,
+    withNavigate,
+    withAuthRedirect,
 )(ProfileContainer);
 
 

@@ -4,11 +4,12 @@ import React from 'react';
 
 
 
-let Preloader = () => {
-    console.log('preloader')
+let Preloader = (props) => {
+    console.log(!props.message ? 'preloader' : props.message)
     return (
         <div >
-         <img src={preloader} /> 
+         <img src={preloader} alt=''/> 
+            
       </div>   
     
     

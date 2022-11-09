@@ -1,6 +1,5 @@
 import React from "react";
 import css from '../Login/Login.module.css'
-
 import { Field, reduxForm } from 'redux-form'
 import { maxLengthCreator, required } from "../../utils/validators";
 import { Input } from "../common/FormsControls/FormsControls";
@@ -17,16 +16,13 @@ const Login = (props) => {
     }
 
     if (props.isAuth) {
-        return <Navigate to={'/profile'}/>
+        return <Navigate to={'/profile'} />
     }
 
     return <div >
         <LoginReduxForm onSubmit={onSubmit} />
     </div>
 }
-
-
-
 
 
 
@@ -43,6 +39,7 @@ const LoginForm = (props) => {
                 component={Input}
                 type='text'
                 placeholder="your registered email"
+                autocomplete="username"
                 validate={[required, maxLength50]}
             />
         </div>
@@ -54,6 +51,7 @@ const LoginForm = (props) => {
                 component={Input}
                 type='password'
                 placeholder="your password"
+                autocomplete='current-password'
                 validate={[required, maxLength20]}
             />
         </div>
@@ -66,14 +64,12 @@ const LoginForm = (props) => {
             />
             remember me
         </div>
-    {props.error &&
-    <div className={css.formError}>
-            <img className={css.errorSignPic} src={sign} alt="" />
-            <span className={css.errorSpan}> {props.error} </span>
-        </div>
-        
-    }
-        
+        {props.error &&
+            <div className={css.formError}>
+                <img className={css.errorSignPic} src={sign} alt="" />
+                <span className={css.errorSpan}> {props.error} </span>
+            </div>
+        }
 
         <div>
             <button className={css.loginButton} >Login</button>

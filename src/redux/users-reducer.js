@@ -112,7 +112,7 @@ dispatch(toggleIsFetching(true));
     usersAPI.getUsers(currentPage, pageSize).then(data => {
     dispatch (toggleIsFetching(false));
     dispatch (setUsers(data.items));
-    dispatch (setTotalUsersCount(101));
+    dispatch (setTotalUsersCount(150));
         });
     }
 }
