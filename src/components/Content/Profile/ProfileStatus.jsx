@@ -7,12 +7,13 @@ class ProfileStatus extends React.Component {
     state = {
         editMode: false,
         // status: "---"
+        status: this.props.status
     }
 
     activeteEditMode = () => {
         this.setState({
             editMode: true,
-            status: this.props.status
+            
         })
     }
 
@@ -60,7 +61,7 @@ componentDidUpdate (prevProps, prevState) {
                 {this.state.editMode &&
                     <div >
                         {/* info from Local State */}
-                        <input className={css.UserStatus} onChange={this.onStatusChange} autoFocus={true} value={this.state.status} />
+                        <textarea className={css.UserStatus} onChange={this.onStatusChange} autoFocus={true} value={this.state.status} />
                         <div className={css.status}>
                             <button onClick={this.deactiveteEditMode}>Cancel <i >&#10554;</i></button>
                             <button onClick={this.saveState}>Save <i >&#10173;</i></button>

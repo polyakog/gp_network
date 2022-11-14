@@ -5,6 +5,7 @@ import jobLooker from '../../../assets/images/jobLooker.webp'
 import noPic from '../../../assets/images/noPic.jpg'
 import ProfileStatus from './ProfileStatus';
 import { getAuthUserData } from './../../../redux/auth-reducer';
+import ProfileStatusWithHook from './ProfileStatusWithHook';
 
 
 
@@ -25,7 +26,7 @@ const ProfileInfo = (props) => {
                     <img src={!props.profile.photos.large ? noPic : props.profile.photos.large} alt="avatar" />
                 <div> 
                     My status:
-                        <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus} />
+                        <ProfileStatusWithHook status={props.status} updateUserStatus={props.updateUserStatus} />
                 </div>
                 
                 </div>
