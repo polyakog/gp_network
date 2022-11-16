@@ -1,5 +1,4 @@
 import React from "react";
-import Preloader from "../../common/Preloader/Preloader";
 import css from './ProfileInfo.module.css';
 
 

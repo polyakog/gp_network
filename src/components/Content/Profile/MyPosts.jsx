@@ -5,7 +5,7 @@ import { Textarea } from "../../common/FormsControls/FormsControls";
 import css from './MyPosts.module.css';
 import Post from './Post/Post';
 
-let maxLength10 = maxLengthCreator(10);
+let maxLength100 = maxLengthCreator(100);
 let minLength2 = minLengthCreator(2);
 
 let AddnewPostForm = (props) => {
@@ -18,7 +18,7 @@ let AddnewPostForm = (props) => {
                 label='Add your post here:'
                 placeholder='Enter your post'  
                 rows="4"                            
-                validate={[required, maxLength10, minLength2]}
+                validate={[required, maxLength100, minLength2]}
                 
             />
             {/* Запускаем функцию addPost при нажатии "onClick" */}
@@ -32,7 +32,7 @@ const AddnewPostFormRedux = reduxForm({ form: 'ProfileAddNewPostForm' })(AddnewP
 
 
 
-let MyPosts = (props) => {
+const MyPosts = React.memo( (props) => {
     
     let postElements = props.postData.map(p => (<Post key={p.postId} message={p.message} likeCount={p.likeCount} Name={p.Name} />));
 
@@ -59,6 +59,7 @@ let MyPosts = (props) => {
         </div>
     );
 }
+)
 
 
 

@@ -3,8 +3,6 @@ import Preloader from "../../common/Preloader/Preloader";
 import css from './ProfileInfo.module.css';
 import jobLooker from '../../../assets/images/jobLooker.webp'
 import noPic from '../../../assets/images/noPic.jpg'
-import ProfileStatus from './ProfileStatus';
-import { getAuthUserData } from './../../../redux/auth-reducer';
 import ProfileStatusWithHook from './ProfileStatusWithHook';
 
 
