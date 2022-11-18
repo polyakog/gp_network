@@ -1,7 +1,6 @@
 // import React from "react";
 import { usersAPI } from './../api/api';
 
-
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -13,17 +12,16 @@ const TOGGLE_IS_FOLLOING_PROGRESS = 'TOGGLE_IS_FOLLOING_PROGRESS'
 
 
 let initialState = {
-    users: [ ],
+    users: [],
     pageSize: 3,
     totalUsersCount: 0,
     currentPage: 1,
-    slicePage: [1,5],
+    slicePage: [1, 5],
     isFetching: true,
     followingInProgress: []
-
-
 };
 
+export const testUsersState = (initialState) => ({ initialState })
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -75,16 +73,17 @@ const usersReducer = (state = initialState, action) => {
         }
 
         case TOGGLE_IS_FETCHING: {
-            return { ...state, isFetching: action.isFetching}
+            return { ...state, isFetching: action.isFetching }
         }
 
         case TOGGLE_IS_FOLLOING_PROGRESS: {
-            return {...state, 
+            return {
+                ...state,
                 followingInProgress: action.isFetching
-                ? [...state.followingInProgress, action.userId]
-                : state.followingInProgress.filter(id => id !== action.userId)
-            } 
-                                
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
+
         }
 
 
@@ -107,28 +106,28 @@ export default usersReducer;
 
 
 export const requestUsers = (currentPage, pageSize) => {
-return (dispatch) => {
-dispatch(toggleIsFetching(true));
-// dispatch(setCurrentPage(currentPage));
-    usersAPI.getUsers(currentPage, pageSize).then(data => {
-    dispatch (toggleIsFetching(false));
-    dispatch (setUsers(data.items));
-    dispatch (setTotalUsersCount(150));
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false));
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUsersCount(150));
         });
     }
 }
 
 
 export const follow = (id) => {
-return (dispatch) => {
-    dispatch (toggleFollowingProgess(true, id));
-    usersAPI.followUsers(id).then(data => {
-        if (data.resultCode === 0) {
-            dispatch(followSuccess(id));
-        }
-        dispatch(toggleFollowingProgess(false, id));
+    return (dispatch) => {
+        dispatch(toggleFollowingProgess(true, id));
+        usersAPI.followUsers(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followSuccess(id));
+            }
+            dispatch(toggleFollowingProgess(false, id));
 
-    });
+        });
     }
 }
 

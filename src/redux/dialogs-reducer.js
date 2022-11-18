@@ -1,4 +1,5 @@
 const ADD_MESSAGE = 'ADD-MESSAGE'
+const DELETE_MESSAGE = 'DELETE_MESSAGE'
 
 
 let initialState = {
@@ -20,30 +21,46 @@ let initialState = {
 
 };
 
+export const testMessageState = (initialState) => ({ initialState })
+
 const dialogsReducer = (state = initialState, action) => {
 
-       
-    switch (action.type) {
-        
-        case ADD_MESSAGE: 
-        
-            
-            let idMessage = state.messageData.length+1
 
-            return { ...state,
-                messageData: [...state.messageData, { id: 1, idMessage: idMessage, name: "Gennadij",  text: action.newText}]           
+    switch (action.type) {
+
+        case ADD_MESSAGE:
+
+            let idMessage = state.messageData.length + 1
+
+            return {
+                ...state,
+                messageData: [...state.messageData, { id: 1, idMessage: idMessage, name: "Gennadij", text: action.newText }]
             };
-            
-       
+
+        case DELETE_MESSAGE:
+
+            return {
+                ...state,
+                messageData: state.messageData.filter(m => m.idMessage !== action.messageId)
+            };
+
+
+
         default:
             return state;
+
     }
+
+
+
+
 
 
 }
 
-            /* Создание объектов action */
+/* Создание объектов action */
 export const sendMessageActionCreator = (newText) => ({ type: ADD_MESSAGE, newText })
+export const deleteMessage = (messageId) => ({ type: DELETE_MESSAGE, messageId })
 
 
 export default dialogsReducer

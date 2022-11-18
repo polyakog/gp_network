@@ -4,7 +4,6 @@ import { follow, setCurrentPage, unfollow, requestUsers } from '../../../redux/u
 import Preloader from './../../common/Preloader/Preloader';
 import Users from './Users';
 import css from './Users.module.css';
-// import { withAuthRedirect } from './../../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { getPageSize, getUsers, getTotalUsersCount, getCurrentPage, getSlicePage, getIsFetching, getFollowingInProgress } from '../../../redux/users-selectors';
 

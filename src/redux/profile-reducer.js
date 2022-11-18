@@ -1,14 +1,17 @@
 import { profileAPI, usersAPI } from './../api/api';
 
 const ADD_POST = 'ADD-POST'
+const DELETE_POST = 'DELETE_POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 const SET_STATUS = 'SET_STATUS'
+
 
 let initialState = {
     postData: [
         { id: 1, postId:1, message: 'Very interesting', likeCount: 21, Name: 'Alexey' },
         { id: 2, postId:2, message: 'How to add data?', likeCount: 2, Name: 'Anton' },
+        { id: 2, postId:3, message: 'OK', likeCount: 3, Name: 'Anton' },        
          ],
     profile: null,
     isFetching: false,
@@ -25,6 +28,13 @@ const profileReducer = (state = initialState, action) => {
                 postData: [...state.postData, { id: 3, postId: postId, message: action.newPostText, likeCount: 0, Name: 'Michail'} ]
             }                     
         }   
+
+        case DELETE_POST: {
+            
+            return {
+                ...state, postData: state.postData.filter(p=> p.postId !== action.postId)
+            }
+        } 
 
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
@@ -57,6 +67,7 @@ export const addPostActionCreator = (newPostText) => ({ type: ADD_POST, newPostT
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const profileToggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 export const setStatus = (status) => ({ type: SET_STATUS, status })
+export const deletePost = (postId) => ({ type: DELETE_POST, postId})
 
 export default profileReducer
 
