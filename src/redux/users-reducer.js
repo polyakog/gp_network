@@ -1,4 +1,5 @@
 // import React from "react";
+import { updateObjectInArray } from '../utils/object-helpers';
 import { usersAPI } from './../api/api';
 
 const FOLLOW = 'FOLLOW'
@@ -28,12 +29,13 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => {
+                users: updateObjectInArray(state.users, "id", action.userId, {followed: true})
+               /*  state.users.map(u => {
                     if (u.id === action.userId) {
                         return { ...u, followed: true }
                     }
                     return u;
-                })
+                }) */
 
             };
 
@@ -41,15 +43,8 @@ const usersReducer = (state = initialState, action) => {
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userId) {
-                        return { ...u, followed: false }
-                    } else {
-                        return u;
-                    }
-                })
-
-            };
+                users: updateObjectInArray(state.users, "id", action.userId, { followed: false })
+              };
 
         case SET_USERS: {
             return {
@@ -132,13 +127,6 @@ export const follow = (id) => {
     return async (dispatch) => {
         followUnfollowFlow(dispatch, usersAPI.followUsers.bind(usersAPI), followSuccess, id)
 
-        // dispatch(toggleFollowingProgess(true, id));
-        // apiMethod(id).then(data => {
-        //     if (data.resultCode === 0) {
-        //         dispatch(actionCrator(id));
-        //     }
-        //     dispatch(toggleFollowingProgess(false, id));
-        // });
     }
 }
 

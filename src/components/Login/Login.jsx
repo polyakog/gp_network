@@ -1,8 +1,8 @@
 import React from "react";
 import css from '../Login/Login.module.css'
-import { Field, reduxForm } from 'redux-form'
+import { reduxForm } from 'redux-form'
 import { maxLengthCreator, required } from "../../utils/validators";
-import { Input } from "../common/FormsControls/FormsControls";
+import { createField, Input } from "../common/FormsControls/FormsControls";
 import { connect } from 'react-redux/es/exports';
 import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
@@ -26,48 +26,23 @@ const Login = (props) => {
 
 
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
     const maxLength50 = maxLengthCreator(50)
     const maxLength20 = maxLengthCreator(20)
 
-    return <form className={css.loginForm} onSubmit={props.handleSubmit}>
+    return <form className={css.loginForm} onSubmit={handleSubmit}>
         <h2 className={css.formHead}>Login</h2>
-        <div className={props.error ? css.errorField : ''}>
-            <Field
-                name='email'
-                label='LOGIN'
-                component={Input}
-                type='text'
-                placeholder="your registered email"
-                autocomplete="username"
-                validate={[required, maxLength50]}
-            />
-        </div>
+      
+        {createField(error, 'email', 'LOGIN', Input, 'text', "your registered email", "username", [required, maxLength50] )}
         <p></p>
-        <div className={props.error ? css.errorField : ''}>
-            <Field
-                name='password'
-                label='PASSWORD'
-                component={Input}
-                type='password'
-                placeholder="your password"
-                autocomplete='current-password'
-                validate={[required, maxLength20]}
-            />
-        </div>
+        {createField(error, 'password', 'PASSWORD', Input, 'password', "our password", "current-password", [required, maxLength20])}
         <p></p>
-        <div>
-            <Field
-                name='rememberMe'
-                component='input'
-                type='checkbox'
-            />
-            remember me
-        </div>
-        {props.error &&
+        {createField(null, 'rememberMe', "", 'input', 'checkbox', "", "", "", "remember me")}
+        
+        {error &&
             <div className={css.formError}>
                 <img className={css.errorSignPic} src={sign} alt="" />
-                <span className={css.errorSpan}> {props.error} </span>
+                <span className={css.errorSpan}> {error} </span>
             </div>
         }
 
