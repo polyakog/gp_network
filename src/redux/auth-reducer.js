@@ -1,9 +1,9 @@
 import { stopSubmit } from "redux-form";
-import { authAPI, profileAPI} from "../api/api";
+import { authAPI, profileAPI } from "../api/api";
 
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
-const SET_USER_DATA = 'SET_USER_DATA'
-const SET_USER_PHOTO = 'SET_USER_PHOTO'
+const TOGGLE_IS_FETCHING = 'gp-network/auth/TOGGLE_IS_FETCHING'
+const SET_USER_DATA = 'gp-network/auth/SET_USER_DATA'
+const SET_USER_PHOTO = 'gp-network/auth/SET_USER_PHOTO'
 
 
 let initialState = {
@@ -23,7 +23,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload,
-                
+
             };
 
         case SET_USER_PHOTO:
@@ -41,7 +41,7 @@ const authReducer = (state = initialState, action) => {
         }
 
 
-        
+
 
 
         default:
@@ -61,47 +61,37 @@ export const authToggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING,
 export default authReducer;
 
 
-    /* Thunk */
-export const getAuthUserData = () => (dispatch) => {
-        dispatch(authToggleIsFetching(true));
+/* Thunk */
+export const getAuthUserData = () => async (dispatch) => {
+    dispatch(authToggleIsFetching(true));
 
-        return authAPI.me()
-        .then(data => {
-         if (data.resultCode === 0) {
+    let data = await authAPI.me()
+    if (data.resultCode === 0) {
         let { id, email, login } = data.data;
         dispatch(setAuthUserData(id, email, login, true));
-        
+
         /* запрос фото пользователя */
-            profileAPI.getProfile(id)
-        .then(data => {
+    data = await profileAPI.getProfile(id)
         dispatch(setAuthUserPhoto(data.photos.small));
         dispatch(authToggleIsFetching(false));
-        })
-       
-            }
-        });
+    }
+}
+
+export const login = (email, password, rememberMe) => async (dispatch) => {
+
+    let data = await authAPI.login(email, password, rememberMe)
+    if (data.resultCode === 0) {
+        dispatch(getAuthUserData())
+    } else {
+        let message = data.messages.length > 0 ? data.messages[0] : "Some Error"
+        dispatch(stopSubmit("login", { _error: message }))
+    }
+}
+
+export const logout = () => async (dispatch) => {
+    let response = await authAPI.logout()
+    if (response.data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false))
     }
 
-export const login = (email, password, rememberMe) => (dispatch) => {
-    
-    authAPI.login(email, password, rememberMe)
-        .then(data => {
-            if (data.resultCode === 0) {
-               dispatch(getAuthUserData())
-
-            } else { 
-                let message = data.messages.length>0 ? data.messages[0] : "Some Error"
-                dispatch(stopSubmit("login", { _error: message}))
-                }          
-        })
-    }
-
-export const logout = () => (dispatch) => {
-    authAPI.logout()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false))
-                
-            }
-        })
 }
