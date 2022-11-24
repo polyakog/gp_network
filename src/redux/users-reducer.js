@@ -106,40 +106,36 @@ export default usersReducer;
 
 
 export const requestUsers = (currentPage, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true));
 
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
+        const data = await usersAPI.getUsers(currentPage, pageSize)
             dispatch(toggleIsFetching(false));
             dispatch(setUsers(data.items));
             dispatch(setTotalUsersCount(150));
-        });
+        
     }
 }
 
 
 export const follow = (id) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleFollowingProgess(true, id));
-        usersAPI.followUsers(id).then(data => {
+        const data = await usersAPI.followUsers(id)
             if (data.resultCode === 0) {
                 dispatch(followSuccess(id));
             }
             dispatch(toggleFollowingProgess(false, id));
-
-        });
     }
 }
 
 export const unfollow = (id) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleFollowingProgess(true, id));
-        usersAPI.unfollowUsers(id).then(data => {
+        const data = await usersAPI.unfollowUsers(id)
             if (data.resultCode === 0) {
                 dispatch(unfollowSuccess(id));
             }
             dispatch(toggleFollowingProgess(false, id));
-
-        });
     }
 }
