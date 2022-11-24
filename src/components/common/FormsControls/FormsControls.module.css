@@ -43,5 +43,13 @@ div.errorTextarea {
     text-align: start;
     color: var(--redC);
     font-weight: bold;
+}
 
+.errorField {
+    margin-top: 5px;
+    border: solid 2px var(--redC);
+    background-color: rgba(255, 0, 0, 0.328);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 101%;
 }
