@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: 150px minmax(min-content, 100%);
     grid-template-rows: 150px 40px;
-    gap: 10px;
+    gap: 5px;
 }
 
 .imageUsers {
@@ -26,19 +26,21 @@
     border-radius: 10px;
     padding: 10px;
     box-shadow: 2px 2px 4px 1px rgba(23, 40, 54, 0.412) inset;
+    margin-left: 5px;
 }
 
 .button button {
-    max-height: 50px;
-    width: 120px;
-    padding: 5px;
-    font-size: 13px;
+    height: 35px;
+    width: 130px;
+    /* padding: 5px; */
+    font-size: 12px;
     font-weight: bold;
     color:white;
     border-width: 3px;
     border-style: outset;
-    border-radius: 25px;
+    border-radius: 20px;
     margin-left: 10px;
+    margin-top: 0px;
 
     border-color: #5eab45;
     background: radial-gradient(circle,rgba(83, 243, 157, 0.774) 0%, rgb(35, 98, 64) 100%);
@@ -65,7 +67,3 @@
     color: rgba(255, 255, 255, 0.35);
 }
 
-
-.sectedPage {
-    font-weight: bold;
-}
