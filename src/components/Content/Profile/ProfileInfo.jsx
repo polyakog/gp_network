@@ -6,67 +6,49 @@ import noPic from '../../../assets/images/noPic.jpg'
 import ProfileStatusWithHook from './ProfileStatusWithHook';
 
 
-
-
-const ProfileInfo = (props) => {
-
-
-        if (!props.profile) {
+const ProfileInfo = ({profile, status, updateUserStatus}) => {
+    if (!profile) {
         return <Preloader />
     }
-
-
     return (
         <div >
-            
+
             <div className={css.avatar_description}>
                 <div className={css.avatar}>
-                    <img src={!props.profile.photos.large ? noPic : props.profile.photos.large} alt="avatar" />
-                <div> 
-                    My status:
-                        <ProfileStatusWithHook status={props.status} updateUserStatus={props.updateUserStatus} />
+                    <img src={!profile.photos.large ? noPic : profile.photos.large} alt="avatar" />
+                    <div>
+                        My status:
+                        <ProfileStatusWithHook status={status} updateUserStatus={updateUserStatus} />
+                    </div>
                 </div>
-                
-                </div>
-
-                
-                
 
                 <div className={css.description}>
-                    <p className={css.user_name}>{props.profile.fullName}</p>
-                    <p>About me: {props.profile.aboutMe}</p>
+                    <p className={css.user_name}>{profile.fullName}</p>
+                    <p>About me: {profile.aboutMe}</p>
 
-                    <p>ID: {props.profile.userId}</p>
-                    
-                        <img src={jobLooker} alt="looking for a job" className={props.profile.lookingForAJob
-                             ? css.lookingForAJob
-                        : css.lookingForAJob + " "+ css.false } />
-                        
-                        
+                    <p>ID: {profile.userId}</p>
 
-                    <p> {props.profile.lookingForAJob
-                        ? ("Looking for a job: " + props.profile.lookingForAJobDescription)
-                        : null} 
+                    <img src={jobLooker} alt="looking for a job" className={profile.lookingForAJob
+                        ? css.lookingForAJob
+                        : css.lookingForAJob + " " + css.false} />
+
+                    <p> {profile.lookingForAJob
+                        ? ("Looking for a job: " + profile.lookingForAJobDescription)
+                        : null}
                     </p>
                     <br />
                     <div className={css.contacts}>Contacts:
-                    <ul>
-
-
-                        {props.profile.contacts.facebook !== null ? <li> {"Facebook: " + props.profile.contacts.facebook }   </li> : null}
-                        {props.profile.contacts.website !== null ? <li> {"Website: " + props.profile.contacts.website}      </li> : null}
-                        {props.profile.contacts.vk !== null ? <li>{"VK: " + props.profile.contacts.vk}                </li> : null}
-                        {props.profile.contacts.github !== null ? <li>{"Github: " + props.profile.contacts.github}        </li> : null}
-                        {props.profile.contacts.youtube !== null ? <li>{"youtube: " + props.profile.contacts.youtube}        </li> : null}
-                        {props.profile.contacts.twitter !== null ? <li>{"twitter: " + props.profile.contacts.twitter}        </li> : null}
-                    </ul>
+                        <ul>
+                            {profile.contacts.facebook !== null ? <li> {"Facebook: " + profile.contacts.facebook}   </li> : null}
+                            {profile.contacts.website !== null ? <li> {"Website: " + profile.contacts.website}      </li> : null}
+                            {profile.contacts.vk !== null ? <li>{"VK: " + profile.contacts.vk}                </li> : null}
+                            {profile.contacts.github !== null ? <li>{"Github: " + profile.contacts.github}        </li> : null}
+                            {profile.contacts.youtube !== null ? <li>{"youtube: " + profile.contacts.youtube}        </li> : null}
+                            {profile.contacts.twitter !== null ? <li>{"twitter: " + profile.contacts.twitter}        </li> : null}
+                        </ul>
                     </div>
-
                 </div>
             </div>
-
-
-
         </div>
     );
 }
