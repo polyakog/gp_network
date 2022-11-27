@@ -44,7 +44,7 @@ const MyPosts = React.memo( (props) => {
     /* Создаем команды на клик кнопки */
 
     const onAddPost = (value) => {
-        debugger
+        
         return (
             props.addPost(value.newPostText)
         )
