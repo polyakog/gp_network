@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
 import News from './components/Content/News/News';
@@ -9,12 +9,14 @@ import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import NavContainer from './components/Nav/NavContainer';
 import UsersContainer2 from './components/Content/Users/UsersContainer';
 import Login from './components/Login/Login';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { compose } from 'redux';
-import { connect } from 'react-redux/es/exports';
+import { connect} from 'react-redux/es/exports';
+import { Provider } from 'react-redux';
 import { withRouter } from './hoc/withRouter';
 import { initializeApp } from './redux/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
+import store from './redux/redux-store';
 
 
 
@@ -66,8 +68,22 @@ const mapStateToProps = (state) => ({
   initialized: state.app.initialized
 })
 
-export default compose(
+let AppContainer = compose(
   withRouter,
   connect(mapStateToProps, { initializeApp }),
 
 )(App);
+
+
+const GpNetworkApp = (props) =>{
+  return <React.StrictMode>
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    </BrowserRouter >
+  </React.StrictMode>
+
+}
+
+export default GpNetworkApp;
