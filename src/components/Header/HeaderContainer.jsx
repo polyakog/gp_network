@@ -1,5 +1,6 @@
 import React from "react";
-import { connect } from 'react-redux/es/exports';
+// import { connect } from 'react-redux/es/exports';
+import { connect } from 'react-redux';
 import Header from "./Header";
 import { logout } from './../../redux/auth-reducer';
 import css from './Header.module.css';

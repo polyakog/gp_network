@@ -3,7 +3,8 @@ import css from '../Login/Login.module.css'
 import { reduxForm } from 'redux-form'
 import { maxLengthCreator, required } from "../../utils/validators";
 import { createField, Input } from "../common/FormsControls/FormsControls";
-import { connect } from 'react-redux/es/exports';
+import { connect } from 'react-redux';
+// import { connect } from 'react-redux/es/exports';
 import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
 import sign from "./../../assets/images/sign4.jpg"

@@ -5,14 +5,13 @@ import css from './ProfileInfo.module.css';
 class ProfileStatus extends React.Component {
     state = {
         editMode: false,
-        // status: "---"
         status: this.props.status
     }
 
     activeteEditMode = () => {
         this.setState({
             editMode: true,
-            
+
         })
     }
 
@@ -36,12 +35,12 @@ class ProfileStatus extends React.Component {
     }
 
     /* можно не использовать - как пример */
-componentDidUpdate (prevProps, prevState) {
-    if (prevProps.status !==this.props.status) {
-        this.setState({ status: this.props.status })
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({ status: this.props.status })
+        }
+
     }
-     
-}
 
     render() {
 

@@ -4,7 +4,7 @@ let state = testMessageState.initialState
 let text = 'new message'
 
 
-test('test_1 length of messages should be incremented', () => {
+it('test_1 length of messages should be incremented', () => {
     /* 1. test data */
     let action = sendMessageActionCreator(text)
 

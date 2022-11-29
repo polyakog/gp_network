@@ -1,6 +1,7 @@
 import React from "react";
 import Profile from "./Profile";
-import { connect } from 'react-redux/es/exports';
+import { connect } from 'react-redux';
+// import { connect } from 'react-redux/es/exports';
 import { getUserProfile, getUserStatus, updateUserStatus } from './../../../redux/profile-reducer';
 import Preloader from './../../common/Preloader/Preloader';
 import { withAuthRedirect } from './../../../hoc/withAuthRedirect';

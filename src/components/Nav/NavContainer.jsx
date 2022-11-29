@@ -1,5 +1,6 @@
 import Nav from "./Nav";
-import { connect } from 'react-redux/es/exports';
+import { connect } from 'react-redux';
+// import { connect } from 'react-redux/es/exports';
 
 
 
