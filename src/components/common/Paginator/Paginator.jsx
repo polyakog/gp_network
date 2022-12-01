@@ -2,6 +2,15 @@ import React, { useState } from "react";
 import css from './Paginator.module.css'
 import cn from 'classnames'
 
+const PaginatorButton = (disabledArrow, setPortionNumber, nextPortionNumber, text) => (
+    <div >
+        <button
+            className={cn(css.arrow, { [css.disabledArrow]: disabledArrow })}
+            disabled={disabledArrow}
+            onClick={() => { setPortionNumber(nextPortionNumber) }}
+        >{text}</button>
+    </div>
+)
 
 
 const Paginator = ({ totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10 }) => {
@@ -23,22 +32,8 @@ const Paginator = ({ totalItemsCount, pageSize, currentPage, onPageChanged, port
 
 
     return <div className={css.paginator}>
-
-        <div>
-            <button
-                className={cn(css.arrow, { [css.disabledArrow]: portionNumber < 2 })}
-                disabled={portionNumber < 2}
-                onClick={() => { setPortionNumber(1) }}
-            >&#8676;</button>
-        </div>
-        <div >
-            <button
-                className={cn(css.arrow, { [css.disabledArrow]: portionNumber < 2 })}
-                disabled={portionNumber < 2}
-                onClick={() => { setPortionNumber(portionNumber - 1) }}
-            >&#11244;</button>
-        </div>
-
+        {PaginatorButton((portionNumber < 2 && true), setPortionNumber, 1, "\u21E4")}
+        {PaginatorButton((portionNumber < 2 && true), setPortionNumber, portionNumber - 1, "\u2BEC")}
 
         {pages
             .filter(p => p >= leftProtionPageNumber && p <= rightProtionPageNumber)
@@ -53,31 +48,9 @@ const Paginator = ({ totalItemsCount, pageSize, currentPage, onPageChanged, port
                     }}>{p}  </span>
             })
         }
+        {PaginatorButton(((portionNumber + 1) > portionCount && true), setPortionNumber, portionNumber + 1, "\u2BEE")}
+        {PaginatorButton(((portionNumber + 1) > portionCount && true), setPortionNumber, portionCount, "\u21E5")}
 
-        <div >
-            <button
-                className={cn(css.arrow, { [css.disabledArrow]: portionNumber + 1 > portionCount })}
-                disabled={portionNumber + 1 > portionCount}
-                onClick={() => { setPortionNumber(portionNumber + 1) }}
-            >&#11246;</button>
-        </div>
-        <div>
-            <button
-                className={cn(css.arrow, { [css.disabledArrow]: portionNumber + 1 > portionCount })}
-                disabled={portionNumber + 1 > portionCount}
-                onClick={() => { setPortionNumber(portionCount) }}
-            >&#8677;</button>
-        </div>
-
-
-
-
-
-        {/* {pages.map(p => {
-            return <span key={p} className={currentPage === p ? css.sectedPage : ""}
-                onClick={() => { onPageChanged(p); }}>{p}  </span>
-        })
-        } */}
     </div>
 }
 

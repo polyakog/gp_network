@@ -45,6 +45,7 @@ button.arrow {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
 
     font-size: 20px;
     height: 25px;
