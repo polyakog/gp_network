@@ -6,7 +6,7 @@ import Preloader from './../../common/Preloader/Preloader';
 import Users from './Users';
 import css from './Users.module.css';
 import { compose } from 'redux';
-import { getPageSize, getUsers, getTotalUsersCount, getCurrentPage, getSlicePage, getIsFetching, getFollowingInProgress } from '../../../redux/users-selectors';
+import { getPageSize, getUsers, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../../redux/users-selectors';
 
 
 
@@ -64,7 +64,6 @@ let mapStateToProps = (state) => {
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
-        slicePage: getSlicePage(state),
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
 

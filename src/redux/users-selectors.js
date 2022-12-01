@@ -26,10 +26,6 @@ export const getCurrentPage = (state) => {
     return state.usersPage.currentPage
 }
 
-export const getSlicePage = (state) => {
-    return state.usersPage.slicePage
-}
-
 export const getIsFetching = (state) => {
     return state.usersPage.isFetching
 }
