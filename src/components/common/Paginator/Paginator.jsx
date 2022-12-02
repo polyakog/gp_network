@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import css from './Paginator.module.css'
 import cn from 'classnames'
 
-const PaginatorButton = (disabledArrow, setPortionNumber, nextPortionNumber, text) => (
+const PaginatorButton = (disabledArrow, setPortionNumber, nextPortionNumber, name, text) => (
     <div >
         <button
             className={cn(css.arrow, { [css.disabled]: disabledArrow })}
             disabled={disabledArrow}
             onClick={() => { setPortionNumber(nextPortionNumber) }}
+            name={name}
         >{text}</button>
     </div>
 )
@@ -32,8 +33,8 @@ const Paginator = ({ totalItemsCount, pageSize, currentPage, onPageChanged, port
 
 
     return <div className={css.paginator}>
-        {PaginatorButton((portionNumber < 2 && true), setPortionNumber, 1, "\u21E4")}
-        {PaginatorButton((portionNumber < 2 && true), setPortionNumber, portionNumber - 1, "\u2BEC")}
+        {PaginatorButton((portionNumber < 2 && true), setPortionNumber, 1, "start", "\u21E4")}
+        {PaginatorButton((portionNumber < 2 && true), setPortionNumber, portionNumber - 1, "before", "\u2BEC")}
 
         {pages
             .filter(p => p >= leftProtionPageNumber && p <= rightProtionPageNumber)
@@ -48,8 +49,8 @@ const Paginator = ({ totalItemsCount, pageSize, currentPage, onPageChanged, port
                     }}>{p}  </span>
             })
         }
-        {PaginatorButton(((portionNumber + 1) > portionCount && true), setPortionNumber, portionNumber + 1, "\u2BEE")}
-        {PaginatorButton(((portionNumber + 1) > portionCount && true), setPortionNumber, portionCount, "\u21E5")}
+        {PaginatorButton(((portionNumber + 1) > portionCount && true), setPortionNumber, portionNumber + 1, "next", "\u2BEE")}
+        {PaginatorButton(((portionNumber + 1) > portionCount && true), setPortionNumber, portionCount, "end", "\u21E5")}
 
     </div>
 }
