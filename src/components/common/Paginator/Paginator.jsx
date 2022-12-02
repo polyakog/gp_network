@@ -5,7 +5,7 @@ import cn from 'classnames'
 const PaginatorButton = (disabledArrow, setPortionNumber, nextPortionNumber, text) => (
     <div >
         <button
-            className={cn(css.arrow, { [css.disabledArrow]: disabledArrow })}
+            className={cn(css.arrow, { [css.disabled]: disabledArrow })}
             disabled={disabledArrow}
             onClick={() => { setPortionNumber(nextPortionNumber) }}
         >{text}</button>

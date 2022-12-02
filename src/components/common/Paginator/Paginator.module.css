@@ -54,14 +54,20 @@ button.arrow {
     /* border-style: outset; */
     background-color: rgba(218, 165, 32, 0.7);
     border-radius: 15px;
-    box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0);
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
 
 }
 
-/* .disabledArrow:hover {
-    border-color: rgb(222, 99, 99);
-    background-color: rgba(218, 165, 32, 0.8);
-    color: aliceblue;
-    font-weight: normal;
-    cursor: auto;
-} */
+button.arrow.disabled{
+    border: 1px outset rgba(255, 217, 0, 0.2);
+    background-color: rgba(218, 165, 32, 0.2);
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.2);
+  }
+
+button.arrow.disabled:hover {
+    border: 1px outset rgba(255, 217, 0, 0.2);
+    background:rgba(218, 165, 32, 0.2);;
+    color: rgba(0, 0, 0, 0.2);
+    cursor:not-allowed;
+}
