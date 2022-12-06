@@ -1,7 +1,7 @@
 {
   "name": "gp-project",
   "version": "0.1.0",
-  "homepage": "https://polyakog.github.io/gp-dev",
+  "homepage": "https://polyakog.github.io/gp_network",
   "private": true,
   "dependencies": {
     "-": "^0.0.1",
