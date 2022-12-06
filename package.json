@@ -1,6 +1,7 @@
 {
   "name": "gp-project",
   "version": "0.1.0",
+  "homepage": "https://polyakog.github.io/gp-dev",
   "private": true,
   "dependencies": {
     "-": "^0.0.1",
@@ -25,7 +26,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+     "deploy": "gh-pages -d build"
+
   },
   "eslintConfig": {
     "extends": [
@@ -46,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "jest": "^27.5.1",
     "react-test-renderer": "^18.2.0"
   }
