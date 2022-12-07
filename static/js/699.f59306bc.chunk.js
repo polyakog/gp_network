@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkgp_project=self.webpackChunkgp_project||[]).push([[699],{9617:function(n,t,e){e.r(t),e.d(t,{default:function(){return r}});e(2791);var s={},i=e(184),r=function(){return(0,i.jsxs)("div",{children:[(0,i.jsx)("h2",{children:"Settings"}),(0,i.jsx)("p",{children:"Global Settings"}),(0,i.jsx)("button",{className:s.settingsConnection,onClick:function(){return window.alert("your settings is saved")},children:"ok"})]})}}}]);
-//# sourceMappingURL=699.f59306bc.chunk.js.map
