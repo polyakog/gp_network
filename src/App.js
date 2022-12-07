@@ -80,7 +80,7 @@ let AppContainer = compose(
 
 const GpNetworkApp = (props) =>{
   return <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Provider store={store}>
         <AppContainer />
       </Provider>
