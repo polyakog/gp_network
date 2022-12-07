@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/gp_network/static/css/main.9321f640.css",
-    "main.js": "/gp_network/static/js/main.e6e381b7.js",
+    "main.js": "/gp_network/static/js/main.eb4962c7.js",
     "static/css/173.748643dd.chunk.css": "/gp_network/static/css/173.748643dd.chunk.css",
     "static/js/173.82547eb5.chunk.js": "/gp_network/static/js/173.82547eb5.chunk.js",
     "static/css/491.f96e1f5e.chunk.css": "/gp_network/static/css/491.f96e1f5e.chunk.css",
@@ -20,7 +20,7 @@
     "static/media/arrow.cur": "/gp_network/static/media/arrow.779c62fd92f6342ead20.cur",
     "index.html": "/gp_network/index.html",
     "main.9321f640.css.map": "/gp_network/static/css/main.9321f640.css.map",
-    "main.e6e381b7.js.map": "/gp_network/static/js/main.e6e381b7.js.map",
+    "main.eb4962c7.js.map": "/gp_network/static/js/main.eb4962c7.js.map",
     "173.748643dd.chunk.css.map": "/gp_network/static/css/173.748643dd.chunk.css.map",
     "173.82547eb5.chunk.js.map": "/gp_network/static/js/173.82547eb5.chunk.js.map",
     "491.f96e1f5e.chunk.css.map": "/gp_network/static/css/491.f96e1f5e.chunk.css.map",
@@ -33,6 +33,6 @@
   },
   "entrypoints": [
     "static/css/main.9321f640.css",
-    "static/js/main.e6e381b7.js"
+    "static/js/main.eb4962c7.js"
   ]
 }
