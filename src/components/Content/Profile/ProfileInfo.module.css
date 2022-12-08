@@ -20,13 +20,13 @@
 /* Watermark */
 .avatar::before {
 
-    content: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Henkel-Logo.svg/640px-Henkel-Logo.svg.png");
+    content: url("https: //upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png");
     opacity: 0.1;
 
-    transform: scale(0.2);
+    transform: scale(0.8);
     position: absolute;
-    top: 0px;
-    right: -150px;
+    top: 10px;
+    left: 5px;
 }
 
 .UserStatus {

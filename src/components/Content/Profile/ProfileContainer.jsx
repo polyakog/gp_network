@@ -16,20 +16,29 @@ import { withNavigate } from '../../../hoc/withNavigate';
 
 class ProfileContainer extends React.Component {
     
+    refreshProfile () {
+    let userId = this.props.params.userId;
+if (!userId) { userId = this.props.userId; }
+if (!userId) {
+    this.props.navigate('/login'); /* не обязательно, можно удалить. Для инфы */
+}
+
+
+this.props.getUserProfile(userId)
+this.props.getUserStatus(userId)    
+}
+
     componentDidMount (){
                
-        let userId = this.props.params.userId;
-        if (!userId) { userId = this.props.userId; }
-    //    debugger 
-            
-            if (!userId) { 
-                this.props.navigate('/login'); /* не обязательно, можно удалить. Для инфы */
-             }
-       
-       
-        this.props.getUserProfile(userId)
-        this.props.getUserStatus(userId)    
+        this.refreshProfile()
+    }
 
+    componentDidUpdate(prevPops, prevState, snapshot) {
+        
+        if (this.props.params.userId !== prevPops.params.userId) {
+          this.refreshProfile();  
+        }
+        
     }
 
     render (){

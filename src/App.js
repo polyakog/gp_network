@@ -17,14 +17,15 @@ import store from './redux/redux-store';
 // import UsersContainer2 from './components/Content/Users/UsersContainer';
 // import News from './components/Content/News/News';
 // import Music from './components/Content/Music/Music';
-// import Settings from './components/Content/Settings/Settings';
+import Settings from './components/Content/Settings/Settings';
+
 const Login = React.lazy(() => import('./components/Login/Login'));
 const ProfileContainer = React.lazy(() => import('./components/Content/Profile/ProfileContainer'));
 const DialogsContainer = React.lazy(() => import('./components/Content/Dialogs/DialogsContainer'));
 const UsersContainer2 = React.lazy(() => import('./components/Content/Users/UsersContainer'));
 const News = React.lazy(() => import('./components/Content/News/News'));
 const Music = React.lazy(() => import('./components/Content/Music/Music'));
-const Settings = React.lazy(() => import('./components/Content/Settings/Settings'));
+// const Settings = React.lazy(() => import('./components/Content/Settings/Settings'));
 
 
 class App extends Component {
@@ -48,6 +49,7 @@ class App extends Component {
         <React.Suspense fallback={<div><Preloader message='suspensed component loading' /></div>}>  
           <Routes>                    
             <Route path='/' element={<ProfileContainer />} />
+              <Route path='/gp_network' element={<ProfileContainer />} />
             <Route path='profile' element={<ProfileContainer />} >
                 <Route path=':userId' element={<ProfileContainer />} />
             </Route>
