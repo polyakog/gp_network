@@ -7,15 +7,8 @@
 
 .avatar {
     width: 18%;
-}
 
-.avatar img {
-    width: 100%;
-    border-radius: 10px;
-    border: 3px solid rgba(104, 133, 104, 0.6);
-    box-shadow: 2px 5px 10px 3px rgba(34, 60, 80, 0.37);
 }
-
 
 /* Watermark */
 .avatar::before {
@@ -28,6 +21,86 @@
     top: 10px;
     left: 5px;
 }
+
+.avatarPhoto {
+    width: 100%;
+    border-radius: 10px;
+    border: 3px solid rgba(104, 133, 104, 0.6);
+    box-shadow: 2px 5px 10px 3px rgba(34, 60, 80, 0.37);
+}
+
+/* Input File Field  */
+
+.inputFileText {
+    line-height: 30px;
+    text-align: center;
+    height: 30px;
+    display: block;
+    float: left;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid rgb(245, 248, 245);
+}
+
+.inputFile {
+    position: relative;
+    display: inline-flex;
+}
+
+.inputFileBtn {
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    color: rgb(255 255 255);
+    text-align: center;
+    vertical-align: middle;
+    line-height: 0px;
+    height: 30px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 3px outset rgba(65, 145, 82, 0.7);
+    background: radial-gradient(circle, rgb(65, 145, 82) 0%, rgb(30, 68, 37) 100%);
+    background-color: rgb(65, 145, 82);
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.4);
+    transition: all 0.5s ease 0.1s;
+    margin: 5px 20px 15px;
+
+}
+
+/* Hover/active */
+.inputFileBtn:hover {
+    background: rgb(89, 190, 110);
+    cursor: url(../../Content/Settings/Cursors/DeCody/arrow.cur), auto;
+}
+
+.inputFile input[type=file] {
+    margin-top: 5px;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    display: block;
+    width: 0px;
+    height: 0px;
+}
+
+/* Focus */
+.inputFile input[type=file]:focus+.inputFileBtn {
+    box-shadow: 0 0 4px 3px rgba(255, 0, 25, 0.4);
+}
+
+.inputFile:active .inputFileBtn {
+    background-color: #2E703A;
+}
+
+/* Disabled */
+.inputFile input[type=file]:disabled+.inputFileBtn {
+    background-color: rgba(238, 238, 238, 0.455);
+}
+
+
+/* продолжение */
 
 .UserStatus {
     margin-top: 5px;
@@ -80,10 +153,7 @@
     opacity: 30%;
 }
 
-
-
 .status {
-
     display: flex;
     padding: 5px;
 }
@@ -96,7 +166,6 @@
     background-color: goldenrod;
     border-radius: 5px;
     box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.472);
-
     margin-left: 5px;
     height: 40px;
 }

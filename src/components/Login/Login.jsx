@@ -30,7 +30,7 @@ const LoginForm = ({handleSubmit, error}) => {
     const maxLength50 = maxLengthCreator(50)
     const maxLength20 = maxLengthCreator(20)
 
-    return <form className={css.loginForm} onSubmit={handleSubmit}>
+    return <form className={css.loginForm} onSubmit={handleSubmit} enctype="multipart/form-data">
         <h2 className={css.formHead}>Login</h2>
        
         {createField(error, 'email', 'LOGIN', Input, 'text', 'your registered email', 'username', [required, maxLength50], '')} 

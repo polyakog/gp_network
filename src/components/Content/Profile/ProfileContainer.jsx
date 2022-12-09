@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import { connect } from 'react-redux';
 // import { connect } from 'react-redux/es/exports';
-import { getUserProfile, getUserStatus, updateUserStatus } from './../../../redux/profile-reducer';
+import { getUserProfile, getUserStatus, updateUserStatus, savePhoto } from './../../../redux/profile-reducer';
 import Preloader from './../../common/Preloader/Preloader';
 import { withAuthRedirect } from './../../../hoc/withAuthRedirect';
 import { compose } from "redux";
@@ -53,6 +53,8 @@ this.props.getUserStatus(userId)
                             profile={this.props.profile} 
                             status={this.props.status}
                             updateUserStatus = {this.props.updateUserStatus}
+                            savePhoto = {this.props.savePhoto}
+                            isOwner={!this.props.params.userId}
                              />                              
         )
     }
@@ -67,7 +69,8 @@ let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     isFetching: state.profilePage.isFetching,
     status: state.profilePage.status,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    
     
 });
 
@@ -75,7 +78,7 @@ let mapStateToProps = (state) => ({
 
  
 export default compose (
-    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus}),
+    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto }),
     withRouter,
     withNavigate,
     withAuthRedirect,

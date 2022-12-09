@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import css from './ProfileInfo.module.css';
 import jobLooker from '../../../assets/images/jobLooker.webp'
@@ -6,16 +6,45 @@ import noPic from '../../../assets/images/noPic.jpg'
 import ProfileStatusWithHook from './ProfileStatusWithHook';
 
 
-const ProfileInfo = ({profile, status, updateUserStatus}) => {
+
+const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner }) => {
+
+    let [photoEditability, setPhotoEditability] = useState(false);
+    let [fileName, setFileName] = useState()
+
+
     if (!profile) {
         return <Preloader />
     }
+
+    const onMainPhotoSelected = (e) => {
+        if (e.target.files.length) { savePhoto(e.target.files[0]) }
+        setFileName(e.target.files[0].name)
+        console.log("uploading photo: ", fileName)
+    }
+    
+
     return (
         <div >
 
             <div className={css.avatar_description}>
                 <div className={css.avatar}>
-                    <img src={!profile.photos.large ? noPic : profile.photos.large} alt="avatar" />
+                    <img src={!profile.photos.large ? noPic : profile.photos.large}
+                        onDoubleClick={() => { setPhotoEditability(true) }}
+                        alt="avatar"
+                        className={css.avatarPhoto}
+                    />
+
+                    {isOwner && photoEditability &&
+                        (<div>
+                            <span className={css.inputFileText} type="text">{fileName ? "Uploaded file: " + fileName : "Upload your photo"}</span>
+                            <label className={css.inputFile}>
+                                <input type='file' onChange={onMainPhotoSelected} name="file" />
+                                <span className={css.inputFileBtn}> Choose your file</span>
+                            </label>
+                            </div>
+                        )}
+
                     <div>
                         My status:
                         <ProfileStatusWithHook status={status} updateUserStatus={updateUserStatus} />
