@@ -22,18 +22,13 @@ const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner }) 
         setFileName(e.target.files[0].name)
         console.log("uploading photo: ", fileName)
     }
-    
+
 
     return (
         <div >
-
             <div className={css.avatar_description}>
                 <div className={css.avatar}>
-                    <img src={!profile.photos.large ? noPic : profile.photos.large}
-                        onDoubleClick={() => { setPhotoEditability(true) }}
-                        alt="avatar"
-                        className={css.avatarPhoto}
-                    />
+                    <img src={!profile.photos.large ? noPic : profile.photos.large} onDoubleClick={() => { setPhotoEditability(true) }} className={css.avatarPhoto} alt="avatar"/>
 
                     {isOwner && photoEditability &&
                         (<div>
@@ -42,44 +37,61 @@ const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner }) 
                                 <input type='file' onChange={onMainPhotoSelected} name="file" />
                                 <span className={css.inputFileBtn}> Choose your file</span>
                             </label>
-                            </div>
+                        </div>
                         )}
 
                     <div>
-                        My status:
+                        <b>My status:</b>
                         <ProfileStatusWithHook status={status} updateUserStatus={updateUserStatus} />
                     </div>
                 </div>
+                
+                <ProfileData profile={profile} />
 
-                <div className={css.description}>
-                    <p className={css.user_name}>{profile.fullName}</p>
-                    <p>About me: {profile.aboutMe}</p>
-
-                    <p>ID: {profile.userId}</p>
-
-                    <img src={jobLooker} alt="looking for a job" className={profile.lookingForAJob
-                        ? css.lookingForAJob
-                        : css.lookingForAJob + " " + css.false} />
-
-                    <p> {profile.lookingForAJob
-                        ? ("Looking for a job: " + profile.lookingForAJobDescription)
-                        : null}
-                    </p>
-                    <br />
-                    <div className={css.contacts}>Contacts:
-                        <ul>
-                            {profile.contacts.facebook !== null ? <li> {"Facebook: " + profile.contacts.facebook}   </li> : null}
-                            {profile.contacts.website !== null ? <li> {"Website: " + profile.contacts.website}      </li> : null}
-                            {profile.contacts.vk !== null ? <li>{"VK: " + profile.contacts.vk}                </li> : null}
-                            {profile.contacts.github !== null ? <li>{"Github: " + profile.contacts.github}        </li> : null}
-                            {profile.contacts.youtube !== null ? <li>{"youtube: " + profile.contacts.youtube}        </li> : null}
-                            {profile.contacts.twitter !== null ? <li>{"twitter: " + profile.contacts.twitter}        </li> : null}
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
+
     );
 }
+
+const ProfileData = ({ profile, index=0 }) => {
+    return <div className={css.description}>
+        <h1>Profile</h1>
+        <br />
+        <p className={css.user_name}><b>Full name:</b> {profile.fullName}</p>
+
+        <p><b>About me:</b>  {profile.aboutMe}</p>
+        <p><b>ID:</b> {profile.userId}</p>
+
+        <div>
+            <img src={jobLooker} alt="looking for a job" 
+            className={profile.lookingForAJob ? css.lookingForAJob: css.lookingForAJob + " " + css.false} 
+            />
+            <p className={css.lookingForAJobText}> <b>Looking for a job:</b>{profile.lookingForAJob ? " Yes" : " No"}</p>
+            {profile.lookingForAJob && <p><b>My professional skills:</b>  {profile.lookingForAJobDescription}</p>}
+        </div>
+
+        <br />
+        <div className={css.contacts}>
+            <b>Contacts:</b>
+            <ul>
+                {Object.keys(profile.contacts).map(keys => {
+                    // debugger
+                    index = index+1
+                    return <Contact keys={index} contactTitle={keys} contactValue={profile.contacts[keys]} />
+                })}
+            </ul>
+        </div>
+    </div>
+}
+
+const Contact = ({ contactTitle, contactValue, keys }) => {
+     return <div>
+        {contactValue &&
+            (<li><b>{contactTitle}:</b> {contactValue}</li>)
+        }
+    </div>
+}
+
 
 export default ProfileInfo;

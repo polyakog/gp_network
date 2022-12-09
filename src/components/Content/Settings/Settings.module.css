@@ -1,6 +1,9 @@
 :root {
     --redC: rgb(173, 15, 15);
     --greenC: rgb(7, 68, 6);
+    --h1: rgb(173, 15, 15);
+    --btnBackC: rgb(65, 145, 82);
+    --btnBackCoHov: rgb(89, 190, 110)
 }
 
 button {
@@ -14,18 +17,19 @@ button {
     box-sizing: border-box;
     border: 3px outset rgba(65, 145, 82, 0.7);
     background: radial-gradient(circle, rgb(65, 145, 82) 0%, rgb(30, 68, 37) 100%);
-    background-color: rgb(65, 145, 82);
+    background-color: var(--btnBackC);
     border-radius: 5px;
     box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.4);
     transition: all 0.5s ease 0.1s;
-    
-
-
-
 }
 
 button:hover {
-    background: rgb(89, 190, 110);
+    background: var(--btnBackCoHov);
     cursor: url(../../Content/Settings/Cursors/DeCody/arrow.cur), auto;
+}
+
+h1 {
+ text-align: center;
+ color: var(--h1);
 }
 
