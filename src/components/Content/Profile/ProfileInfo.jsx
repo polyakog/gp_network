@@ -95,3 +95,5 @@ const Contact = ({ contactTitle, contactValue, keys }) => {
 
 
 export default ProfileInfo;
+
+// test
