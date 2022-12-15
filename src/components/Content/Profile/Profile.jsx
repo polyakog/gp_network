@@ -13,7 +13,7 @@ const Profile = (props) => {
             {/* Main pic */}
             <div className={css.main_pic_wrapper}>
                 <img className={css.main_pic} src={srcLink} alt="" /></div>
-            <ProfileInfo profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus} savePhoto={props.savePhoto} isOwner={props.isOwner}/> {/* Avatar + discription */}
+            <ProfileInfo profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus} savePhoto={props.savePhoto} isOwner={props.isOwner} saveProfile={props.saveProfile}/> {/* Avatar + discription */}
             <MyPostsContainer />
           
 

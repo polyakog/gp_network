@@ -8,20 +8,18 @@ const FormControl = ({ input, meta: { touched, error }, label, children, ...prop
     // debugger
     const hasError = touched && error;
     return (
-        <div >
+        <div className={hasError ? css.errorField : ''}>
             <label className={css.label}>{label}</label>
-
-            <div className={(hasError ? css.errorTextarea : " ")}>
+            <div className={(hasError ? (css.Text+' '+ css.errorText) : css.Text)}>
                 {children}
             </div>
 
-            {touched && error && 
+            {hasError && 
             <div className={css.warningWrap}>
-                <img className={css.signPic} src={sign} alt="" />
+                <img className={css.errorSignPic} src={sign} alt="" />
                 <span className={css.errorSpan}>{error}</span>
             </div>
             }
-
 
         </div>
     )
@@ -29,26 +27,27 @@ const FormControl = ({ input, meta: { touched, error }, label, children, ...prop
 
 export const Textarea = (props) => {
     const { input, ...restProps } = props;
-    return <FormControl {...props}><textarea className={css.Textarea} {...input} {...restProps} /></FormControl>
+    return <FormControl {...props}><textarea {...input} {...restProps} /></FormControl>
 }
 
 export const Input = (props) => {
 
     const { input, ...restProps } = props;
-    return <FormControl {...props}><input className={css.Textarea} {...input} {...restProps} /></FormControl>
+    return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
 }
 
 
+/* Form Patern */
 
 export const createField = (error, name, label, component, type, placeholder, autocomplete, validate, text) => (
-        <div className={error ? css.errorField : ''}>
+        <div>
             <Field
                 name = {name}
                 label={label}
                 component={component}
                 type={type}
                 placeholder={placeholder}
-                autocomplete={autocomplete}
+                autoComplete={autocomplete}
                 validate={validate}
             /> {text}
         </div>

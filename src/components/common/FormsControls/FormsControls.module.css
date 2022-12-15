@@ -2,34 +2,57 @@
 .label {
     display: flex;
     text-align: start;
-    margin-left: 5px;
+    margin: 10px 5px;
+    font-weight: bold;
 }
 
-.Textarea {
+div.Text {
     display: flex;
-    justify-content: center;
-    width: 99%;
-    font-size: 14px;
-    padding: 5px;
-    border-radius: 8px;
-}
-
-div.errorTextarea {
-    margin-top: 5px;
-    display: flex;
-    border: solid 2px var(--redC);
+    border: solid 2px var(--greenC);
     border-radius: 10px;
     overflow: hidden;
+    width: 95%;
+    min-height: 30px;
+    margin-bottom: 10px;
+    
 
+
+}
+
+div.Text.errorText {
+    border: solid 2px var(--redC);
+    
+}
+
+div.Text input,div.Text textarea {
+    border: solid 2px rgba(255, 255, 255, 0);
+    border-radius: 10px;
+    width: 100%;
+    
 }
 
 .warningWrap {
     margin: 5px 50px;
     display: flex;
     align-items: center;
+
+    
 }
 
-.signPic {
+.formError {
+    margin: 5px 50px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+
+    border: solid 2px var(--redC);
+    border-radius: 10px;
+    text-align: start;
+    color: var(--redC);
+    font-weight: bold;
+}
+
+.errorSignPic {
     height: 20px;
 }
 
@@ -43,8 +66,9 @@ div.errorTextarea {
 .errorField {
     margin-top: 5px;
     border: solid 2px var(--redC);
-    background-color: rgba(255, 0, 0, 0.328);
+    background-color: rgba(255, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
-    width: 101%;
+    width: 95%;
+    box-sizing: border-box;
 }
