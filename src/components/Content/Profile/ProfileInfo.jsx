@@ -4,13 +4,15 @@ import css from './ProfileInfo.module.css';
 import jobLooker from '../../../assets/images/jobLooker.webp'
 import noPic from '../../../assets/images/noPic.jpg'
 import ProfileStatusWithHook from './ProfileStatusWithHook';
+import ProfileDataReduxForm from "./ProfileDataForm";
 
 
 
-const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner }) => {
+const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner, saveProfile }) => {
 
     let [photoEditability, setPhotoEditability] = useState(false);
     let [fileName, setFileName] = useState()
+    let [editMode, setEditMode] = useState(false)
 
 
     if (!profile) {
@@ -23,12 +25,22 @@ const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner }) 
         console.log("uploading photo: ", fileName)
     }
 
+    const onSubmit = (formData) => {
+        saveProfile(formData).then ( ()=>{
+            
+         setEditMode(false) 
+           
+        })
+        
+
+    }
+
 
     return (
         <div >
             <div className={css.avatar_description}>
                 <div className={css.avatar}>
-                    <img src={!profile.photos.large ? noPic : profile.photos.large} onDoubleClick={() => { setPhotoEditability(true) }} className={css.avatarPhoto} alt="avatar"/>
+                    <img src={!profile.photos.large ? noPic : profile.photos.large} onDoubleClick={() => { setPhotoEditability(true) }} className={css.avatarPhoto} alt="avatar" />
 
                     {isOwner && photoEditability &&
                         (<div>
@@ -45,8 +57,11 @@ const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner }) 
                         <ProfileStatusWithHook status={status} updateUserStatus={updateUserStatus} />
                     </div>
                 </div>
-                
-                <ProfileData profile={profile} />
+
+                {editMode
+                    ? <ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
+                    : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => { setEditMode(true) }} />}
+
 
             </div>
         </div>
@@ -54,18 +69,20 @@ const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner }) 
     );
 }
 
-const ProfileData = ({ profile, index=0 }) => {
+
+const ProfileData = ({ profile, isOwner, goToEditMode, index = 0 }) => {
     return <div className={css.description}>
         <h1>Profile</h1>
         <br />
+        {isOwner && <div><button onClick={goToEditMode}>Edit profile</button></div>}
         <p className={css.user_name}><b>Full name:</b> {profile.fullName}</p>
 
         <p><b>About me:</b>  {profile.aboutMe}</p>
         <p><b>ID:</b> {profile.userId}</p>
 
         <div>
-            <img src={jobLooker} alt="looking for a job" 
-            className={profile.lookingForAJob ? css.lookingForAJob: css.lookingForAJob + " " + css.false} 
+            <img src={jobLooker} alt="looking for a job"
+                className={profile.lookingForAJob ? css.lookingForAJob : css.lookingForAJob + " " + css.false}
             />
             <p className={css.lookingForAJobText}> <b>Looking for a job:</b>{profile.lookingForAJob ? " Yes" : " No"}</p>
             {profile.lookingForAJob && <p><b>My professional skills:</b>  {profile.lookingForAJobDescription}</p>}
@@ -74,19 +91,19 @@ const ProfileData = ({ profile, index=0 }) => {
         <br />
         <div className={css.contacts}>
             <b>Contacts:</b>
-            <ul>
-                {Object.keys(profile.contacts).map(keys => {
-                    // debugger
-                    index = index+1
-                    return <Contact keys={index} contactTitle={keys} contactValue={profile.contacts[keys]} />
-                })}
+
+            <ul> {Object.keys(profile.contacts).map(keys => {
+                // debugger
+                index = index + 1
+                return <Contact keys={keys} contactTitle={keys} contactValue={profile.contacts[keys]} />
+            })}
             </ul>
         </div>
     </div>
 }
 
 const Contact = ({ contactTitle, contactValue, keys }) => {
-     return <div>
+    return <div>
         {contactValue &&
             (<li><b>{contactTitle}:</b> {contactValue}</li>)
         }
@@ -95,5 +112,3 @@ const Contact = ({ contactTitle, contactValue, keys }) => {
 
 
 export default ProfileInfo;
-
-// test

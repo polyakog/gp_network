@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import { connect } from 'react-redux';
 // import { connect } from 'react-redux/es/exports';
-import { getUserProfile, getUserStatus, updateUserStatus, savePhoto } from './../../../redux/profile-reducer';
+import { getUserProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile } from './../../../redux/profile-reducer';
 import Preloader from './../../common/Preloader/Preloader';
 import { withAuthRedirect } from './../../../hoc/withAuthRedirect';
 import { compose } from "redux";
@@ -22,31 +22,25 @@ if (!userId) { userId = this.props.userId; }
 if (!userId) {
     this.props.navigate('/login'); /* не обязательно, можно удалить. Для инфы */
 }
-
-
 this.props.getUserProfile(userId)
 this.props.getUserStatus(userId)    
 }
 
+
     componentDidMount (){
-               
-        this.refreshProfile()
+    this.refreshProfile()
     }
 
     componentDidUpdate(prevPops, prevState, snapshot) {
-        
-        if (this.props.params.userId !== prevPops.params.userId) {
+    if (this.props.params.userId !== prevPops.params.userId) {
           this.refreshProfile();  
         }
         
     }
 
     render (){
-        
-            return (
-                                            
-
-                    this.props.isFetching
+        return (
+                 this.props.isFetching
                     ? <Preloader message='profile loading' />
                         : <Profile 
                             {...this.props} 
@@ -54,6 +48,7 @@ this.props.getUserStatus(userId)
                             status={this.props.status}
                             updateUserStatus = {this.props.updateUserStatus}
                             savePhoto = {this.props.savePhoto}
+                            saveProfile = {this.props.saveProfile}
                             isOwner={!this.props.params.userId}
                              />                              
         )
@@ -78,7 +73,7 @@ let mapStateToProps = (state) => ({
 
  
 export default compose (
-    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto }),
+    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile }),
     withRouter,
     withNavigate,
     withAuthRedirect,
