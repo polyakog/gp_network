@@ -124,9 +124,11 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
     // if (response.data.resultCode !== 0) // error 
     // console.log(response.data.messages)
     else {
-            let messageError = response.data.messages.length > 0 ? response.data.messages[0] : "Some Error"
+            let errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "Some Error"
             // dispatch(stopSubmit("edit-profile", { fullName: message }))
-            dispatch(stopSubmit("edit-profile", { _error: messageError, contacts:{facebook: "Error"} }))
-            return Promise.reject(messageError) //rejecte promice if promice=messageError
+            let contactsValue = errorMessage.split('>')[1].split(')')[0];
+            let contactsTitle=contactsValue.toLowerCase() // lower case
+            dispatch(stopSubmit("edit-profile", { _error: errorMessage, contacts:{[contactsTitle]: `Error in ${contactsValue} URL`} }))
+            return Promise.reject(errorMessage) //rejecte promice if promice=messageError
         }
 }
