@@ -38,3 +38,15 @@ h2.formHead {
     margin-left: 5px;
 }
 
+.captureLabel {
+    margin: 15px 40px;
+    display:block;
+    height: 10px;
+}
+
+.capturePic{
+    border: solid 3px var(--redC);
+    border-radius: 10px;
+    height: 70px;
+    opacity: 80%;
+}

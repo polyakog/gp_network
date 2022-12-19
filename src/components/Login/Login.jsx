@@ -12,7 +12,7 @@ import sign from "./../../assets/images/sign4.jpg"
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.capture)
     }
 
     if (props.isAuth) {
@@ -20,13 +20,13 @@ const Login = (props) => {
     }
 
     return <div >
-        <LoginReduxForm onSubmit={onSubmit} />
+        <LoginReduxForm onSubmit={onSubmit} captureUrl={props.captureUrl} />
     </div>
 }
 
 
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captureUrl}) => {
     const maxLength50 = maxLengthCreator(50)
     const maxLength20 = maxLengthCreator(20)
 
@@ -38,14 +38,25 @@ const LoginForm = ({handleSubmit, error}) => {
         {createField(error, 'password', 'PASSWORD', Input, 'password', 'your password', 'current-password', [required, maxLength20], '')} 
         <p></p>
         {createField(null, 'rememberMe', '', 'input', 'checkbox', '', '', [], 'remember me')} 
-        
+
         {error &&
             <div className={css.formError}>
-                <img className={css.errorSignPic} src={sign} alt="" />
+                <img className={css.errorSignPic} src={sign} alt="error" />
                 <span className={css.errorSpan}> {error} </span>
             </div>
         }
 
+        {captureUrl && 
+          <div>
+             <label className={css.captureLabel} >Capture:</label>
+            <img src={captureUrl} className={css.capturePic} alt="capture" />
+            {createField(error, 'capture', '', Input, 'text', 'Enter the capture', '', [required, maxLength50], '')} 
+        </div>  
+        }
+
+        
+             
+        
         <div>
             <button className={css.loginButton} >Login</button>
         </div>
@@ -56,7 +67,8 @@ const LoginForm = ({handleSubmit, error}) => {
 const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm)
 
 const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captureUrl: state.auth.captureUrl
 })
 
 export default connect(mapStateToProps, { login })(Login);

@@ -1,9 +1,11 @@
 import { stopSubmit } from "redux-form";
-import { authAPI, profileAPI } from "../api/api";
+import { authAPI, profileAPI, securityAPI } from "../api/api";
 
 const TOGGLE_IS_FETCHING = 'gp-network/auth/TOGGLE_IS_FETCHING'
 const SET_USER_DATA = 'gp-network/auth/SET_USER_DATA'
 const SET_USER_PHOTO = 'gp-network/auth/SET_USER_PHOTO'
+const SET_CAPTURE_URL_SUCCESS = 'gp-network/auth/SET_CAPTURE_URL_SUCCESS'
+
 
 
 let initialState = {
@@ -12,7 +14,8 @@ let initialState = {
     login: null,
     isAuth: false,
     isFetching: false,
-    userPhoto: null
+    userPhoto: null,
+    captureUrl: null // if null then no need to display capture
 
 };
 
@@ -20,6 +23,7 @@ let initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
+        case SET_CAPTURE_URL_SUCCESS:
             return {
                 ...state,
                 ...action.payload,
@@ -57,6 +61,8 @@ export const setAuthUserPhoto = (userPhoto) => ({ type: SET_USER_PHOTO, userPhot
 
 export const authToggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 
+export const setCaptureUrlSuccess =(captureUrl)=>({type: SET_CAPTURE_URL_SUCCESS, payload: {captureUrl}})
+
 
 export default authReducer;
 
@@ -77,15 +83,26 @@ export const getAuthUserData = () => async (dispatch) => {
     }
 }
 
-export const login = (email, password, rememberMe) => async (dispatch) => {
+export const login = (email, password, rememberMe, capture) => async (dispatch) => {
 
-    let data = await authAPI.login(email, password, rememberMe)
+    let data = await authAPI.login(email, password, rememberMe, capture)
     if (data.resultCode === 0) {
         dispatch(getAuthUserData())
     } else {
         let message = data.messages.length > 0 ? data.messages[0] : "Some Error"
         dispatch(stopSubmit("login", { _error: message }))
     }
+    
+    if (data.resultCode === 10) {
+        dispatch(getCaptchaUrl())
+    }
+}
+
+export const getCaptchaUrl = () => async (dispatch) => {
+    const response = await securityAPI.getCaptchaUrl()
+    const captureUrl = response.data.url;
+        dispatch(setCaptureUrlSuccess(captureUrl));
+
 }
 
 export const logout = () => async (dispatch) => {
@@ -93,5 +110,4 @@ export const logout = () => async (dispatch) => {
     if (response.data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false))
     }
-
 }
