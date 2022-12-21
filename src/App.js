@@ -29,11 +29,23 @@ const Music = React.lazy(() => import('./components/Content/Music/Music'));
 
 
 class App extends Component {
+  catchAllUnhandledErrors =(reason, promise) => {
+    alert('Some error in promise')
+  }
+
   componentDidMount() {
     this.props.initializeApp();
+    window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+  }
+
+  componentWillMount() {
+    this.props.initializeApp();
+    window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
   }
 
   render() {
+
+
     if (!this.props.initialized) {
       return <Preloader message='initialization (app) loading' />
     }

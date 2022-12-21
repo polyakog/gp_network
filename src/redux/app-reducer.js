@@ -7,6 +7,7 @@ const INITIALAZED_SUCCESS = 'INITIALAZED_SUCCESS'
 
 let initialState = {
     initialized: false,
+    globalError: null // dispatch errror in app
    
 
 };

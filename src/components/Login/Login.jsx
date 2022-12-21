@@ -30,7 +30,9 @@ const LoginForm = ({handleSubmit, error, captureUrl}) => {
     const maxLength50 = maxLengthCreator(50)
     const maxLength20 = maxLengthCreator(20)
 
-    return <form className={css.loginForm} onSubmit={handleSubmit} enctype="multipart/form-data">
+    try {
+        
+        return <form className={css.loginForm} onSubmit={handleSubmit} enctype="multipart/form-data">
         <h2 className={css.formHead}>Login</h2>
        
         {createField(error, 'email', 'LOGIN', Input, 'text', 'your registered email', 'username', [required, maxLength50], '')} 
@@ -54,14 +56,21 @@ const LoginForm = ({handleSubmit, error, captureUrl}) => {
         </div>  
         }
 
-        
-             
-        
-        <div>
+         <div>
             <button className={css.loginButton} >Login</button>
         </div>
     </form>
+
+} catch (error) {
+       alert (`Ошибка \n Название: ${error.name} \n Сообщение: ${error.message} \n Stack:${error.stack} `)
+        
+    }
+    
+    
 }
+
+    
+
 
 
 const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm)
