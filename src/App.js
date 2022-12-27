@@ -29,8 +29,9 @@ const Music = React.lazy(() => import('./components/Content/Music/Music'));
 
 
 class App extends Component {
-  catchAllUnhandledErrors =(reason, promise) => {
-    alert('Some error in promise')
+  catchAllUnhandledErrors =({reason, promise}) => {
+    
+    alert(`Some error \n --------------\n Name: ${reason.name} \n Description: ${reason.message}`)
   }
 
   componentDidMount() {

@@ -98,9 +98,15 @@ export const getUserStatus = (userId) => async (dispatch) => {
 
 /* thunk */
 export const updateUserStatus = (status) => async (dispatch) => {
-    const response = await profileAPI.updateStatus(status)
+    try {
+       const response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0)
-        dispatch(setStatus(status));
+        dispatch(setStatus(status)); 
+    } catch (error) {
+        alert(`Error \n -------------\n 1. Name: ${error.name} \n 2. Description: ${error.message} -> ${error.code} \n 3. Config: ${error.config.data}`)
+        
+    }
+    
 
 }
 
