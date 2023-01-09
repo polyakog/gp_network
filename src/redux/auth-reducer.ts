@@ -6,9 +6,17 @@ const SET_USER_DATA = 'gp-network/auth/SET_USER_DATA'
 const SET_USER_PHOTO = 'gp-network/auth/SET_USER_PHOTO'
 const SET_CAPTURE_URL_SUCCESS = 'gp-network/auth/SET_CAPTURE_URL_SUCCESS'
 
+export type InitialStateType = {
+    userId: null | number
+    email: null | string
+    login: null | string
+    isAuth: boolean
+    isFetching: boolean
+    userPhoto: null | string
+    captureUrl: null | string
+};
 
-
-let initialState = {
+let initialState: InitialStateType = {
     userId: null,
     email: null,
     login: null,
@@ -16,18 +24,15 @@ let initialState = {
     isFetching: false,
     userPhoto: null,
     captureUrl: null // if null then no need to display capture
-
 };
 
-
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
         case SET_CAPTURE_URL_SUCCESS:
             return {
                 ...state,
                 ...action.payload,
-
             };
 
         case SET_USER_PHOTO:
@@ -36,7 +41,6 @@ const authReducer = (state = initialState, action) => {
                 userPhoto: action.userPhoto,
             };
 
-
         case TOGGLE_IS_FETCHING: {
             return {
                 ...state,
@@ -44,31 +48,34 @@ const authReducer = (state = initialState, action) => {
             }
         }
 
-
-
-
-
         default:
             return state;
-
-
     }
 }
 
-export const setAuthUserData = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth } })
+type SetAuthUserDataActionPayloadType  = { 
+    userId: number | null 
+    email: string | null
+    login: string | null
+    isAuth: boolean }
+type SetAuthUserDataActionType = { type: typeof SET_USER_DATA, payload: SetAuthUserDataActionPayloadType }
+export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): SetAuthUserDataActionType => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth } })
 
-export const setAuthUserPhoto = (userPhoto) => ({ type: SET_USER_PHOTO, userPhoto })
+type SetAuthUserPhotoActionType = { type: typeof SET_USER_PHOTO, userPhoto: string }
+export const setAuthUserPhoto = (userPhoto: string): SetAuthUserPhotoActionType => ({ type: SET_USER_PHOTO, userPhoto })
 
-export const authToggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
+type AuthToggleIsFetchingActionType = { type: typeof TOGGLE_IS_FETCHING, isFetching: boolean }
+export const authToggleIsFetching = (isFetching: boolean): AuthToggleIsFetchingActionType => ({ type: TOGGLE_IS_FETCHING, isFetching })
 
-export const setCaptureUrlSuccess =(captureUrl)=>({type: SET_CAPTURE_URL_SUCCESS, payload: {captureUrl}})
+type SetCaptureUrlSuccessActionType = { type: typeof SET_CAPTURE_URL_SUCCESS, payload: { captureUrl: string } }
+export const setCaptureUrlSuccess = (captureUrl: string): SetCaptureUrlSuccessActionType => ({ type: SET_CAPTURE_URL_SUCCESS, payload: { captureUrl } })
 
 
 export default authReducer;
 
 
 /* Thunk */
-export const getAuthUserData = () => async (dispatch) => {
+export const getAuthUserData = () => async (dispatch: any) => {
     dispatch(authToggleIsFetching(true));
 
     let data = await authAPI.me()
@@ -77,13 +84,13 @@ export const getAuthUserData = () => async (dispatch) => {
         dispatch(setAuthUserData(id, email, login, true));
 
         /* запрос фото пользователя */
-    data = await profileAPI.getProfile(id)
+        data = await profileAPI.getProfile(id)
         dispatch(setAuthUserPhoto(data.photos.small));
         dispatch(authToggleIsFetching(false));
     }
 }
 
-export const login = (email, password, rememberMe, capture) => async (dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean, capture: any) => async (dispatch: any) => {
 
     let data = await authAPI.login(email, password, rememberMe, capture)
     if (data.resultCode === 0) {
@@ -92,20 +99,19 @@ export const login = (email, password, rememberMe, capture) => async (dispatch) 
         let message = data.messages.length > 0 ? data.messages[0] : "Some Error"
         dispatch(stopSubmit("login", { _error: message }))
     }
-    
+
     if (data.resultCode === 10) {
         dispatch(getCaptchaUrl())
     }
 }
 
-export const getCaptchaUrl = () => async (dispatch) => {
+export const getCaptchaUrl = () => async (dispatch: any) => {
     const response = await securityAPI.getCaptchaUrl()
     const captureUrl = response.data.url;
-        dispatch(setCaptureUrlSuccess(captureUrl));
-
+    dispatch(setCaptureUrlSuccess(captureUrl));
 }
 
-export const logout = () => async (dispatch) => {
+export const logout = () => async (dispatch: any) => {
     let response = await authAPI.logout()
     if (response.data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false))

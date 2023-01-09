@@ -1,4 +1,4 @@
-import { addPostActionCreator } from './../../../redux/profile-reducer';
+import { addPostActionCreator } from '../../../redux/profile-reducer.ts';
 import MyPosts from "./MyPosts";
 import { connect } from 'react-redux';
 // import { connect } from 'react-redux/es/exports';
@@ -9,9 +9,7 @@ import { connect } from 'react-redux';
 let mapStateToProps = (state) => {
     return {
         postData: state.profilePage.postData,
-        
-
-    }
+  }
 }
 
 let mapDispatchToProps = (dispatch) => {

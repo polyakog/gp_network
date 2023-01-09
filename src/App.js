@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import { withRouter } from './hoc/withRouter';
-import { initializeApp } from './redux/app-reducer';
+import { initializeApp } from './redux/app-reducer.ts';
 import HeaderContainer from './components/Header/HeaderContainer';
 import NavContainer from './components/Nav/NavContainer';
 import Preloader from './components/common/Preloader/Preloader';

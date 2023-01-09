@@ -5,28 +5,10 @@ import './index.css'
 import GpNetworkApp from './App';
 
 
-
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-// let rerender = () => {
 
 root.render(
     <GpNetworkApp />
 );
-// }
-// rerender();
-
-// /* subscribe запускается при изменениях в state */
-// store.subscribe(() => { rerender() });
-
-
-
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
-
 
 
