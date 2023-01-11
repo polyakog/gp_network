@@ -6,39 +6,34 @@ const SET_USER_DATA = 'gp-network/auth/SET_USER_DATA'
 const SET_USER_PHOTO = 'gp-network/auth/SET_USER_PHOTO'
 const SET_CAPTURE_URL_SUCCESS = 'gp-network/auth/SET_CAPTURE_URL_SUCCESS'
 
-export type InitialStateType = {
-    userId: null | number
-    email: null | string
-    login: null | string
-    isAuth: boolean
-    isFetching: boolean
-    userPhoto: null | string
-    captureUrl: null | string
-};
-
-let initialState: InitialStateType = {
-    userId: null,
-    email: null,
-    login: null,
+let initialState = {
+    userId: null as null | number,
+    email: null as null | string,
+    login: null as null | string,
     isAuth: false,
     isFetching: false,
-    userPhoto: null,
-    captureUrl: null // if null then no need to display capture
+    userPhoto: null as null | string,
+    captureUrl: null as null | string // if null then no need to display capture
 };
+
+export type InitialStateType = typeof initialState
 
 const authReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
         case SET_CAPTURE_URL_SUCCESS:
             return {
+                
                 ...state,
                 ...action.payload,
+                
             };
 
         case SET_USER_PHOTO:
             return {
                 ...state,
                 userPhoto: action.userPhoto,
+                
             };
 
         case TOGGLE_IS_FETCHING: {

@@ -8,28 +8,41 @@ const TOGGLE_IS_FETCHING = 'gp-network/profile/TOGGLE_IS_FETCHING'
 const SET_STATUS = 'gp-network/profile/SET_STATUS'
 const SAVE_PHOTO_SUCCESS = "gp-network/profile/SAVE_PHOTO_SUCCESS"
 
-type postDataType = { id: number, postId: number, message: string, likeCount: number, Name: string }
+type PostDataType = { id: number, postId: number, message: string, likeCount: number, Name: string }
 
-type InitialStateType = {
-    postData: Array<postDataType>
-    profile: null | string
-    isFetching: boolean
-    status: null | string
+type ContactsType = {
+        github: string|null
+        vk: string|null
+        facebook: string | null
+        instagram: string | null
+        twitter: string | null
+        website: string | null
+        youtube: string | null
+        mainLink: string | null
+    }
+type PhotosType = {small: null | string, large: null | string}
+
+type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string|null
+    fullName: string
+    photos: PhotosType | null
+    contacts: ContactsType
 }
 
-
-let initialState: InitialStateType = {
+let initialState = {
     postData: [
         { id: 1, postId: 1, message: 'Very interesting', likeCount: 21, Name: 'Alexey' },
         { id: 2, postId: 2, message: 'How to add data?', likeCount: 2, Name: 'Anton' },
         { id: 2, postId: 3, message: 'OK', likeCount: 3, Name: 'Anton' },
-    ],
-    profile: null,
+    ] as Array<PostDataType>,
+    profile: null as null | ProfileType,
     isFetching: false,
-    status: null,
-    
+    status: null as null | string,
+    };
 
-};
+export type InitialStateType = typeof initialState
 
 const profileReducer = (state = initialState, action:any): InitialStateType => {
     switch (action.type) {
@@ -64,7 +77,7 @@ const profileReducer = (state = initialState, action:any): InitialStateType => {
         }
 
         case SAVE_PHOTO_SUCCESS: {
-            return { ...state, profile:{...state.profile, photos: action.photoFile} }
+            return { ...state, profile:{...state.profile, photos: action.photoFile} as ProfileType}
         }
 
 
@@ -81,8 +94,8 @@ const profileReducer = (state = initialState, action:any): InitialStateType => {
 type AddPostActionCreatorActionType = { type: typeof ADD_POST, newPostText:string | null }
 export const addPostActionCreator = (newPostText: string | null): AddPostActionCreatorActionType => ({ type: ADD_POST, newPostText })
 
-type SetUserProfileActionType = { type: typeof SET_USER_PROFILE, profile:any }
-export const setUserProfile = (profile: any): SetUserProfileActionType => ({ type: SET_USER_PROFILE, profile })
+type SetUserProfileActionType = { type: typeof SET_USER_PROFILE, profile: ProfileType }
+export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({ type: SET_USER_PROFILE, profile })
 
 type ProfileToggleIsFetchingActionType = { type: typeof TOGGLE_IS_FETCHING, isFetching:boolean }
 export const profileToggleIsFetching = (isFetching: boolean): ProfileToggleIsFetchingActionType => ({ type: TOGGLE_IS_FETCHING, isFetching })
@@ -140,8 +153,8 @@ export const savePhoto = (photoFile:string) => async (dispatch:any) => {
 
 }
 
-export const saveProfile = (profile:string) => async (dispatch:any, getState) => {
-    const userId= getState().auth.userId
+export const saveProfile = (profile:ProfileType) => async (dispatch:any, getState:any) => {
+    const userId: number = getState().auth.userId
     const response = await profileAPI.saveProfile(profile)
     
     if (response.data.resultCode === 0)
