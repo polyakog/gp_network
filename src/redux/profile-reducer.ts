@@ -1,5 +1,7 @@
 import { stopSubmit } from 'redux-form';
 import { profileAPI, usersAPI } from '../api/api';
+import { PhotosType, PostDataType, ProfileType } from '../types/types';
+
 
 const ADD_POST = 'gp-network/profile/ADD-POST'
 const DELETE_POST = 'gp-network/profile/DELETE_POST'
@@ -8,28 +10,6 @@ const TOGGLE_IS_FETCHING = 'gp-network/profile/TOGGLE_IS_FETCHING'
 const SET_STATUS = 'gp-network/profile/SET_STATUS'
 const SAVE_PHOTO_SUCCESS = "gp-network/profile/SAVE_PHOTO_SUCCESS"
 
-type PostDataType = { id: number, postId: number, message: string, likeCount: number, Name: string }
-
-type ContactsType = {
-        github: string|null
-        vk: string|null
-        facebook: string | null
-        instagram: string | null
-        twitter: string | null
-        website: string | null
-        youtube: string | null
-        mainLink: string | null
-    }
-type PhotosType = {small: null | string, large: null | string}
-
-type ProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string|null
-    fullName: string
-    photos: PhotosType | null
-    contacts: ContactsType
-}
 
 let initialState = {
     postData: [
@@ -106,8 +86,8 @@ export const setStatus = (status: string | null): SetStatusActionType => ({ type
 type DeletePostActionType = { type: typeof DELETE_POST, postId: number }
 export const deletePost = (postId: number): DeletePostActionType => ({ type: DELETE_POST, postId })
 
-type SavePhotoSuccessActionType = { type: typeof SAVE_PHOTO_SUCCESS, photoFile: string }
-export const savePhotoSuccess = (photoFile: string): SavePhotoSuccessActionType => ({ type: SAVE_PHOTO_SUCCESS, photoFile })
+type SavePhotoSuccessActionType = { type: typeof SAVE_PHOTO_SUCCESS, photoFile: PhotosType }
+export const savePhotoSuccess = (photoFile: PhotosType): SavePhotoSuccessActionType => ({ type: SAVE_PHOTO_SUCCESS, photoFile })
 
 export default profileReducer
 
@@ -135,7 +115,7 @@ export const updateUserStatus = (status:string) => async (dispatch:any) => {
        const response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0)
         dispatch(setStatus(status)); 
-    } catch (error) {
+    } catch (error:any) {
         alert(`Error \n -------------\n 1. Name: ${error.name} \n 2. Description: ${error.message} -> ${error.code} \n 3. Config: ${error.config.data}`)
         
     }

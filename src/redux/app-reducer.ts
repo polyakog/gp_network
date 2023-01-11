@@ -1,5 +1,5 @@
 
-import { getAuthUserData } from './auth-reducer.ts';
+import { getAuthUserData } from './auth-reducer';
 
 
 const INITIALAZED_SUCCESS = 'gp-network/app/INITIALAZED_SUCCESS'

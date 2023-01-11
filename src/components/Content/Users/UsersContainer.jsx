@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import { connect } from 'react-redux/es/exports';
-import { follow, setCurrentPage, unfollow, requestUsers } from '../../../redux/users-reducer';
+import { follow, setCurrentPage, unfollow, requestUsers } from '../../../redux/users-reducer.ts';
 import Preloader from './../../common/Preloader/Preloader';
 import Users from './Users';
 import css from './Users.module.css';

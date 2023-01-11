@@ -9,7 +9,7 @@ import { initializeApp } from './redux/app-reducer.ts';
 import HeaderContainer from './components/Header/HeaderContainer';
 import NavContainer from './components/Nav/NavContainer';
 import Preloader from './components/common/Preloader/Preloader';
-import store from './redux/redux-store';
+import store from './redux/redux-store.ts';
 
 // import Login from './components/Login/Login';
 // import ProfileContainer from './components/Content/Profile/ProfileContainer';
