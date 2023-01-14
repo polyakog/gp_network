@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import css from './Paginator.module.css'
+import React, { FC, useState } from "react";
 import cn from 'classnames'
+import css from './Paginator.module.css'
 
-const PaginatorButton = (disabledArrow, setPortionNumber, nextPortionNumber, name, text) => (
+
+
+const PaginatorButton = (disabledArrow: boolean, setPortionNumber: (nextPortionNumber: number) => void, nextPortionNumber: number, name: string, text: string) => (
     <div >
         <button
             className={cn(css.arrow, { [css.disabled]: disabledArrow })}
@@ -13,12 +15,19 @@ const PaginatorButton = (disabledArrow, setPortionNumber, nextPortionNumber, nam
     </div>
 )
 
+type PaginatorPropsType = {
+    totalItemsCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (pages:number)=>void
+    portionSize: number
+}
 
-const Paginator = ({ totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10 }) => {
+const Paginator: FC<PaginatorPropsType> = ({ totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10 }) => {
 
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
-    let pages = [];
+    let pages: Array<number> = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
@@ -33,8 +42,8 @@ const Paginator = ({ totalItemsCount, pageSize, currentPage, onPageChanged, port
 
 
     return <div className={css.paginator}>
-        {PaginatorButton((portionNumber < 2 && true), setPortionNumber, 1, "start", "\u21E4")}
-        {PaginatorButton((portionNumber < 2 && true), setPortionNumber, portionNumber - 1, "before", "\u2BEC")}
+        {PaginatorButton((portionNumber < 2 && true), setPortionNumber, 1, "start", "First")}
+        {PaginatorButton((portionNumber < 2 && true), setPortionNumber, portionNumber - 1, "before", "<<")}
 
         {pages
             .filter(p => p >= leftProtionPageNumber && p <= rightProtionPageNumber)
@@ -49,8 +58,8 @@ const Paginator = ({ totalItemsCount, pageSize, currentPage, onPageChanged, port
                     }}>{p}  </span>
             })
         }
-        {PaginatorButton(((portionNumber + 1) > portionCount && true), setPortionNumber, portionNumber + 1, "next", "\u2BEE")}
-        {PaginatorButton(((portionNumber + 1) > portionCount && true), setPortionNumber, portionCount, "end", "\u21E5")}
+        {PaginatorButton(((portionNumber + 1) > portionCount && true), setPortionNumber, portionNumber + 1, "next", ">>")}
+        {PaginatorButton(((portionNumber + 1) > portionCount && true), setPortionNumber, portionCount, "end", "Last")}
 
     </div>
 }

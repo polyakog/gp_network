@@ -1,10 +1,10 @@
 .paginator {
-    width: 30%;
-
+    max-width: 90%;
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 0px 0px 0px 20px;
+    font-size: small;
 
 
 
@@ -22,7 +22,8 @@
     width: 25px;
     height: 25px;
     border-radius: 15px;
-    margin: 0 2px 2px 0;
+    margin: 0 3px 4px 0;
+    box-sizing: border-box;
 }
 
 .pageNumber:hover {
@@ -45,11 +46,10 @@ button.arrow {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
+    font-weight:600;
 
-    font-size: 20px;
+    font-size: 14px;
     height: 25px;
-    width: 25px;
     border: 3px outset rgba(255, 217, 0, 0.5);
     /* border-style: outset; */
     background-color: rgba(218, 165, 32, 0.7);

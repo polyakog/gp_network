@@ -3,7 +3,7 @@
     --greenC: rgb(7, 68, 6);
     --h1: rgb(173, 15, 15);
     --btnBackC: rgb(65, 145, 82);
-    --btnBackCoHov: rgb(89, 190, 110)
+    --btnBackCoHov: rgb(89, 190, 110);
 }
 
 button {
@@ -26,6 +26,7 @@ button {
 button:hover {
     background: var(--btnBackCoHov);
     cursor: url(../../Content/Settings/Cursors/DeCody/arrow.cur), auto;
+    color: rgba(0, 0, 0, 0.4);
 }
 
 h1 {
