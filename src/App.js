@@ -22,7 +22,7 @@ import Settings from './components/Content/Settings/Settings';
 const Login = React.lazy(() => import('./components/Login/Login'));
 const ProfileContainer = React.lazy(() => import('./components/Content/Profile/ProfileContainer'));
 const DialogsContainer = React.lazy(() => import('./components/Content/Dialogs/DialogsContainer'));
-const UsersContainer2 = React.lazy(() => import('./components/Content/Users/UsersContainer'));
+const UsersContainer = React.lazy(() => import('./components/Content/Users/UsersContainer'));
 const News = React.lazy(() => import('./components/Content/News/News'));
 const Music = React.lazy(() => import('./components/Content/Music/Music'));
 // const Settings = React.lazy(() => import('./components/Content/Settings/Settings'));
@@ -69,7 +69,7 @@ class App extends Component {
             <Route path='dialogs/*' element={<DialogsContainer />} />
             <Route path='news' element={<News />} />
             <Route path='music' element={<Music />} />
-            <Route path='users' element={<UsersContainer2 />} />
+            <Route path='users' element={<UsersContainer pageTitle='Users' />} />
             <Route path='login' element={<Login />} />
             <Route path='settings' element={<Settings />} />
           </Routes>
