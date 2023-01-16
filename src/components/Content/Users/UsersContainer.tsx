@@ -6,7 +6,7 @@ import Users from './Users';
 import css from './Users.module.css';
 import { compose } from 'redux';
 import { getPageSize, getUsers, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../../redux/users-selectors';
-import { UsersType } from '../../../types/types';
+import { UserType } from '../../../types/types';
 import { AppStateType } from '../../../redux/redux-store';
 
 type MapStateToPropsType = {
@@ -15,7 +15,7 @@ type MapStateToPropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: Array<number>
-    users: Array<UsersType>
+    users: Array<UserType>
 }
 
 type MapDispatchToPropsType = {

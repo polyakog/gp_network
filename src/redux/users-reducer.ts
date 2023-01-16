@@ -1,6 +1,6 @@
 import { updateObjectInArray } from '../utils/objects-helpers';
 import { usersAPI } from '../api/api';
-import { UsersType } from '../types/types';
+import { UserType } from '../types/types';
 
 const FOLLOW = 'gp-network/users/FOLLOW'
 const UNFOLLOW = 'gp-network/users/UNFOLLOW'
@@ -11,7 +11,7 @@ const TOGGLE_IS_FETCHING = 'gp-network/users/TOGGLE_IS_FETCHING'
 const TOGGLE_IS_FOLLOING_PROGRESS = 'TOGGLE_IS_FOLLOING_PROGRESS'
 
 let initialState = {
-    users: [] as Array<UsersType>,
+    users: [] as Array<UserType>,
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
@@ -87,8 +87,8 @@ export const followSuccess = (userId: number): FollowSuccessActionType => ({ typ
 type UnfollowSuccessActionType = { type: typeof UNFOLLOW, userId: number }
 export const unfollowSuccess = (userId: number): UnfollowSuccessActionType => ({ type: UNFOLLOW, userId })
 
-type SetUsersActionType = { type: typeof SET_USERS, users: Array<UsersType> }
-export const setUsers = (users: Array<UsersType>): SetUsersActionType => ({ type: SET_USERS, users })
+type SetUsersActionType = { type: typeof SET_USERS, users: Array<UserType> }
+export const setUsers = (users: Array<UserType>): SetUsersActionType => ({ type: SET_USERS, users })
 
 type SetCurrentPageActionType = { type: typeof SET_CURRENT_PAGE, currentPage: number }
 export const setCurrentPage = (currentPage: number): SetCurrentPageActionType => ({ type: SET_CURRENT_PAGE, currentPage: currentPage })

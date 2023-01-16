@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { UsersType } from "../../../types/types";
+import { UserType } from "../../../types/types";
 import Paginator from "../../common/Paginator/Paginator";
 import User from "./User";
 
@@ -9,7 +9,7 @@ type UsersPropsType = {
     pageSize: number
     currentPage: number
     onPageChanged: (pages: number) => void
-    users: Array<UsersType>
+    users: Array<UserType>
 
     followingInProgress: Array<number>
     follow: (id:number) => void

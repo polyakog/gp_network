@@ -21,7 +21,7 @@ export type ProfileType = {
     contacts: ContactsType
 }
 
-export type UsersType = {
+export type UserType = {
     id: number
     name: string
     status: string | null
