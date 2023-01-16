@@ -1,3 +1,5 @@
+import { DialogDataType, MessageDataType } from "../types/types";
+
 const ADD_MESSAGE = 'gp-network/dialogs/ADD-MESSAGE'
 const DELETE_MESSAGE = 'gp-network/dialogs/DELETE_MESSAGE'
 
@@ -5,9 +7,6 @@ const DELETE_MESSAGE = 'gp-network/dialogs/DELETE_MESSAGE'
 //     dialogData: Array<{ id: number, name: string }>
 //     messageData: Array<{ id: number, idMessage: number, name: string, text: string }>
 // }
-
-type DialogDataType = { id: number, name: string}
-type MessageDataType = { id: number, idMessage: number, name: string, text: string }
 
 let initialState = {
     dialogData: [

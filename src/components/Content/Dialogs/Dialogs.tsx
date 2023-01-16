@@ -3,25 +3,25 @@ import css from './Dialogs.module.css';
 import DialogItem from './DialogItems/DialogItems';
 import MessageItem from './MessageItems/MessageItems';
 import AddMessageForm from '../../common/Forms/AddMessageForm';
+import { DialogDataType, MessageDataType } from '../../../types/types';
 
+type DialogsPageType = {
+    dialogData: Array<DialogDataType>
+    messageData: Array<MessageDataType>
+}
 
+type PropsType = {
+    dialogsPage: DialogsPageType
+    sendMessage: (newMessageText: string) => void
+}
 
+const Dialogs: React.FC<PropsType> = ({ dialogsPage, sendMessage }) => {
 
+    let dialogElements = dialogsPage.dialogData.map(d => (<DialogItem key={d.id} id={d.id} name={d.name} />));
+    let messageElements = dialogsPage.messageData.map(m => (<MessageItem key={m.idMessage} id={m.id} name={m.name} text={m.text} />));
 
-/* Выполнение UI (user Interface) */
-
-const Dialogs = (props) => {
-
-    /* Обработка массива, чтобы исключить повторения. */
-    /* Автоматически данные заносятся в новый массив из старого  */
-
-    let dialogElements = props.dialogsPage.dialogData.map(d => (<DialogItem key={d.id} id={d.id} name={d.name} />));
-    let messageElements = props.dialogsPage.messageData.map(m => (<MessageItem key={m.idMessage} id={m.id} name={m.name} text={m.text} />));
-
-
-    const addNewMessage = (value) => {
-        props.sendMessage(value.newMessageText);
-        // console.log(props.dialogsPage.messageData)
+    const addNewMessage = (value: any) => {
+        sendMessage(value.newMessageText);
     }
 
     return (
@@ -45,7 +45,5 @@ const Dialogs = (props) => {
         </div>
     )
 }
-
-
 
 export default Dialogs;
