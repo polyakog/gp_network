@@ -1,17 +1,40 @@
-import React, { useState } from "react";
+import React, { HTMLInputTypeAttribute, FC, useState } from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import css from './ProfileInfo.module.css';
 import jobLooker from '../../../assets/images/jobLooker.webp'
 import noPic from '../../../assets/images/noPic.jpg'
 import ProfileStatusWithHook from './ProfileStatusWithHook';
 import ProfileDataReduxForm from "./ProfileDataForm";
+import { ContactsType, PhotosType } from "../../../types/types";
 
 
 
-const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner, saveProfile }) => {
+
+type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | null
+    fullName: string
+    aboutMe: string
+    photos: PhotosType
+    contacts: ContactsType
+}
+
+type ProfileInfoType = {
+    profile: ProfileType | null
+    status: string
+    updateUserStatus: (status: string) => void
+    savePhoto: () => void
+    isOwner: boolean
+    saveProfile: (formData: any) => Promise<boolean>
+}
+
+
+
+const ProfileInfo: FC<ProfileInfoType> = ({ profile, status, updateUserStatus, savePhoto, isOwner, saveProfile }) => {
 
     let [photoEditability, setPhotoEditability] = useState(false);
-    let [fileName, setFileName] = useState()
+    let [fileName, setFileName] = useState<string>()
     let [editMode, setEditMode] = useState(false)
 
 
@@ -19,19 +42,20 @@ const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner, sa
         return <Preloader />
     }
 
-    const onMainPhotoSelected = (e) => {
+    const onMainPhotoSelected = (e: any) => {
+        //@ts-ignore
         if (e.target.files.length) { savePhoto(e.target.files[0]) }
         setFileName(e.target.files[0].name)
         console.log("uploading photo: ", fileName)
     }
 
-    const onSubmit = (formData) => {
-        saveProfile(formData).then ( ()=>{
-            
-         setEditMode(false) 
-           
+    const onSubmit = (formData: any) => {
+        saveProfile(formData).then(() => {
+
+            setEditMode(false)
+
         })
-        
+
 
     }
 
@@ -44,7 +68,7 @@ const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner, sa
 
                     {isOwner && photoEditability &&
                         (<div>
-                            <span className={css.inputFileText} type="text">{fileName ? "Uploaded file: " + fileName : "Upload your photo"}</span>
+                            <span className={css.inputFileText} /* type="text" */ >{fileName ? "Uploaded file: " + fileName : "Upload your photo"}</span>
                             <label className={css.inputFile}>
                                 <input type='file' onChange={onMainPhotoSelected} name="file" />
                                 <span className={css.inputFileBtn}> Choose your file</span>
@@ -59,6 +83,7 @@ const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner, sa
                 </div>
 
                 {editMode
+                    //@ts-ignore
                     ? <ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
                     : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => { setEditMode(true) }} />}
 
@@ -70,7 +95,16 @@ const ProfileInfo = ({ profile, status, updateUserStatus, savePhoto, isOwner, sa
 }
 
 
-const ProfileData = ({ profile, isOwner, goToEditMode, index = 0 }) => {
+
+
+type ProfileDataPropsType = {
+    profile: ProfileType
+    isOwner: boolean
+    goToEditMode: () => void
+    index?: number
+}
+
+const ProfileData: FC<ProfileDataPropsType> = ({ profile, isOwner, goToEditMode, index = 0 }) => {
     return <div className={css.description}>
         <h1>Profile</h1>
         <br />
@@ -95,6 +129,7 @@ const ProfileData = ({ profile, isOwner, goToEditMode, index = 0 }) => {
             <ul> {Object.keys(profile.contacts).map(keys => {
                 // debugger
                 index = index + 1
+                //@ts-ignore
                 return <Contact keys={keys} contactTitle={keys} contactValue={profile.contacts[keys]} />
             })}
             </ul>
@@ -102,7 +137,12 @@ const ProfileData = ({ profile, isOwner, goToEditMode, index = 0 }) => {
     </div>
 }
 
-const Contact = ({ contactTitle, contactValue, keys }) => {
+type ContactType = {
+    contactTitle: string
+    contactValue: string
+    keys: any
+}
+const Contact: React.FC<ContactType> = ({ contactTitle, contactValue }) => {
     return <div>
         {contactValue &&
             (<li><b>{contactTitle}:</b> {contactValue}</li>)

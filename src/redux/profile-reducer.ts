@@ -19,7 +19,7 @@ let initialState = {
     ] as Array<PostDataType>,
     profile: null as null | ProfileType,
     isFetching: false,
-    status: null as null | string,
+    status: '' as string,
     };
 
 export type InitialStateType = typeof initialState

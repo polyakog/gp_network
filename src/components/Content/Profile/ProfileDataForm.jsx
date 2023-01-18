@@ -1,9 +1,7 @@
-import React, { useState } from "react";
 import css from './ProfileInfo.module.css';
 import cssError from './../../common/FormsControls/FormsControls.module.css'
-import jobLooker from '../../../assets/images/jobLooker.webp'
 import { reduxForm } from "redux-form";
-import { createField, Input, Textarea } from "../../common/FormsControls/FormsControls";
+import { createField, Input} from "../../common/FormsControls/FormsControls";
 import { required } from "../../../utils/validators";
 import sign from "./../../../assets/images/sign4.jpg"
 

@@ -1,8 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import css from './ProfileInfo.module.css';
 
+type PropsType = {
+    status: string
+    updateUserStatus:(status:string)=>void
+    
+   
+}
+// type StateType = {
 
-const ProfileStatusWithHook = (props)=> {
+// }
+
+const ProfileStatusWithHook:React.FC<PropsType> = (props)=> {
   
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(props.status);
@@ -23,7 +32,7 @@ const ProfileStatusWithHook = (props)=> {
         props.updateUserStatus(status)
     }
 
-    let onStatusChange = (e) => {
+    let onStatusChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
         setStatus(e.currentTarget.value)
     }
 
@@ -37,7 +46,6 @@ const ProfileStatusWithHook = (props)=> {
                         <span onDoubleClick={activeteEditMode}>{props.status || 'No status'}</span>
                     </div>
                 }
-
 
                 {editMode &&
                     <div >
