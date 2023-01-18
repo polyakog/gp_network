@@ -1,14 +1,10 @@
-
 import { getAuthUserData } from './auth-reducer';
 
-
 const INITIALAZED_SUCCESS = 'gp-network/app/INITIALAZED_SUCCESS'
-
 
 export type InitialStateType = {
     initialized: boolean
     globalError: null | string
-
 }
 
 let initialState: InitialStateType = {
@@ -24,11 +20,8 @@ const appReducer = (state = initialState, action:any): InitialStateType => {
                 initialized: true,
             };
 
-
         default:
             return state;
-
-
     }
 }
 
@@ -39,11 +32,7 @@ export type InitializedSuccessActionType = {
 
 export const initializedSuccess = (): InitializedSuccessActionType => ({ type: INITIALAZED_SUCCESS})
 
-
-
-
 export default appReducer;
-
 
 
 /* Thunk */
