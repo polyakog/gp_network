@@ -3,6 +3,7 @@ import { usersAPI } from '../api/api';
 import { UserType } from '../types/types';
 import { AppStateType } from './redux-store';
 import { Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 
 const FOLLOW = 'gp-network/users/FOLLOW'
 const UNFOLLOW = 'gp-network/users/UNFOLLOW'
@@ -111,37 +112,33 @@ export const toggleFollowingProgess = (isFetching: boolean, userId: number): Tog
 export default usersReducer;
 
 type DispatchType = Dispatch<ActionsTypes> 
-type GetStateType = () => AppStateType
+// type GetStateType = () => AppStateType
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
-export const requestUsers = (currentPage: number, pageSize: number) => async (dispatch: Dispatch<ActionsTypes>, getState:()=>AppStateType) => {
+export const requestUsers = (currentPage: number, pageSize: number): ThunkType => async (dispatch, getState) => {
     dispatch(toggleIsFetching(true));
 
     const data = await usersAPI.getUsers(currentPage, pageSize)
     dispatch(toggleIsFetching(false));
     dispatch(setUsers(data.items));
     dispatch(setTotalUsersCount(data.totalCount));
-
 }
 
+export const follow = (id: number): ThunkType => async (dispatch, getState ) => {
+    _followUnfollowFlow(dispatch, id, usersAPI.followUsers.bind(usersAPI), followSuccess)
+}
 
-const followUnfollowFlow = async (dispatch: DispatchType, id: number, apiMethod: any, actionCreator: any) => {
+export const unfollow = (id: number): ThunkType => {
+    return async (dispatch, getState) => {
+        _followUnfollowFlow(dispatch, id, usersAPI.unfollowUsers.bind(usersAPI), unfollowSuccess)
+    }
+}
+
+const _followUnfollowFlow = async (dispatch: DispatchType, id: number, apiMethod: any, actionCreator: (userId: number) => FollowSuccessActionType | UnfollowSuccessActionType) => {
     dispatch(toggleFollowingProgess(true, id));
     const data = await apiMethod(id)
     if (data.resultCode === 0) {
         dispatch(actionCreator(id));
     }
     dispatch(toggleFollowingProgess(false, id));
-}
-
-
-
-export const follow = (id: number) => async (dispatch: DispatchType, getState: GetStateType ) => {
-    followUnfollowFlow(dispatch, id, usersAPI.followUsers.bind(usersAPI), followSuccess)
-}
-
-
-export const unfollow = (id: number) => {
-    return async (dispatch: DispatchType) => {
-        followUnfollowFlow(dispatch, id, usersAPI.unfollowUsers.bind(usersAPI), unfollowSuccess)
-    }
 }

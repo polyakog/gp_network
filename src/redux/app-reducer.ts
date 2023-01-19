@@ -1,4 +1,6 @@
 import { getAuthUserData } from './auth-reducer';
+import { ThunkAction } from 'redux-thunk';
+import { AppStateType } from './redux-store';
 
 const INITIALAZED_SUCCESS = 'gp-network/app/INITIALAZED_SUCCESS'
 
@@ -12,7 +14,7 @@ let initialState: InitialStateType = {
     globalError: null // dispatch errror in app(99 ITK)
 };
 
-const appReducer = (state = initialState, action:any): InitialStateType => {
+const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case INITIALAZED_SUCCESS:
             return {
@@ -25,26 +27,23 @@ const appReducer = (state = initialState, action:any): InitialStateType => {
     }
 }
 
-
+type ActionsTypes = InitializedSuccessActionType
 export type InitializedSuccessActionType = {
     type: typeof INITIALAZED_SUCCESS //'INITIALAZED_SUCCESS'
 }
 
-export const initializedSuccess = (): InitializedSuccessActionType => ({ type: INITIALAZED_SUCCESS})
+export const initializedSuccess = (): InitializedSuccessActionType => ({ type: INITIALAZED_SUCCESS })
 
 export default appReducer;
 
-
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 /* Thunk */
-export const initializeApp = () => (dispatch:any) => {
+export const initializeApp = (): ThunkType => (dispatch) => {
     let promise = dispatch(getAuthUserData());
     // debugger
     Promise.all([promise]).then(() => {
         dispatch(initializedSuccess());
     }
-
     )
-
-
 }
 

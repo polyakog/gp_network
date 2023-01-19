@@ -1,5 +1,7 @@
 import { stopSubmit } from "redux-form";
 import { authAPI, profileAPI, securityAPI } from "../api/api";
+import { ThunkAction } from 'redux-thunk';
+import { AppStateType } from "./redux-store";
 
 const TOGGLE_IS_FETCHING = 'gp-network/auth/TOGGLE_IS_FETCHING'
 const SET_USER_DATA = 'gp-network/auth/SET_USER_DATA'
@@ -7,7 +9,7 @@ const SET_USER_PHOTO = 'gp-network/auth/SET_USER_PHOTO'
 const SET_CAPTURE_URL_SUCCESS = 'gp-network/auth/SET_CAPTURE_URL_SUCCESS'
 
 let initialState = {
-    userId: null as null | number,
+    userId: null as number | null,
     email: null as null | string,
     login: null as null | string,
     isAuth: false,
@@ -18,22 +20,21 @@ let initialState = {
 
 export type InitialStateType = typeof initialState
 
-const authReducer = (state = initialState, action: any): InitialStateType => {
+const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
         case SET_CAPTURE_URL_SUCCESS:
             return {
-                
                 ...state,
                 ...action.payload,
-                
+
             };
 
         case SET_USER_PHOTO:
             return {
                 ...state,
                 userPhoto: action.userPhoto,
-                
+
             };
 
         case TOGGLE_IS_FETCHING: {
@@ -48,11 +49,14 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
     }
 }
 
-type SetAuthUserDataActionPayloadType  = { 
-    userId: number | null 
+type ActionsTypes = SetAuthUserDataActionType | SetAuthUserPhotoActionType | AuthToggleIsFetchingActionType | SetCaptureUrlSuccessActionType
+
+type SetAuthUserDataActionPayloadType = {
+    userId: number | null
     email: string | null
     login: string | null
-    isAuth: boolean }
+    isAuth: boolean
+}
 type SetAuthUserDataActionType = { type: typeof SET_USER_DATA, payload: SetAuthUserDataActionPayloadType }
 export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): SetAuthUserDataActionType => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth } })
 
@@ -68,9 +72,11 @@ export const setCaptureUrlSuccess = (captureUrl: string): SetCaptureUrlSuccessAc
 
 export default authReducer;
 
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+
 
 /* Thunk */
-export const getAuthUserData = () => async (dispatch: any) => {
+export const getAuthUserData = (): ThunkType => async (dispatch) => {
     dispatch(authToggleIsFetching(true));
 
     let data = await authAPI.me()
@@ -85,7 +91,7 @@ export const getAuthUserData = () => async (dispatch: any) => {
     }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean, capture: any) => async (dispatch: any) => {
+export const login = (email: string, password: string, rememberMe: boolean, capture: any): ThunkType => async (dispatch: any) => {
 
     let data = await authAPI.login(email, password, rememberMe, capture)
     if (data.resultCode === 0) {
@@ -100,13 +106,13 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
     }
 }
 
-export const getCaptchaUrl = () => async (dispatch: any) => {
+export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
     const response = await securityAPI.getCaptchaUrl()
     const captureUrl = response.data.url;
     dispatch(setCaptureUrlSuccess(captureUrl));
 }
 
-export const logout = () => async (dispatch: any) => {
+export const logout = (): ThunkType => async (dispatch) => {
     let response = await authAPI.logout()
     if (response.data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false))

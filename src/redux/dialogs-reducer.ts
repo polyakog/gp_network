@@ -29,7 +29,7 @@ export type InitialStateType = typeof initialState
 
 export const testMessageState = (initialState: InitialStateType) => ({ initialState })
 
-const dialogsReducer = (state = initialState, action: any): InitialStateType => {
+const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
 
     switch (action.type) {
@@ -54,18 +54,13 @@ const dialogsReducer = (state = initialState, action: any): InitialStateType => 
 
     }
 }
+type ActionsTypes = SendMessageActionType | DeleteMessageActionType
 
 /* Создание объектов action */
-type SendMessageActionType = {
-    type: typeof ADD_MESSAGE
-    newText: string
-}
+type SendMessageActionType = {type: typeof ADD_MESSAGE, newText: string}
 export const sendMessageActionCreator = (newText: string): SendMessageActionType => ({ type: ADD_MESSAGE, newText })
 
-type DeleteMessageActionType = {
-    type: typeof DELETE_MESSAGE
-    messageId: number
-}
+type DeleteMessageActionType = {type: typeof DELETE_MESSAGE, messageId: number}
 export const deleteMessage = (messageId: number): DeleteMessageActionType => ({ type: DELETE_MESSAGE, messageId })
 
 export default dialogsReducer
