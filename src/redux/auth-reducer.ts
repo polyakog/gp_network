@@ -1,5 +1,5 @@
 import { stopSubmit } from "redux-form";
-import { authAPI, profileAPI, securityAPI } from "../api/api";
+import { authAPI, profileAPI, ResultCodeForCaptchaEnum, ResultCodesEnum, securityAPI } from "../api/api";
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from "./redux-store";
 
@@ -60,8 +60,8 @@ type SetAuthUserDataActionPayloadType = {
 type SetAuthUserDataActionType = { type: typeof SET_USER_DATA, payload: SetAuthUserDataActionPayloadType }
 export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): SetAuthUserDataActionType => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth } })
 
-type SetAuthUserPhotoActionType = { type: typeof SET_USER_PHOTO, userPhoto: string }
-export const setAuthUserPhoto = (userPhoto: string): SetAuthUserPhotoActionType => ({ type: SET_USER_PHOTO, userPhoto })
+type SetAuthUserPhotoActionType = { type: typeof SET_USER_PHOTO, userPhoto: string|null }
+export const setAuthUserPhoto = (userPhoto: string|null): SetAuthUserPhotoActionType => ({ type: SET_USER_PHOTO, userPhoto })
 
 type AuthToggleIsFetchingActionType = { type: typeof TOGGLE_IS_FETCHING, isFetching: boolean }
 export const authToggleIsFetching = (isFetching: boolean): AuthToggleIsFetchingActionType => ({ type: TOGGLE_IS_FETCHING, isFetching })
@@ -79,14 +79,14 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
     dispatch(authToggleIsFetching(true));
 
-    let data = await authAPI.me()
-    if (data.resultCode === 0) {
-        let { id, email, login } = data.data;
+    let dataAuth = await authAPI.me()
+    if (dataAuth.resultCode === ResultCodesEnum.Success) {
+        let { id, email, login } = dataAuth.data;
         dispatch(setAuthUserData(id, email, login, true));
 
         /* запрос фото пользователя */
-        data = await profileAPI.getProfile(id)
-        dispatch(setAuthUserPhoto(data.photos.small));
+        let dataProfile = await profileAPI.getProfile(id)
+        dispatch(setAuthUserPhoto(dataProfile.photos.small));
         dispatch(authToggleIsFetching(false));
     }
 }
@@ -94,27 +94,27 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
 export const login = (email: string, password: string, rememberMe: boolean, capture: any): ThunkType => async (dispatch: any) => {
 
     let data = await authAPI.login(email, password, rememberMe, capture)
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(getAuthUserData())
     } else {
+        if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
+            dispatch(getCaptchaUrl())
+        }
+
         let message = data.messages.length > 0 ? data.messages[0] : "Some Error"
         dispatch(stopSubmit("login", { _error: message }))
-    }
-
-    if (data.resultCode === 10) {
-        dispatch(getCaptchaUrl())
-    }
+    }   
 }
 
 export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
     const response = await securityAPI.getCaptchaUrl()
-    const captureUrl = response.data.url;
+    const captureUrl = response.url;
     dispatch(setCaptureUrlSuccess(captureUrl));
 }
 
 export const logout = (): ThunkType => async (dispatch) => {
     let response = await authAPI.logout()
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === ResultCodesEnum.Success) {
         dispatch(setAuthUserData(null, null, null, false))
     }
 }
