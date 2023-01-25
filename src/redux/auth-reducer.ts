@@ -91,7 +91,7 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
     }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean, capture: any): ThunkType => async (dispatch: any) => {
+export const login = (email: string, password: string, rememberMe: boolean, capture: string|null): ThunkType => async (dispatch: any) => {
 
     let data = await authAPI.login(email, password, rememberMe, capture)
     if (data.resultCode === ResultCodesEnum.Success) {
