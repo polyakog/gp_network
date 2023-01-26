@@ -1,36 +1,46 @@
 import React from "react";
 import css from "./FormsControls.module.css";
 import sign from "../../../assets/images/sign4.jpg"
-import { Field } from "redux-form";
+import { Field, WrappedFieldProps } from "redux-form";
+import { FieldValidatorType } from "../../../utils/validators";
+
+type CommonFieldPropsType = {
+    label: string | null
+    children: React.ReactNode
+}
+
+export type FieldType = WrappedFieldProps & CommonFieldPropsType
 
 
-const FormControl = ({ input, meta: { touched, error }, label, children, ...props }) => {
+const FormControl: React.FC<FieldType> = ({ meta: { touched, error }, label, children }) => {
     // debugger
     const hasError = touched && error;
     return (
         <div className={hasError ? css.errorField : ''}>
             <label className={css.label}>{label}</label>
-            <div className={(hasError ? (css.Text+' '+ css.errorText) : css.Text)}>
+            <div className={(hasError ? (css.Text + ' ' + css.errorText) : css.Text)}>
                 {children}
             </div>
 
-            {hasError && 
-            <div className={css.warningWrap}>
-                <img className={css.errorSignPic} src={sign} alt="" />
-                <span className={css.errorSpan}>{error}</span>
-            </div>
+            {hasError &&
+                <div className={css.warningWrap}>
+                    <img className={css.errorSignPic} src={sign} alt="" />
+                    <span className={css.errorSpan}>{error}</span>
+                </div>
             }
 
         </div>
     )
 }
 
-export const Textarea = (props) => {
+
+
+export const Textarea: React.FC<FieldType> = (props) => {
     const { input, ...restProps } = props;
     return <FormControl {...props}><textarea {...input} {...restProps} /></FormControl>
 }
 
-export const Input = (props) => {
+export const Input: React.FC<FieldType> = (props) => {
 
     const { input, ...restProps } = props;
     return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
@@ -39,19 +49,27 @@ export const Input = (props) => {
 
 /* Form Patern */
 
-export const createField = (error, name, label, component, type, placeholder, autocomplete, validate, text) => (
-        <div>
-            <Field
-                name = {name}
-                label={label}
-                component={component}
-                type={type}
-                placeholder={placeholder}
-                autoComplete={autocomplete}
-                validate={validate}
-            /> {text}
-        </div>
+export const createField = (error: string | null,
+    name: string,
+    label: string | null,
+    component: React.FC<FieldType> | "input" | "select" | "textarea" | undefined,
+    type: string,
+    placeholder: string | undefined,
+    autocomplete: string,
+    validate: Array<FieldValidatorType>,
+    text = "") => (
+    <div>
+        <Field
+            name={name}
+            label={label}
+            component={component}
+            type={type}
+            placeholder={placeholder}
+            autoComplete={autocomplete}
+            validate={validate}
+        /> {text}
+    </div>
 
 
 
-    )
+)

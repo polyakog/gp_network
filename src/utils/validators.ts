@@ -1,20 +1,20 @@
-import React from "react"
+export type FieldValidatorType = (value: string) => string | undefined
 
-export const required = value => {
-    
+export const required: FieldValidatorType = (value) => {
+
     if (value) return undefined;
-     return 'Required' ;
-    
+    return 'Required';
+
 }
 
-export const maxLengthCreator = (maxLength) => value => {
-    
+export const maxLengthCreator = (maxLength: number): FieldValidatorType => (value) => {
+
     if (value && value.length > maxLength) return `Max length is ${maxLength} symbols`;
     return undefined;
 }
 
-export const minLengthCreator = (minLength) => value => {
-    
+export const minLengthCreator = (minLength: number): FieldValidatorType => (value) => {
+
     if (value && value.length < minLength) return `Min length is ${minLength} symbols`;
     return undefined;
 }
