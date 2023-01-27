@@ -8,7 +8,7 @@ import authReducer from "./auth-reducer";
 import ThunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from 'redux-form'
 import appReducer from "./app-reducer";
- 
+
 
 
 let rootReducer = combineReducers({
@@ -17,13 +17,13 @@ let rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
-    form : formReducer,
-    app:appReducer
-    
-}); 
+    form: formReducer,
+    app: appReducer
+});
 
-type RootReducerTypes = typeof rootReducer
-export type AppStateType = ReturnType<RootReducerTypes>
+export type AppStateType = ReturnType<typeof rootReducer>
+
+export type InferActionsTypes<T> = T extends { [key: string]: infer U } ? U : never
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(ThunkMiddleware)));

@@ -1,4 +1,4 @@
-import usersReducer, { setUsers } from "./users-reducer";
+import usersReducer, { actions} from "./users-reducer";
 
 let state = {
     users: [],
@@ -45,11 +45,8 @@ let users = [
 test(`test_1 array length of users should be 3`, () => {
     /* 1. test data */
 
-    let action = setUsers(users)
-    // usersAPI.getUsers(currentPage, pageSize).then(data => {
-    //     (setUsers(data.items));
-    //      });
-
+    let action = actions.setUsers(users)
+ 
     /* 2. test action */
     let newState = usersReducer(state, action)
 
