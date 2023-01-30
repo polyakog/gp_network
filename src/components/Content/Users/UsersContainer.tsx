@@ -10,7 +10,6 @@ import { UserType } from '../../../types/types';
 import { AppStateType } from '../../../redux/redux-store';
 
 
-const setCurrentPage = actions.setCurrentPage
 
 type MapStateToPropsType = {
     totalUsersCount: number
@@ -24,7 +23,7 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
     requestUsers: (currentPage: number, pageSize: number) => void
     setCurrentPage: (pageNumber: number) => void
-    follow: (id:number) => void
+    follow: (id: number) => void
     unfollow: (id: number) => void
 }
 
@@ -81,7 +80,7 @@ class UsersContainer extends React.Component<PropsType> {
 //     }
 // }
 
-let mapStateToProps = (state: AppStateType):MapStateToPropsType => {
+let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
@@ -94,5 +93,5 @@ let mapStateToProps = (state: AppStateType):MapStateToPropsType => {
 }
 
 export default compose(
-    connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>(mapStateToProps, {setCurrentPage, follow, unfollow, requestUsers }),
+    connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>(mapStateToProps, { setCurrentPage: actions.setCurrentPage, follow, unfollow, requestUsers }),
 )(UsersContainer);

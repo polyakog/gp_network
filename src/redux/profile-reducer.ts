@@ -1,8 +1,10 @@
 import { stopSubmit } from 'redux-form';
-import { profileAPI, ResultCodesEnum, usersAPI } from '../api/api';
+import { ResultCodesEnum } from '../api/api';
 import { PhotosType, PostDataType, ProfileType } from '../types/types';
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from './redux-store';
+import { getAuthUserData } from './auth-reducer';
+import { profileAPI } from '../api/profile-api';
 
 
 
@@ -96,7 +98,7 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 export const getUserProfile = (userId: number): ThunkType => async (dispatch, getState) => {
     dispatch(profileToggleIsFetching(true));
 
-    const data = await usersAPI.getProfile(userId)
+    const data = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(data));
     dispatch(profileToggleIsFetching(false));
 }
@@ -125,7 +127,8 @@ export const savePhoto = (photoFile: string): ThunkType => async (dispatch) => {
     const data = await profileAPI.savePhoto(photoFile)
     // debugger
     if (data.resultCode === ResultCodesEnum.Success)
-        dispatch(savePhotoSuccess(data.data.photos));
+        dispatch(savePhotoSuccess(data.data.photos))
+        dispatch(getAuthUserData())
     if (data.resultCode !== ResultCodesEnum.Success) // error 
         window.alert(data.messages)
 }

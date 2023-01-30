@@ -1,9 +1,9 @@
 import { updateObjectInArray } from '../utils/objects-helpers';
-import { usersAPI } from '../api/api';
 import { UserType } from '../types/types';
 import { AppStateType, InferActionsTypes } from './redux-store';
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { usersAPI } from '../api/user-api';
 
 const types = {
     FOLLOW: 'gp-network/users/FOLLOW' as 'gp-network/users/FOLLOW',

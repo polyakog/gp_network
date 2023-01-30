@@ -1,7 +1,10 @@
 import { stopSubmit } from "redux-form";
-import { authAPI, profileAPI, ResultCodeForCaptchaEnum, ResultCodesEnum, securityAPI } from "../api/api";
+import { ResultCodeForCaptchaEnum, ResultCodesEnum} from "../api/api";
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from "./redux-store";
+import { profileAPI } from "../api/profile-api";
+import { authAPI } from "../api/auth-api";
+import { securityAPI } from "../api/security-api";
 
 const TOGGLE_IS_FETCHING = 'gp-network/auth/TOGGLE_IS_FETCHING'
 const SET_USER_DATA = 'gp-network/auth/SET_USER_DATA'
