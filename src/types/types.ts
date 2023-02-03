@@ -25,7 +25,7 @@ export type ProfileType = {
 export type UserType = {
     id: number
     name: string
-    status: string
+    status: string|null
     uniqueUrlName: null | string
     photos: PhotosType
     followed: boolean

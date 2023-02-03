@@ -1,6 +1,22 @@
-import dialogsReducer, { actions, testMessageState } from "./dialogs-reducer";
+import { DialogDataType, MessageDataType } from "../types/types";
+import dialogsReducer, { actions } from "./dialogs-reducer";
 
-let state = testMessageState.initialState
+let state = {
+    dialogData: [
+        { id: 1, name: "Gennadij" },
+        { id: 2, name: "Sergey" },
+        { id: 3, name: "Alexey" },
+        { id: 4, name: "Anton" },
+        { id: 5, name: "Jhon" },
+        { id: 6, name: "David" }
+    ] as Array<DialogDataType>,
+    messageData: [
+        { id: 2, idMessage: 1, name: "Sergey", text: "Hi, I have a request from the customer" },
+        { id: 1, idMessage: 2, name: "Gennadij", text: "happy to hear" },
+        { id: 2, idMessage: 3, name: "Sergey", text: "What is your plans?" },
+        { id: 1, idMessage: 4, name: "Gennadij", text: "preparation" }
+    ] as Array<MessageDataType>,
+}
 let text = 'new message'
 
 

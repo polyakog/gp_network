@@ -24,8 +24,6 @@ let initialState = {
     ] as Array<MessageDataType>,
 };
 
-export const testMessageState = (initialState: InitialStateType) => ({ initialState })
-
 const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
 

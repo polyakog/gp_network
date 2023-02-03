@@ -1,9 +1,13 @@
+import { UserType } from "../types/types";
 import usersReducer, { actions} from "./users-reducer";
 
 let state = {
-    users: [],
-    pageSize: 3,
+    users: [] as Array<UserType>,
+    pageSize: 10,
+    totalUsersCount: 0,
     currentPage: 1,
+    isFetching: true,
+    followingInProgress: [] as Array<number>
 }
 
 let users = [
@@ -15,7 +19,7 @@ let users = [
             "small": null,
             "large": null
         },
-        "status": null,
+        "status": null as null|string,
         "followed": false
     },
     {
@@ -26,7 +30,7 @@ let users = [
             "small": null,
             "large": null
         },
-        "status": null,
+        "status": null as null | string,
         "followed": false
     },
     {
@@ -37,10 +41,11 @@ let users = [
             "small": null,
             "large": null
         },
-        "status": null,
+        "status": null as null | string,
         "followed": false
     }
-]
+
+] 
 
 test(`test_1 array length of users should be 3`, () => {
     /* 1. test data */

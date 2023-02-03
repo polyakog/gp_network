@@ -1,3 +1,4 @@
+import { PostDataType, ProfileType } from "../types/types";
 import profileReducer, { actions } from "./profile-reducer";
 
 let state = {
@@ -5,7 +6,10 @@ let state = {
         { id: 1, postId: 1, message: 'Very interesting', likeCount: 21, Name: 'Alexey' },
         { id: 2, postId: 2, message: 'How to add data?', likeCount: 2, Name: 'Anton' },
         { id: 2, postId: 3, message: 'OK', likeCount: 3, Name: 'Anton' },
-    ],
+    ] as Array<PostDataType>,
+    profile: null as null | ProfileType,
+    isFetching: false,
+    status: '' as string,
 };
 
 let text = "test"
