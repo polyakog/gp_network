@@ -1,8 +1,4 @@
-import profileReducer, { addPostActionCreator, deletePost } from "./profile-reducer";
-
-
-
-
+import profileReducer, { actions } from "./profile-reducer";
 
 let state = {
     postData: [
@@ -16,7 +12,7 @@ let text = "test"
 
 test('test_1 length of posts should be incremented', () => {
     /* 1. test data */
-    let action = addPostActionCreator(text)
+    let action = actions.addPostActionCreator(text)
     
     /* 2. test action */
     let newState = profileReducer(state, action) 
@@ -28,7 +24,7 @@ test('test_1 length of posts should be incremented', () => {
 
 test('test_2 message of a new post should be correct', () => {
     /* 1. test data */
-    let action = addPostActionCreator(text)
+    let action = actions.addPostActionCreator(text)
 
     /* 2. test action */
     let newState = profileReducer(state, action)
@@ -39,7 +35,7 @@ test('test_2 message of a new post should be correct', () => {
 
 test('test_3 length of posts should be decremented(decreased) if correct postId', () => {
     /* 1. test data */
-    let action = deletePost(1);
+    let action = actions.deletePost(1);
 
     /* 2. test action */
     let newState = profileReducer(state, action);
@@ -50,7 +46,7 @@ test('test_3 length of posts should be decremented(decreased) if correct postId'
 
 test(`test_4 length of posts shouldn't be decremented if wrong postId`, () => {
     /* 1. test data */
-    let action = deletePost(1000);
+    let action = actions.deletePost(1000);
 
     /* 2. test action */
     let newState = profileReducer(state, action);

@@ -1,13 +1,12 @@
 import { DialogDataType, MessageDataType } from "../types/types";
+import { InferActionsTypes } from "./redux-store";
 
-const ADD_MESSAGE = 'gp-network/dialogs/ADD-MESSAGE'
-const DELETE_MESSAGE = 'gp-network/dialogs/DELETE_MESSAGE'
 
-// export type InitialStateType = {
-//     dialogData: Array<{ id: number, name: string }>
-//     messageData: Array<{ id: number, idMessage: number, name: string, text: string }>
-// }
 
+const types = {
+    ADD_MESSAGE: 'gp-network/dialogs/ADD-MESSAGE' as 'gp-network/dialogs/ADD-MESSAGE',
+    DELETE_MESSAGE: 'gp-network/dialogs/DELETE_MESSAGE' as 'gp-network/dialogs/DELETE_MESSAGE'
+}
 let initialState = {
     dialogData: [
         { id: 1, name: "Gennadij" },
@@ -25,8 +24,6 @@ let initialState = {
     ] as Array<MessageDataType>,
 };
 
-export type InitialStateType = typeof initialState
-
 export const testMessageState = (initialState: InitialStateType) => ({ initialState })
 
 const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
@@ -34,7 +31,7 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
 
     switch (action.type) {
 
-        case ADD_MESSAGE:
+        case types.ADD_MESSAGE:
 
             let idMessage = state.messageData.length + 1
 
@@ -43,7 +40,7 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
                 messageData: [...state.messageData, { id: 1, idMessage: idMessage, name: "Gennadij", text: action.newText }]
             };
 
-        case DELETE_MESSAGE:
+        case types.DELETE_MESSAGE:
 
             return {
                 ...state,
@@ -54,13 +51,14 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
 
     }
 }
-type ActionsTypes = SendMessageActionType | DeleteMessageActionType
-
 /* Создание объектов action */
-type SendMessageActionType = {type: typeof ADD_MESSAGE, newText: string}
-export const sendMessageActionCreator = (newText: string): SendMessageActionType => ({ type: ADD_MESSAGE, newText })
 
-type DeleteMessageActionType = {type: typeof DELETE_MESSAGE, messageId: number}
-export const deleteMessage = (messageId: number): DeleteMessageActionType => ({ type: DELETE_MESSAGE, messageId })
+export const actions = {
+    sendMessageActionCreator: (newText: string) => ({ type: types.ADD_MESSAGE, newText }) as const,
+    deleteMessage: (messageId: number) => ({ type: types.DELETE_MESSAGE, messageId }) as const
+}
 
 export default dialogsReducer
+
+export type InitialStateType = typeof initialState
+type ActionsTypes = ReturnType<InferActionsTypes<typeof actions>>

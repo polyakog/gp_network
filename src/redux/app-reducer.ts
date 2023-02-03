@@ -1,22 +1,18 @@
 import { getAuthUserData } from './auth-reducer';
-import { ThunkAction } from 'redux-thunk';
-import { AppStateType } from './redux-store';
+import { BaseThunkType, InferActionsTypes } from './redux-store';
 
-const INITIALAZED_SUCCESS = 'gp-network/app/INITIALAZED_SUCCESS'
-
-export type InitialStateType = {
-    initialized: boolean
-    globalError: null | string
+const types = {
+    INITIALAZED_SUCCESS: 'gp-network/app/INITIALAZED_SUCCESS' as 'gp-network/app/INITIALAZED_SUCCESS'
 }
 
-let initialState: InitialStateType = {
+let initialState = {
     initialized: false,
-    globalError: null // dispatch errror in app(99 ITK)
+    globalError: null as null | string// dispatch errror in app(99 ITK)
 };
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case INITIALAZED_SUCCESS:
+        case types.INITIALAZED_SUCCESS:
             return {
                 ...state,
                 initialized: true,
@@ -27,23 +23,22 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
     }
 }
 
-type ActionsTypes = InitializedSuccessActionType
-export type InitializedSuccessActionType = {
-    type: typeof INITIALAZED_SUCCESS //'INITIALAZED_SUCCESS'
+export const actions = {
+    initializedSuccess: () => ({ type: types.INITIALAZED_SUCCESS }) as const
 }
-
-export const initializedSuccess = (): InitializedSuccessActionType => ({ type: INITIALAZED_SUCCESS })
 
 export default appReducer;
 
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 /* Thunk */
-export const initializeApp = (): ThunkType => (dispatch) => {
+export const initializeApp = (): ThunkType =>  (dispatch) => {
     let promise = dispatch(getAuthUserData());
     // debugger
     Promise.all([promise]).then(() => {
-        dispatch(initializedSuccess());
+        dispatch(actions.initializedSuccess());
     }
     )
 }
 
+export type InitialStateType = typeof initialState
+type ActionsTypes = ReturnType<InferActionsTypes<typeof actions>>
+type ThunkType = BaseThunkType<ActionsTypes, void> // from general imported thunk 

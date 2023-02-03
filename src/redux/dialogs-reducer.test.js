@@ -1,4 +1,4 @@
-import dialogsReducer, { deleteMessage, sendMessageActionCreator, testMessageState } from "./dialogs-reducer";
+import dialogsReducer, { actions, testMessageState } from "./dialogs-reducer";
 
 let state = testMessageState.initialState
 let text = 'new message'
@@ -6,7 +6,7 @@ let text = 'new message'
 
 it('test_1 length of messages should be incremented', () => {
     /* 1. test data */
-    let action = sendMessageActionCreator(text)
+    let action = actions.sendMessageActionCreator(text)
 
     /* 2. test action */
     let newState = dialogsReducer(state, action)
@@ -17,7 +17,7 @@ it('test_1 length of messages should be incremented', () => {
 
 test('test_2 length of messages should be decremented', () => {
     /* 1. test data */
-    let action = deleteMessage(2);
+    let action = actions.deleteMessage(2);
 
     /* 2. test action */
     let newState = dialogsReducer(state, action);
@@ -28,7 +28,7 @@ test('test_2 length of messages should be decremented', () => {
 
 test(`test_3 length of messages shouldn't be decremented if wrong postId`, () => {
     /* 1. test data */
-    let action = deleteMessage(100);
+    let action = actions.deleteMessage(100);
 
     /* 2. test action */
     let newState = dialogsReducer(state, action);

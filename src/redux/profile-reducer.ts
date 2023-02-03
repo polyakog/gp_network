@@ -1,20 +1,18 @@
-import { stopSubmit } from 'redux-form';
+import { FormAction, stopSubmit } from 'redux-form';
 import { ResultCodesEnum } from '../api/api';
 import { PhotosType, PostDataType, ProfileType } from '../types/types';
-import { ThunkAction } from 'redux-thunk';
-import { AppStateType } from './redux-store';
+import { BaseThunkType, InferActionsTypes } from './redux-store';
 import { getAuthUserData } from './auth-reducer';
 import { profileAPI } from '../api/profile-api';
 
-
-
-const ADD_POST = 'gp-network/profile/ADD-POST'
-const DELETE_POST = 'gp-network/profile/DELETE_POST'
-const SET_USER_PROFILE = 'gp-network/profile/SET_USER_PROFILE'
-const TOGGLE_IS_FETCHING = 'gp-network/profile/TOGGLE_IS_FETCHING'
-const SET_STATUS = 'gp-network/profile/SET_STATUS'
-const SAVE_PHOTO_SUCCESS = "gp-network/profile/SAVE_PHOTO_SUCCESS"
-
+const types = {
+    ADD_POST: 'gp-network/profile/ADD-POST' as 'gp-network/profile/ADD-POST',
+    DELETE_POST: 'gp-network/profile/DELETE_POST' as 'gp-network/profile/DELETE_POST',
+    SET_USER_PROFILE: 'gp-network/profile/SET_USER_PROFILE' as 'gp-network/profile/SET_USER_PROFILE',
+    TOGGLE_IS_FETCHING: 'gp-network/profile/TOGGLE_IS_FETCHING' as 'gp-network/profile/TOGGLE_IS_FETCHING',
+    SET_STATUS: 'gp-network/profile/SET_STATUS' as 'gp-network/profile/SET_STATUS',
+    SAVE_PHOTO_SUCCESS: 'gp-network/profile/SAVE_PHOTO_SUCCESS' as 'gp-network/profile/SAVE_PHOTO_SUCCESS'
+}
 
 let initialState = {
     postData: [
@@ -27,11 +25,9 @@ let initialState = {
     status: '' as string,
 };
 
-export type InitialStateType = typeof initialState
-
 const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case ADD_POST: {
+        case types.ADD_POST: {
             let postId = state.postData.length + 1
             return {
                 ...state,
@@ -39,28 +35,28 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
             }
         }
 
-        case DELETE_POST: {
+        case types.DELETE_POST: {
             return {
                 ...state, postData: state.postData.filter(p => p.postId !== action.postId)
             }
         }
 
-        case SET_USER_PROFILE: {
+        case types.SET_USER_PROFILE: {
             return { ...state, profile: action.profile }
         }
 
-        case TOGGLE_IS_FETCHING: {
+        case types.TOGGLE_IS_FETCHING: {
             return {
                 ...state,
                 isFetching: action.isFetching
             }
         }
 
-        case SET_STATUS: {
+        case types.SET_STATUS: {
             return { ...state, status: action.status }
         }
 
-        case SAVE_PHOTO_SUCCESS: {
+        case types.SAVE_PHOTO_SUCCESS: {
             return { ...state, profile: { ...state.profile, photos: action.photoFile } as ProfileType }
         }
 
@@ -69,79 +65,66 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
     }
 }
 
-type ActionsTypes = AddPostActionCreatorActionType | SetUserProfileActionType | ProfileToggleIsFetchingActionType | SetStatusActionType | DeletePostActionType | SavePhotoSuccessActionType
-
 /* Создание объектов action */
-type AddPostActionCreatorActionType = { type: typeof ADD_POST, newPostText: string }
-export const addPostActionCreator = (newPostText: string): AddPostActionCreatorActionType => ({ type: ADD_POST, newPostText })
+export const actions = {
+    addPostActionCreator: (newPostText: string) => ({ type: types.ADD_POST, newPostText } as const),
+    setUserProfile: (profile: ProfileType) => ({ type: types.SET_USER_PROFILE, profile } as const),
+    profileToggleIsFetching: (isFetching: boolean) => ({ type: types.TOGGLE_IS_FETCHING, isFetching } as const),
+    setStatus: (status: string) => ({ type: types.SET_STATUS, status } as const),
+    deletePost: (postId: number) => ({ type: types.DELETE_POST, postId } as const),
+    savePhotoSuccess: (photoFile: PhotosType) => ({ type: types.SAVE_PHOTO_SUCCESS, photoFile } as const),
 
-type SetUserProfileActionType = { type: typeof SET_USER_PROFILE, profile: ProfileType }
-export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({ type: SET_USER_PROFILE, profile })
-
-type ProfileToggleIsFetchingActionType = { type: typeof TOGGLE_IS_FETCHING, isFetching: boolean }
-export const profileToggleIsFetching = (isFetching: boolean): ProfileToggleIsFetchingActionType => ({ type: TOGGLE_IS_FETCHING, isFetching })
-
-type SetStatusActionType = { type: typeof SET_STATUS, status: string }
-export const setStatus = (status: string): SetStatusActionType => ({ type: SET_STATUS, status })
-
-type DeletePostActionType = { type: typeof DELETE_POST, postId: number }
-export const deletePost = (postId: number): DeletePostActionType => ({ type: DELETE_POST, postId })
-
-type SavePhotoSuccessActionType = { type: typeof SAVE_PHOTO_SUCCESS, photoFile: PhotosType }
-export const savePhotoSuccess = (photoFile: PhotosType): SavePhotoSuccessActionType => ({ type: SAVE_PHOTO_SUCCESS, photoFile })
+}
 
 export default profileReducer
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
-
 /* thunk */
 export const getUserProfile = (userId: number): ThunkType => async (dispatch, getState) => {
-    dispatch(profileToggleIsFetching(true));
+    dispatch(actions.profileToggleIsFetching(true));
 
     const data = await profileAPI.getProfile(userId)
-    dispatch(setUserProfile(data));
-    dispatch(profileToggleIsFetching(false));
+    dispatch(actions.setUserProfile(data));
+    dispatch(actions.profileToggleIsFetching(false));
 }
 
-
-/* thunk */
 export const getUserStatus = (userId: number): ThunkType => async (dispatch) => {
     const data = await profileAPI.getStatus(userId)
-    dispatch(setStatus(data));
+    dispatch(actions.setStatus(data));
 }
 
-
-/* thunk */
 export const updateUserStatus = (status: string): ThunkType => async (dispatch) => {
     try {
         const data = await profileAPI.updateStatus(status)
         if (data.resultCode === ResultCodesEnum.Success)
             console.log('status is updated')
-        dispatch(setStatus(status));
+        dispatch(actions.setStatus(status));
     } catch (error: any) {
         alert(`Error \n -------------\n 1. Name: ${error.name} \n 2. Description: ${error.message} -> ${error.code} \n 3. Config: ${error.config.data}`)
     }
 }
 
-export const savePhoto = (photoFile: string): ThunkType => async (dispatch) => {
+export const savePhoto = (photoFile: File): ThunkType => async (dispatch) => {
     const data = await profileAPI.savePhoto(photoFile)
     // debugger
     if (data.resultCode === ResultCodesEnum.Success)
-        dispatch(savePhotoSuccess(data.data.photos))
-        dispatch(getAuthUserData())
+        dispatch(actions.savePhotoSuccess(data.data.photos))
+    dispatch(getAuthUserData())
     if (data.resultCode !== ResultCodesEnum.Success) // error 
         window.alert(data.messages)
 }
 
-export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch: any, getState: any) => {
-    const userId: number = getState().auth.userId
+export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch, getState) => {
+    const userId = getState().auth.userId
     const response = await profileAPI.saveProfile(profile)
 
     if (response.resultCode === ResultCodesEnum.Success) {
-        console.log('Profile is saved')
-        dispatch(getUserProfile(userId));
-    }
-    else {
+        if (userId != null) {
+            console.log('Profile is saved')
+            dispatch(getUserProfile(userId))
+        } else {
+            throw new Error("userId can't be null")
+        }
+    } else {
         let errorMessage = response.messages.length > 0 ? response.messages[0] : "Some Error"
         let contactsValue = errorMessage.split('>')[1].split(')')[0];
         let contactsTitle = contactsValue.toLowerCase() // lower case
@@ -149,3 +132,7 @@ export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch:
         return Promise.reject(errorMessage) //rejecte promice if promice=messageError
     }
 }
+
+export type InitialStateType = typeof initialState
+type ActionsTypes = ReturnType<InferActionsTypes<typeof actions>>
+type ThunkType = BaseThunkType<ActionsTypes | FormAction>
