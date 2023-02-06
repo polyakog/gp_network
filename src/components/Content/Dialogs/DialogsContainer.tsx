@@ -21,19 +21,12 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-let mapDispatchToProps = (dispatch: any): MapDispatchToPropsType => {
-    return {
-        sendMessage: (newText: string) => {
-            dispatch(actions.sendMessageActionCreator(newText))
-        }
-    }
-}
 
 /* HOC */
 // let AuthRedirectComponent = withAuthRedirect (Dialogs)
 
 
 export default compose<PropsType>(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps, { sendMessage: actions.sendMessage }),
     withAuthRedirect
 )(Dialogs);

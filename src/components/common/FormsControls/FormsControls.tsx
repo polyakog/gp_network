@@ -49,16 +49,17 @@ export const Input: React.FC<FieldType> = (props) => {
 
 /* Form Patern */
 
-export const createField = (error: string | null,
-    name: string,
+export function createField<FormKeysType extends string> (error: string | null,
+    name: FormKeysType,
     label: string | null,
     component: React.FC<FieldType> | "input" | "select" | "textarea" | undefined,
     type: string,
     placeholder: string | undefined,
     autocomplete: string,
     validate: Array<FieldValidatorType>,
-    text = "") => (
-    <div>
+    text = "",
+    rows:number|null) {
+        return <div>
         <Field
             name={name}
             label={label}
@@ -67,9 +68,7 @@ export const createField = (error: string | null,
             placeholder={placeholder}
             autoComplete={autocomplete}
             validate={validate}
+            rows={rows}
         /> {text}
     </div>
-
-
-
-)
+    }

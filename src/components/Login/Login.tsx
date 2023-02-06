@@ -23,11 +23,11 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValueType, LoginFromOwnProp
         return <form className={css.loginForm} onSubmit={handleSubmit}>
             <h2 className={css.formHead}>Login</h2>
 
-            {createField(error, 'email', 'LOGIN', Input, 'text', 'your registered email', 'username', [required, maxLength50], '')}
+            {createField<LoginFormValueTypeKeys>(error, 'email', 'LOGIN', Input, 'text', 'your registered email', 'username', [required, maxLength50], '', null)}
             <p></p>
-            {createField(error, 'password', 'PASSWORD', Input, 'password', 'your password', 'current-password', [required, maxLength20], '')}
+            {createField<LoginFormValueTypeKeys>(error, 'password', 'PASSWORD', Input, 'password', 'your password', 'current-password', [required, maxLength20], '', null)}
             <p></p>
-            {createField(null, 'rememberMe', '', 'input', 'checkbox', undefined, '', [], 'remember me')}
+            {createField<LoginFormValueTypeKeys>(null, 'rememberMe', '', 'input', 'checkbox', undefined, '', [], 'remember me', null)}
 
             {error &&
                 <div className={css.formError}>
@@ -40,7 +40,7 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValueType, LoginFromOwnProp
                 <div>
                     <label className={css.captureLabel} >Capture:</label>
                     <img src={captureUrl} className={css.capturePic} alt="capture" />
-                    {createField(error, 'capture', '', Input, 'text', 'Enter the capture', '', [required, maxLength50], '')}
+                    {createField<LoginFormValueTypeKeys>(error, 'capture', '', Input, 'text', 'Enter the capture', '', [required, maxLength50], '', null)}
                 </div>
             }
 
@@ -72,8 +72,9 @@ type LoginFormValueType = {
     password: string
     rememberMe: boolean
     capture: string | null
-
 }
+
+type LoginFormValueTypeKeys  = Extract <keyof LoginFormValueType, string> 
 
 const Login: React.FC<MapStateToPropsType & MapDispatchToPropsType> = (props) => {
     const onSubmit = (formData: LoginFormValueType) => {

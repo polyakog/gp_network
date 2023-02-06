@@ -22,7 +22,7 @@ let text = 'new message'
 
 it('test_1 length of messages should be incremented', () => {
     /* 1. test data */
-    let action = actions.sendMessageActionCreator(text)
+    let action = actions.sendMessage(text)
 
     /* 2. test action */
     let newState = dialogsReducer(state, action)
