@@ -5,11 +5,11 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import { withRouter } from './hoc/withRouter';
-import { initializeApp } from './redux/app-reducer.ts';
+import { initializeApp } from './redux/app-reducer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import NavContainer from './components/Nav/NavContainer';
 import Preloader from './components/common/Preloader/Preloader';
-import store from './redux/redux-store.ts';
+import store, { AppStateType } from './redux/redux-store';
 
 // import Login from './components/Login/Login';
 // import ProfileContainer from './components/Content/Profile/ProfileContainer';
@@ -27,11 +27,15 @@ const News = React.lazy(() => import('./components/Content/News/News'));
 const Music = React.lazy(() => import('./components/Content/Music/Music'));
 // const Settings = React.lazy(() => import('./components/Content/Settings/Settings'));
 
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+  initializeApp: ()=>void
+}
 
-class App extends Component {
-  catchAllUnhandledErrors =({reason, promise}) => {
-    
-    alert(`Some error \n --------------\n Name: ${reason.name} \n Description: ${reason.message}`)
+class App extends Component<MapPropsType & DispatchPropsType> {
+  catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
+
+    alert(`Some error \n --------------\n Name: ${e.reason.name} \n Description: ${e.reason.message}`)
   }
 
   componentDidMount() {
@@ -56,24 +60,24 @@ class App extends Component {
       <div className="App-wrapper">
 
         <HeaderContainer />
-        <NavContainer store={this.props.store} />
+        <NavContainer store={store} />
 
         <div className='App-wrapper-content'>
-        <React.Suspense fallback={<div><Preloader message='suspensed component loading' /></div>}>  
-          <Routes>                    
-            <Route path='/' element={<ProfileContainer />} />
+          <React.Suspense fallback={<div><Preloader message='suspensed component loading' /></div>}>
+            <Routes>
+              <Route path='/' element={<ProfileContainer />} />
               <Route path='/gp_network' element={<ProfileContainer />} />
-            <Route path='profile' element={<ProfileContainer />} >
+              <Route path='profile' element={<ProfileContainer />} >
                 <Route path=':userId' element={<ProfileContainer />} />
-            </Route>
-            <Route path='dialogs/*' element={<DialogsContainer />} />
-            <Route path='news' element={<News />} />
-            <Route path='music' element={<Music />} />
-            <Route path='users' element={<UsersContainer pageTitle='Users' />} />
-            <Route path='login' element={<Login />} />
-            <Route path='settings' element={<Settings />} />
-          </Routes>
-         </React.Suspense> 
+              </Route>
+              <Route path='dialogs/*' element={<DialogsContainer />} />
+              <Route path='news' element={<News />} />
+              <Route path='music' element={<Music />} />
+              <Route path='users' element={<UsersContainer pageTitle='Users' />} />
+              <Route path='login' element={<Login />} />
+              <Route path='settings' element={<Settings />} />
+            </Routes>
+          </React.Suspense>
         </div>
       </div>
     );
@@ -82,18 +86,18 @@ class App extends Component {
 
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized
 })
 
-let AppContainer = compose(
+let AppContainer = compose<React.ComponentType>(
   withRouter,
   connect(mapStateToProps, { initializeApp }),
 
 )(App);
 
 
-const GpNetworkApp = (props) =>{
+const GpNetworkApp: React.FC = () => {
   return <React.StrictMode>
     <BrowserRouter basename="/">
       <Provider store={store}>

@@ -5,17 +5,8 @@ import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { AppStateType } from '../../../redux/redux-store';
 
-type MapStateToPropsType = {
-    dialogsPage: any
-}
 
-type MapDispatchToPropsType = {
-    sendMessage: (newText: string) => void
-}
-
-type PropsType = MapStateToPropsType & MapDispatchToPropsType
-
-let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         dialogsPage: state.dialogsPage
     }
@@ -26,7 +17,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 // let AuthRedirectComponent = withAuthRedirect (Dialogs)
 
 
-export default compose<PropsType>(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, { sendMessage: actions.sendMessage }),
     withAuthRedirect
 )(Dialogs);

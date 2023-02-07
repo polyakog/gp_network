@@ -1,6 +1,6 @@
 import { PhotosType } from "../types/types"
 
-type FriendsType = {
+export type FriendsType = {
     friendId: number
     name: string
     photos: PhotosType | null
