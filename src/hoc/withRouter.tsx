@@ -1,12 +1,10 @@
 import React from "react";
 import { useParams } from 'react-router-dom';
 
-
-export const withRouter = (Component) => {
-    let RouterIdComponent =(props) => {
-        return < Component { ...props } params = { useParams() } />
+export function withRouter<Props>(Component: React.ComponentType<Props>) {
+    let RouterIdComponent = (props: Props) => {
+        return < Component {...props} params={useParams()} />
     }
-        
-    return RouterIdComponent;
-}
 
+    return RouterIdComponent
+}
