@@ -1,11 +1,11 @@
 import React, { HTMLInputTypeAttribute, FC, useState } from "react";
-import Preloader from "../../common/Preloader/Preloader";
+import Preloader from "../../../common/Preloader/Preloader";
 import css from './ProfileInfo.module.css';
-import jobLooker from '../../../assets/images/jobLooker.webp'
-import noPic from '../../../assets/images/noPic.jpg'
+import jobLooker from '../../../../assets/images/jobLooker.webp'
+import noPic from '../../../../assets/images/noPic.jpg'
 import ProfileStatusWithHook from './ProfileStatusWithHook';
 import ProfileDataReduxForm from "./ProfileDataForm";
-import { ContactsType, PhotosType } from "../../../types/types";
+import { ContactsType, PhotosType } from "../../../../types/types";
 
 
 

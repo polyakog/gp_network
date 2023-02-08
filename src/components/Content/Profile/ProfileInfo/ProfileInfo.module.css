@@ -73,7 +73,7 @@
 /* Hover/active */
 .inputFileBtn:hover {
     background: rgb(89, 190, 110);
-    cursor: url(../../Content/Settings/Cursors/DeCody/arrow.cur), auto;
+    cursor: url(../../../Content/Settings/Cursors/DeCody/arrow.cur), auto;
 }
 
 .inputFile input[type=file] {

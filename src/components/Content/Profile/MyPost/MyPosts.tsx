@@ -1,14 +1,14 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import { required, maxLengthCreator, minLengthCreator } from "../../../utils/validators";
-import { Textarea } from "../../common/FormsControls/FormsControls";
+import { required, maxLengthCreator, minLengthCreator } from "../../../../utils/validators";
+import { Textarea } from "../../../common/FormsControls/FormsControls";
 import css from './MyPosts.module.css';
 import Post from './Post/Post';
 
 let maxLength100 = maxLengthCreator(100);
 let minLength2 = minLengthCreator(2);
 
-let AddnewPostForm = (props) => {
+let AddPostForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={css.NewPost}>
             <Field
@@ -27,7 +27,7 @@ let AddnewPostForm = (props) => {
     )
 }
 
-const AddnewPostFormRedux = reduxForm({ form: 'ProfileAddNewPostForm' })(AddnewPostForm)
+const AddPostFormRedux = reduxForm({ form: 'ProfileAddNewPostForm' })(AddPostForm)
 
 
 
@@ -54,7 +54,7 @@ const MyPosts = React.memo( (props) => {
         <div className={css.postsBlock}>
 
             <h3>My posts</h3>
-            <AddnewPostFormRedux onSubmit={onAddPost} />
+            <AddPostFormRedux onSubmit={onAddPost} />
             {/* Визуализация самих постов */}
             <div className={css.posts}>
                 {postElements}

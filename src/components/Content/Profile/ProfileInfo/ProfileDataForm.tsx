@@ -1,9 +1,9 @@
 import css from './ProfileInfo.module.css';
-import cssError from './../../common/FormsControls/FormsControls.module.css'
+import cssError from './../../../common/FormsControls/FormsControls.module.css'
 import { reduxForm } from "redux-form";
-import { createField, Input} from "../../common/FormsControls/FormsControls";
-import { required } from "../../../utils/validators";
-import sign from "./../../../assets/images/sign4.jpg"
+import { createField, Input} from "../../../common/FormsControls/FormsControls";
+import { required } from "../../../../utils/validators";
+import sign from "./../../../../assets/images/sign4.jpg"
 
 const ProfileData = ({ handleSubmit, index=0, error, profile}) => {
     return <form className={css.description} onSubmit={handleSubmit}>
