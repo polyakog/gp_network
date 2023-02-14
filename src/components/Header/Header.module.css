@@ -1,7 +1,6 @@
-
 .header {
     grid-area: header;
-    
+
     align-items: center;
 
     background: radial-gradient(circle, rgba(213, 254, 192, 1) 1%, rgba(94, 177, 103, 0.7346288857339811) 66%, rgba(177, 214, 236, 1) 95%);
@@ -16,15 +15,13 @@
 .subheader {
     display: flex;
     align-items: center;
-    
-    
+
+
 }
 
 .subheader_logo {
-    
     height: 30%;
     width: 50px;
-
 }
 
 .subheader_name {
@@ -34,27 +31,16 @@
 }
 
 .userData {
-    flex-grow: 1;
-   
-}
-
-.login {
-    flex-grow: 1;
-    color: beige;
-    text-decoration: none;
-    border: 1px solid blue ;
-    background-color: blue;
-    border-radius: 5px;
-    max-height: 30px;
-    text-align: center;
-   
+    margin-top: -5px;
     
 }
 
-.login:hover {
-        border: 1px solid red;
-        background-color: red;
-        cursor: pointer;
+.userLogBut {
+    display: flex;
+    flex-direction: row;
+    height: 52px;
+    align-items: center;
+    gap: 10px;
 }
 
 .userPhoto {
@@ -63,5 +49,32 @@
 }
 
 .userName {
+    border-radius: 3px;
+        border: 1px inset rgb(245, 248, 245);
+        background-color: rgba(1, 15, 57, 0.1);
+padding: 1px;
+    
     font-size: 11px;
+    margin-top: 3px;
+}
+
+.login {
+        color: rgb(255 255 255);
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    border: 5px outset var(--btnBackC);
+    background: radial-gradient(circle, rgb(65, 145, 82) 0%, rgb(30, 68, 37) 100%);
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 1px rgb(0 0 0 / 40%);
+    transition: all 0.5s ease 0.1s;
+    max-height: 30px;
+   
+}
+
+.login:hover {
+    border: 5px outset red;
+    background: var(--btnBackCoHov);
+    color: var(--greenC);
+    cursor: pointer;
 }
