@@ -16,6 +16,4 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 const NavContainer = connect(mapStateToProps)(Nav)
 
-
-
 export default NavContainer;
