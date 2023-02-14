@@ -1,12 +1,11 @@
 import React from "react";
 import css from './Profile.module.css';
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import ProfileInfo, { PropsType } from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from './MyPost/MyPostsContainer';
 import background from '../../../assets/images/background.png'
-import { ProfilePropsType } from "./ProfileContainer";
 
 
-const Profile: React.FC<ProfilePropsType> = (props) => {
+const Profile: React.FC<PropsType> = (props) => {
     return (
         <div className={css.profile} >
             {/* Main pic */}

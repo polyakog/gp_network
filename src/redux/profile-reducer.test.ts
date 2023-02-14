@@ -16,7 +16,7 @@ let text = "test"
 
 test('test_1 length of posts should be incremented', () => {
     /* 1. test data */
-    let action = actions.addPostActionCreator(text)
+    let action = actions.addPost(text)
     
     /* 2. test action */
     let newState = profileReducer(state, action) 
@@ -28,7 +28,7 @@ test('test_1 length of posts should be incremented', () => {
 
 test('test_2 message of a new post should be correct', () => {
     /* 1. test data */
-    let action = actions.addPostActionCreator(text)
+    let action = actions.addPost(text)
 
     /* 2. test action */
     let newState = profileReducer(state, action)

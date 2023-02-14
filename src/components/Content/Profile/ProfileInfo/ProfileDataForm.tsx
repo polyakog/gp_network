@@ -1,11 +1,22 @@
 import css from './ProfileInfo.module.css';
 import cssError from './../../../common/FormsControls/FormsControls.module.css'
-import { reduxForm } from "redux-form";
-import { createField, Input} from "../../../common/FormsControls/FormsControls";
+import { InjectedFormProps, reduxForm } from "redux-form";
+import { createField, GetStringKeys, Input} from "../../../common/FormsControls/FormsControls";
 import { required } from "../../../../utils/validators";
 import sign from "./../../../../assets/images/sign4.jpg"
+import { ContactsType, ProfileType } from '../../../../types/types';
 
-const ProfileData = ({ handleSubmit, index=0, error, profile}) => {
+export type ProfileDataFormValueType= ProfileType
+
+type ProfileDataFormOwnPropsType = {
+    profile: ProfileType
+}
+
+type ProfileFormValueTypeKeys = GetStringKeys<ProfileDataFormValueType> 
+type ProfileFormContactsValueTypeKeys = GetStringKeys<ContactsType> 
+
+
+const ProfileDataForm:React.FC<InjectedFormProps<ProfileDataFormValueType, ProfileDataFormOwnPropsType> & ProfileDataFormOwnPropsType > = ({ handleSubmit, error, profile}) => {
     return <form className={css.description} onSubmit={handleSubmit}>
         <h1>Profile Edit Mode</h1>
         
@@ -17,17 +28,17 @@ const ProfileData = ({ handleSubmit, index=0, error, profile}) => {
             </div>
         }
         <div className={css.user_name}><b></b> 
-        {createField(error, 'fullName', 'Full name:', Input, 'text', 'Fill your Full Name', null, [required], '')}
+            {createField<ProfileFormValueTypeKeys>(error, 'fullName', 'Full name:', Input, 'text', 'Fill your Full Name', '', [required], '', null)}
         </div>
-        {createField(error, 'aboutMe', 'About me:', Input, 'text', 'Describe yourself', '', [required], '')}
+        {createField<ProfileFormValueTypeKeys>(error, 'aboutMe', 'About me:', Input, 'text', 'Describe yourself', '', [required], '', null)}
         
         {/* <p><b>ID:</b> {profile.userId}</p> */}
 
         <div>
         <div className={css.lookingForAJobText}> <b>Looking for a job:</b>
-        {createField(null, 'lookingForAJob', '', 'input', 'checkbox', '', '', [], '')}
+                {createField<ProfileFormValueTypeKeys>(null, 'lookingForAJob', '', 'input', 'checkbox', '', '', [], '', null)}
         </div>
-        {createField(error, 'lookingForAJobDescription', 'My professional skills:', Input, 'text', 'Describe your professional skills ', '', [], '')}
+            {createField<ProfileFormValueTypeKeys>(error, 'lookingForAJobDescription', 'My professional skills:', Input, 'text', 'Describe your professional skills ', '', [], '', null)}
           </div>
 
         <br />
@@ -37,7 +48,7 @@ const ProfileData = ({ handleSubmit, index=0, error, profile}) => {
                 {Object.keys(profile.contacts).map(keys => {
                     // index = index+1
                     return <li key={keys} >
-                        <b>{keys}:</b>  {createField(error, 'contacts.'+keys, '', Input, 'text', `Fill your ${keys} URL`, null, [], '')}
+                        <b>{keys}:</b>  {createField<ProfileFormContactsValueTypeKeys>(error, 'contacts.' + keys as ProfileFormContactsValueTypeKeys, '', Input, 'text', `Fill your ${keys} URL`, '', [], '', null)}
                     </li>
                 })}
             </ul>
@@ -45,6 +56,6 @@ const ProfileData = ({ handleSubmit, index=0, error, profile}) => {
     </form>
 }
 
-const ProfileDataReduxForm = reduxForm({ form: "edit-profile", enableReinitialize: true, destroyOnUnmount: false, keepDirtyOnReinitialize: true  }) (ProfileData)
+const ProfileDataReduxForm = reduxForm<ProfileDataFormValueType, ProfileDataFormOwnPropsType>({ form: "edit-profile", enableReinitialize: true, destroyOnUnmount: false, keepDirtyOnReinitialize: true  }) (ProfileDataForm)
 
 export default ProfileDataReduxForm

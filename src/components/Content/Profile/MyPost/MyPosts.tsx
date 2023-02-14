@@ -1,23 +1,22 @@
 import React from "react";
-import AddPostForm from "./AddPostForm/AddPostForm";
+import AddPostForm, { AddPostFormValueType } from "./AddPostForm/AddPostForm";
 import css from './MyPosts.module.css';
+import { DispatchPropsType, MapPropsType } from "./MyPostsContainer";
 import Post from './Post/Post';
 
-
-const MyPosts = React.memo((props) => {
+const MyPosts: React.FC<MapPropsType & DispatchPropsType> = (props) => {
     // const reversed = [...props.postData].reverse();
 
     let postElements =
         [...props.postData]
             .reverse()
-            .map((p, index) => (<Post key={index} message={p.message} likeCount={p.likeCount} Name={p.Name} />));
+            .map((p, index) => (<Post key={index} message={p.message} likeCount={p.likeCount} Name={p.Name} id={p.id} postId={p.postId} />));
     // key = { p.postId }
 
     /* Создаем команды на клик кнопки */
-
-    const onAddPost = (value) => {
+    const onAddPost = (values: AddPostFormValueType) => {
         return (
-            props.addPost(value.newPostText)
+            props.addPost(values.newPostText)
         )
     }
 
@@ -29,10 +28,9 @@ const MyPosts = React.memo((props) => {
             <div className={css.posts}>
                 {postElements}
             </div>
-
         </div>
     );
 }
-)
 
-export default MyPosts;
+const MyPostsMemorized = React.memo(MyPosts)
+export default MyPostsMemorized;

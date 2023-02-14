@@ -8,11 +8,9 @@
     margin-top: 20px;
 }
 
-
-
 .NewPost {
     display: grid;
-    grid-template-columns: auto fit-content(100px);
+    grid-template-columns: auto fit-content(150px) ;
     margin-top: 10px;
     text-align: center;
     gap: 10px;
@@ -23,7 +21,6 @@
     padding: 5px;
     font-size: 16px;
     margin-right: 10px;
-    margin-top: 25px;
-
+    margin-top: 50px;
 }
 

@@ -72,3 +72,5 @@ export function createField<FormKeysType extends string> (error: string | null,
         /> {text}
     </div>
     }
+
+export type GetStringKeys <T> = Extract<keyof T, string>

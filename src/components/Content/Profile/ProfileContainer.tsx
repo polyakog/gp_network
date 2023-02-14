@@ -9,50 +9,62 @@ import { withRouter } from "../../../hoc/withRouter";
 import { withNavigate } from '../../../hoc/withNavigate';
 import { ProfileType } from "../../../types/types";
 import { AppStateType } from "../../../redux/redux-store";
+import { ProfileDataFormValueType } from "./ProfileInfo/ProfileDataForm";
 
-type MapStateToPropsType = {
+type MapPropsType = {
     profile: ProfileType | null
     isFetching: boolean
     status: string
     userId: number | null
 }
-type MapDispatchToPropsType = {
+type DispatchPropsType = {
     getUserProfile: (userId: number) => void
     getUserStatus: (userId: number) => void
-    updateUserStatus: () => void
-    savePhoto: () => void
-    saveProfile: (formData: any) => Promise<boolean>
+    updateUserStatus: (status: string) => void
+    savePhoto: (photoFile: File) => void
+    saveProfile: (profile: ProfileDataFormValueType) => Promise<boolean>
     navigate: (link: string) => void
 }
 
 type OwnPropsType = {
-    params: { userId: number }
+    params: { userId: string }
     isOwner: boolean
 }
 
-export type ProfilePropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
+export type PropsType = MapPropsType & DispatchPropsType & OwnPropsType
 
-class ProfileContainer extends React.Component<ProfilePropsType> {
+class ProfileContainer extends React.Component<PropsType> {
 
     refreshProfile() {
-        let userId = this.props.params.userId;
-        //@ts-ignore
-        if (!userId) { userId = this.props.userId; }
+        let userId: number | null = +this.props.params.userId;
         if (!userId) {
-            this.props.navigate('/login'); /* не обязательно, можно удалить. Для инфы */
+            userId = this.props.userId;
+            if (!userId) {
+                this.props.navigate('/login'); /* не обязательно, можно удалить. Для инфы */
+            }
         }
-        this.props.getUserProfile(userId)
-        this.props.getUserStatus(userId)
+
+        if (!userId) {
+            // throw new Error("ID should exist in URI params or in state.auth.userId")
+            console.error("ID should exist in URI params or in state.auth.userId")
+        } else {
+            this.props.getUserProfile(userId)
+            this.props.getUserStatus(userId)
+        }
     }
 
     componentDidMount() {
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevPops: ProfilePropsType, prevState: AppStateType, snapshot: any) {
+    componentDidUpdate(prevPops: PropsType, prevState: AppStateType, snapshot: any) {
         if (this.props.params.userId !== prevPops.params.userId) {
             this.refreshProfile();
         }
+    }
+
+    componentWillUnmount(): void {
+        
     }
 
     render() {
@@ -72,8 +84,7 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     }
 }
 
-
-let mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+let mapStateToProps = (state: AppStateType): MapPropsType => ({
     profile: state.profilePage.profile,
     isFetching: state.profilePage.isFetching,
     status: state.profilePage.status,

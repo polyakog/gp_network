@@ -67,7 +67,7 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 
 /* Создание объектов action */
 export const actions = {
-    addPostActionCreator: (newPostText: string) => ({ type: types.ADD_POST, newPostText } as const),
+    addPost: (newPostText: string) => ({ type: types.ADD_POST, newPostText } as const),
     setUserProfile: (profile: ProfileType) => ({ type: types.SET_USER_PROFILE, profile } as const),
     profileToggleIsFetching: (isFetching: boolean) => ({ type: types.TOGGLE_IS_FETCHING, isFetching } as const),
     setStatus: (status: string) => ({ type: types.SET_STATUS, status } as const),

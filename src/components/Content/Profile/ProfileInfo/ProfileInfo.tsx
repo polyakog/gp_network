@@ -1,64 +1,47 @@
-import React, { HTMLInputTypeAttribute, FC, useState } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import Preloader from "../../../common/Preloader/Preloader";
 import css from './ProfileInfo.module.css';
 import jobLooker from '../../../../assets/images/jobLooker.webp'
 import noPic from '../../../../assets/images/noPic.jpg'
 import ProfileStatusWithHook from './ProfileStatusWithHook';
-import ProfileDataReduxForm from "./ProfileDataForm";
-import { ContactsType, PhotosType } from "../../../../types/types";
+import ProfileDataReduxForm, { ProfileDataFormValueType } from "./ProfileDataForm";
+import {ContactsType, ProfileType } from "../../../../types/types";
 
 
-
-
-type ProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string | null
-    fullName: string
-    aboutMe: string
-    photos: PhotosType
-    contacts: ContactsType
-}
-
-type ProfileInfoType = {
+export type PropsType = {
     profile: ProfileType | null
     status: string
     updateUserStatus: (status: string) => void
-    savePhoto: () => void
+    savePhoto: (photoFile: File) => void
     isOwner: boolean
-    saveProfile: (formData: any) => Promise<boolean>
+    saveProfile: (profile: ProfileDataFormValueType) => Promise<boolean>
 }
 
-
-
-const ProfileInfo: FC<ProfileInfoType> = ({ profile, status, updateUserStatus, savePhoto, isOwner, saveProfile }) => {
+const ProfileInfo: FC<PropsType> = ({ profile, status, updateUserStatus, savePhoto, isOwner, saveProfile }) => {
 
     let [photoEditability, setPhotoEditability] = useState(false);
     let [fileName, setFileName] = useState<string>()
     let [editMode, setEditMode] = useState(false)
 
-
     if (!profile) {
         return <Preloader />
     }
 
-    const onMainPhotoSelected = (e: any) => {
-        //@ts-ignore
-        if (e.target.files.length) { savePhoto(e.target.files[0]) }
-        setFileName(e.target.files[0].name)
-        console.log("uploading photo: ", fileName)
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+
+        if (e.target.files && e.target.files.length) {
+            savePhoto(e.target.files[0])
+            setFileName(e.target.files[0].name)
+            console.log("uploading photo: ", fileName)
+        }
     }
 
-    const onSubmit = (formData: any) => {
+    const onSubmit = (formData: ProfileDataFormValueType) => {
+        // todo: remove then
         saveProfile(formData).then(() => {
-
             setEditMode(false)
-
         })
-
-
     }
-
 
     return (
         <div >
@@ -83,19 +66,14 @@ const ProfileInfo: FC<ProfileInfoType> = ({ profile, status, updateUserStatus, s
                 </div>
 
                 {editMode
-                    //@ts-ignore
+
                     ? <ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
                     : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => { setEditMode(true) }} />}
-
-
             </div>
         </div>
 
     );
 }
-
-
-
 
 type ProfileDataPropsType = {
     profile: ProfileType
@@ -126,29 +104,29 @@ const ProfileData: FC<ProfileDataPropsType> = ({ profile, isOwner, goToEditMode,
         <div className={css.contacts}>
             <b>Contacts:</b>
 
-            <ul> {Object.keys(profile.contacts).map(keys => {
-                // debugger
-                index = index + 1
-                //@ts-ignore
-                return <Contact keys={keys} contactTitle={keys} contactValue={profile.contacts[keys]} />
-            })}
+            <ul> {Object
+                .keys(profile.contacts)
+                .map(keys => {
+                    // debugger
+                    // index = index + 1
+                    return <Contact keys={keys} contactTitle={keys} contactValue={profile.contacts[keys as keyof ContactsType] } />
+                })}
             </ul>
         </div>
     </div>
 }
 
-type ContactType = {
+type ContactPropsType = {
     contactTitle: string
-    contactValue: string
-    keys: any
-}
-const Contact: React.FC<ContactType> = ({ contactTitle, contactValue }) => {
+    contactValue: string|null
+    keys:string
+    }
+const Contact: React.FC<ContactPropsType> = ({ contactTitle, contactValue }) => {
     return <div>
         {contactValue &&
             (<li><b>{contactTitle}:</b> {contactValue}</li>)
         }
     </div>
 }
-
 
 export default ProfileInfo;
