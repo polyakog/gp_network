@@ -2,7 +2,7 @@ import preloader from './../../../assets/Preloader/preloader1.gif';
 import React from 'react';
 
 type PropsType = {
-    message: string
+    message?: string
 }
 
 let Preloader: React.FC<PropsType> = (props) => {

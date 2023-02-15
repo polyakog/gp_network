@@ -2,8 +2,6 @@ import React, { FC, useState } from "react";
 import cn from 'classnames'
 import css from './Paginator.module.css'
 
-
-
 const PaginatorButton = (disabledArrow: boolean, setPortionNumber: (nextPortionNumber: number) => void, nextPortionNumber: number, name: string, text: string) => (
     <div >
         <button
@@ -19,11 +17,11 @@ type PaginatorPropsType = {
     totalItemsCount: number
     pageSize: number
     currentPage: number
-    onPageChanged: (pages:number)=>void
+    onPageChanged?: (pages: number) => void
     portionSize?: number
 }
 
-const Paginator: FC<PaginatorPropsType> = ({ totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10 }) => {
+const Paginator: FC<PaginatorPropsType> = ({ totalItemsCount, pageSize, currentPage, onPageChanged = x => x, portionSize = 10 }) => {
 
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
