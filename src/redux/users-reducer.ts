@@ -3,6 +3,7 @@ import { UserType } from '../types/types';
 import { BaseThunkType, InferActionsTypes } from './redux-store';
 import { Dispatch } from 'redux';
 import { usersAPI } from '../api/user-api';
+import { APIResponseType } from '../api/api';
 
 const types = {
     FOLLOW: 'gp-network/users/FOLLOW' as 'gp-network/users/FOLLOW',
@@ -100,17 +101,17 @@ export const requestUsers = (currentPage: number, pageSize: number): ThunkType =
     dispatch(actions.setTotalUsersCount(data.totalCount));
 }
 
-export const follow = (id: number): ThunkType => async (dispatch, getState) => {
-    _followUnfollowFlow(dispatch, id, usersAPI.followUsers.bind(usersAPI), actions.followSuccess)
+export const follow = (id: number): ThunkType => async (dispatch) => {
+    await _followUnfollowFlow(dispatch, id, usersAPI.followUsers.bind(usersAPI), actions.followSuccess)
 }
 
 export const unfollow = (id: number): ThunkType => {
     return async (dispatch, getState) => {
-        _followUnfollowFlow(dispatch, id, usersAPI.unfollowUsers.bind(usersAPI), actions.unfollowSuccess)
+       await _followUnfollowFlow(dispatch, id, usersAPI.unfollowUsers.bind(usersAPI), actions.unfollowSuccess)
     }
 }
 
-const _followUnfollowFlow = async (dispatch: DispatchType, id: number, apiMethod: any, actionCreator: (userId: number) => ActionsTypes) => {
+const _followUnfollowFlow = async (dispatch: DispatchType, id: number, apiMethod: (id:number) => Promise<APIResponseType>, actionCreator: (userId: number) => ActionsTypes) => {
     dispatch(actions.toggleFollowingProgess(true, id));
     const data = await apiMethod(id)
     if (data.resultCode === 0) {
@@ -119,7 +120,7 @@ const _followUnfollowFlow = async (dispatch: DispatchType, id: number, apiMethod
     dispatch(actions.toggleFollowingProgess(false, id));
 }
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 type ThunkType = BaseThunkType<ActionsTypes>
 type ActionsTypes = ReturnType<InferActionsTypes<typeof actions>>
 type DispatchType = Dispatch<ActionsTypes>

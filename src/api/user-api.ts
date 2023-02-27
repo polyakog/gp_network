@@ -14,13 +14,13 @@ export const usersAPI = {
 
     followUsers(id: number) {
         return instance.post<APIResponseType>(`follow/${id}`)
-            .then(response => {
+        .then(response => {
                 return response.data
             })
     },
 
     unfollowUsers(id: number) {
         return instance.delete<APIResponseType>(`follow/${id}`)
-            .then(response => response.data)
+            .then(response => response.data) as Promise<APIResponseType>
     },
 }
