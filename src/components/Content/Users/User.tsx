@@ -9,7 +9,7 @@ type PropsType = {
     followingInProgress: Array<number>
     follow: (id: number) => void
     unfollow: (id: number) => void
-}
+   }
 
 const User: React.FC<PropsType> = ({ user, followingInProgress, unfollow, follow }) => {
 

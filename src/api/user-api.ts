@@ -7,8 +7,8 @@ type GetItemsResponseType = {
     error: string | null
 }
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 3) {
-        return instance.get<GetItemsResponseType>(`users?page=${currentPage}&count=${pageSize}&term=l`)
+    getUsers(currentPage = 1, pageSize = 3, term = '', friend:null|boolean=null) {
+        return instance.get<GetItemsResponseType>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? '': `&friend=${friend}`))
             .then(response => response.data)
     },
 

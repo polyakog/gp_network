@@ -12,7 +12,8 @@ const types = {
     SET_CURRENT_PAGE: 'gp-network/users/SET_CURRENT_PAGE' as 'gp-network/users/SET_CURRENT_PAGE',
     SET_TOTAL_USERS_COUNT: 'gp-network/users/SET_TOTAL_USERS_COUNT' as 'gp-network/users/SET_TOTAL_USERS_COUNT',
     TOGGLE_IS_FETCHING: 'gp-network/users/TOGGLE_IS_FETCHING' as 'gp-network/users/TOGGLE_IS_FETCHING',
-    TOGGLE_IS_FOLLOING_PROGRESS: 'gp-network/users/TOGGLE_IS_FOLLOING_PROGRESS' as 'gp-network/users/TOGGLE_IS_FOLLOING_PROGRESS'
+    TOGGLE_IS_FOLLOING_PROGRESS: 'gp-network/users/TOGGLE_IS_FOLLOING_PROGRESS' as 'gp-network/users/TOGGLE_IS_FOLLOING_PROGRESS',
+    SET_FILTER: 'gp-network/users/SET_FILTER' as 'gp-network/users/SET_FILTER'
 }
 
 let initialState = {
@@ -20,6 +21,10 @@ let initialState = {
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
+    filter: {
+        term: '',
+        friend: null as null | boolean
+    },
     isFetching: true,
     followingInProgress: [] as Array<number> // array of users IDs
 };
@@ -51,6 +56,12 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
             return {
                 ...state,
                 currentPage: action.currentPage
+            }
+        }
+        case types.SET_FILTER: {
+            return {
+                ...state,
+                filter: action.payload
             }
         }
 
@@ -85,6 +96,7 @@ export const actions = {
     unfollowSuccess: (userId: number) => ({ type: types.UNFOLLOW, userId }) as const,
     setUsers: (users: Array<UserType>) => ({ type: types.SET_USERS, users }) as const,
     setCurrentPage: (currentPage: number) => ({ type: types.SET_CURRENT_PAGE, currentPage: currentPage }) as const,
+    setFilter: (filter:FilterType) => ({ type: types.SET_FILTER, payload: filter }) as const,
     setTotalUsersCount: (totalCount: number) => ({ type: types.SET_TOTAL_USERS_COUNT, totalCount }) as const,
     toggleIsFetching: (isFetching: boolean) => ({ type: types.TOGGLE_IS_FETCHING, isFetching }) as const,
     toggleFollowingProgess: (isFetching: boolean, userId: number) => ({ type: types.TOGGLE_IS_FOLLOING_PROGRESS, isFetching, userId }) as const
@@ -93,12 +105,15 @@ export const actions = {
 export default usersReducer;
 
 
-export const requestUsers = (currentPage: number, pageSize: number): ThunkType => async (dispatch, getState) => {
+export const requestUsers = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => async (dispatch, getState) => {
     dispatch(actions.toggleIsFetching(true));
-    const data = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(actions.setFilter(filter))
+
+    const data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
     dispatch(actions.toggleIsFetching(false));
     dispatch(actions.setUsers(data.items));
     dispatch(actions.setTotalUsersCount(data.totalCount));
+
 }
 
 export const follow = (id: number): ThunkType => async (dispatch) => {
@@ -107,11 +122,11 @@ export const follow = (id: number): ThunkType => async (dispatch) => {
 
 export const unfollow = (id: number): ThunkType => {
     return async (dispatch, getState) => {
-       await _followUnfollowFlow(dispatch, id, usersAPI.unfollowUsers.bind(usersAPI), actions.unfollowSuccess)
+        await _followUnfollowFlow(dispatch, id, usersAPI.unfollowUsers.bind(usersAPI), actions.unfollowSuccess)
     }
 }
 
-const _followUnfollowFlow = async (dispatch: DispatchType, id: number, apiMethod: (id:number) => Promise<APIResponseType>, actionCreator: (userId: number) => ActionsTypes) => {
+const _followUnfollowFlow = async (dispatch: DispatchType, id: number, apiMethod: (id: number) => Promise<APIResponseType>, actionCreator: (userId: number) => ActionsTypes) => {
     dispatch(actions.toggleFollowingProgess(true, id));
     const data = await apiMethod(id)
     if (data.resultCode === 0) {
@@ -121,6 +136,7 @@ const _followUnfollowFlow = async (dispatch: DispatchType, id: number, apiMethod
 }
 
 export type InitialStateType = typeof initialState
+export type FilterType = typeof initialState.filter
 type ThunkType = BaseThunkType<ActionsTypes>
 type ActionsTypes = ReturnType<InferActionsTypes<typeof actions>>
 type DispatchType = Dispatch<ActionsTypes>
