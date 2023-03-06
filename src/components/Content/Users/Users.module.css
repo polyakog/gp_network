@@ -1,7 +1,13 @@
 .main {
     border: 3px solid rgba(4, 65, 21, 0.6);
     border-radius: 5px;
+
 }
+
+.main h2 {
+    text-align: center;
+}
+
 
 .usersElement {
     padding: 10px;
@@ -35,7 +41,7 @@
     /* padding: 5px; */
     font-size: 12px;
     font-weight: bold;
-    color:white;
+    color: white;
     border-width: 3px;
     border-style: outset;
     border-radius: 20px;
@@ -43,7 +49,7 @@
     margin-top: 0px;
 
     border-color: #5eab45;
-    background: radial-gradient(circle,rgba(83, 243, 157, 0.774) 0%, rgb(35, 98, 64) 100%);
+    background: radial-gradient(circle, rgba(83, 243, 157, 0.774) 0%, rgb(35, 98, 64) 100%);
     box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -60,10 +66,39 @@
     border-color: gold;
     background: goldenrod;
     box-shadow: 2px 2px 3px 2px rgba(234, 219, 100, 0.5);
-    
+
 }
 
 .button button:disabled {
     color: rgba(255, 255, 255, 0.35);
 }
 
+.UsersSearchForm {
+    margin: 0 0 20px 20px;
+
+}
+
+.formik input {
+    color: #104857;
+    border-radius: 3px;
+    border: 2px inset rgb(38, 52, 38);
+    background-color: rgba(233, 234, 239, 1);
+    padding: 1px;
+    font-size: 12px;
+}
+
+.formik select {
+    margin-left: 5px;
+    color: #104857;
+    border-radius: 3px;
+    border: 2px inset rgb(38, 52, 38);
+    background-color: rgba(233, 234, 239, 1);
+    padding: 1px;
+    font-size: 12px;
+}
+
+.formik button {
+    margin-left: 5px;
+    font-size: 12px;
+    height: auto;
+}

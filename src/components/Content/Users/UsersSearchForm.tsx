@@ -2,6 +2,7 @@ import { Formik, Form, Field, /* ErrorMessage */ } from 'formik';
 import { FormikHelpers } from 'formik/dist/types';
 import React from 'react';
 import { FilterType } from '../../../redux/users-reducer';
+import css from './Users.module.css'
 
 
 const usersSearchFormValidate = (values: any) => {
@@ -30,14 +31,14 @@ export const UsersSearchForm: React.FC<PropsType> = React.memo(({ onFilterChange
         setSubmitting(false)
     }
 
-    return <div>
+    return <div className={css.formik}>
         <Formik
             initialValues={{ term: filter.term, friend: 'null' }}
             validate={usersSearchFormValidate}
             onSubmit={submit}
         >
             {({ isSubmitting }) => (
-                <Form>
+                <Form >
                     <Field type="text" name="term" />
                     <Field as="select" name="friend">
                         <option value="null" >All</option>

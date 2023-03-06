@@ -11,18 +11,22 @@ import NavContainer from './components/Nav/NavContainer';
 import Preloader from './components/common/Preloader/Preloader';
 import store, { AppStateType } from './redux/redux-store';
 
-// import Login from './components/Login/Login';
 // import ProfileContainer from './components/Content/Profile/ProfileContainer';
 // import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 // import UsersContainer2 from './components/Content/Users/UsersContainer';
 // import News from './components/Content/News/News';
 // import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
+// import { UsersPage } from './components/Content/Users/UsersContainer';
+// import { Login } from './components/Login/Login';
 
-const Login = React.lazy(() => import('./components/Login/Login'));
+
+const LoginPage = React.lazy(
+  () => import('./components/Login/Login').then(promise => ({ default: promise.LoginPage }))
+  );
 const ProfileContainer = React.lazy(() => import('./components/Content/Profile/ProfileContainer'));
 const DialogsContainer = React.lazy(() => import('./components/Content/Dialogs/DialogsContainer'));
-const UsersContainer = React.lazy(() => import('./components/Content/Users/UsersContainer'));
+const UsersPage = React.lazy(() => import('./components/Content/Users/UsersContainer').then(promise => ({default:promise.UsersPage})));
 const News = React.lazy(() => import('./components/Content/News/News'));
 const Music = React.lazy(() => import('./components/Content/Music/Music'));
 // const Settings = React.lazy(() => import('./components/Content/Settings/Settings'));
@@ -73,9 +77,10 @@ class App extends Component<MapPropsType & DispatchPropsType> {
               <Route path='dialogs/*' element={<DialogsContainer />} />
               <Route path='news' element={<News />} />
               <Route path='music' element={<Music />} />
-              <Route path='users' element={<UsersContainer pageTitle='Users' />} />
-              <Route path='login' element={<Login />} />
+              <Route path='users' element={<UsersPage pageTitle='Users' />} />
+              <Route path='login' element={<LoginPage />} />
               <Route path='settings' element={<Settings />} />
+              <Route path='*' element={<div>404 NOT FOUND</div>} />
             </Routes>
           </React.Suspense>
         </div>

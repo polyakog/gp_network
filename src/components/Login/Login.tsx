@@ -3,11 +3,11 @@ import css from '../Login/Login.module.css'
 import { InjectedFormProps, reduxForm } from 'redux-form'
 import { maxLengthCreator, required } from "../../utils/validators";
 import { createField, GetStringKeys, Input } from "../common/FormsControls/FormsControls";
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
 import sign from "./../../assets/images/sign4.jpg"
-import { AppStateType } from "../../redux/redux-store";
+import { AppDispatchType, AppStateType } from "../../redux/redux-store";
 
 type LoginFromOwnPropsType = {
     captureUrl: string | null
@@ -59,14 +59,6 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValueType, LoginFromOwnProp
 const LoginReduxForm = reduxForm<LoginFormValueType, LoginFromOwnPropsType>({ form: 'login' })(LoginForm)
 
 
-type MapStateToPropsType = {
-    isAuth: boolean
-    captureUrl: string | null
-}
-type MapDispatchToPropsType = {
-    login: (email: string, password: string, rememberMe: boolean, capture: string | null) => void
-}
-
 type LoginFormValueType = {
     email: string
     password: string
@@ -76,23 +68,23 @@ type LoginFormValueType = {
 
 type LoginFormValueTypeKeys = GetStringKeys<LoginFormValueType> 
 
-const Login: React.FC<MapStateToPropsType & MapDispatchToPropsType> = (props) => {
+export const LoginPage: React.FC = (props) => {
+
+    const isAuth= useSelector ((state:AppStateType)=>state.auth.isAuth)
+    const captureUrl=useSelector ((state:AppStateType)=> state.auth.captureUrl)
+    const dispatch:AppDispatchType= useDispatch()
+    
+
+
     const onSubmit = (formData: LoginFormValueType) => {
-        props.login(formData.email, formData.password, formData.rememberMe, formData.capture)
+        dispatch(login(formData.email, formData.password, formData.rememberMe, formData.capture))
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Navigate to={'/profile'} />
     }
 
     return <div >
-        <LoginReduxForm onSubmit={onSubmit} captureUrl={props.captureUrl} />
+        <LoginReduxForm onSubmit={onSubmit} captureUrl={captureUrl} />
     </div>
 }
-
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
-    isAuth: state.auth.isAuth,
-    captureUrl: state.auth.captureUrl
-})
-
-export default connect(mapStateToProps, { login })(Login);
