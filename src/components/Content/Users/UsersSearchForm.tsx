@@ -3,6 +3,8 @@ import { FormikHelpers } from 'formik/dist/types';
 import React from 'react';
 import { FilterType } from '../../../redux/users-reducer';
 import css from './Users.module.css'
+import { useSelector } from 'react-redux';
+import { getUsersFilter } from '../../../redux/users-selectors';
 
 
 const usersSearchFormValidate = (values: any) => {
@@ -12,15 +14,16 @@ const usersSearchFormValidate = (values: any) => {
 
 type PropsType = {
     onFilterChanged: (filter: FilterType) => void
-    filter: FilterType
 }
 
+type FeiendFormType = 'true' | 'false' | 'null'
 type FormType = {
     term: string,
-    friend: string
+    friend: FeiendFormType
 }
 
-export const UsersSearchForm: React.FC<PropsType> = React.memo(({ onFilterChanged, filter }) => {
+export const UsersSearchForm: React.FC<PropsType> = React.memo(({ onFilterChanged }) => {
+    const filter = useSelector(getUsersFilter)
     const submit = (values: FormType, { setSubmitting }: FormikHelpers<FormType>) => {
         const filter: FilterType = {
             term: values.term,
@@ -33,7 +36,8 @@ export const UsersSearchForm: React.FC<PropsType> = React.memo(({ onFilterChange
 
     return <div className={css.formik}>
         <Formik
-            initialValues={{ term: filter.term, friend: 'null' }}
+            enableReinitialize
+            initialValues={{ term: filter.term, friend: String(filter.friend) as FeiendFormType }}
             validate={usersSearchFormValidate}
             onSubmit={submit}
         >
