@@ -32,7 +32,7 @@
 
 .userData {
     margin-top: -5px;
-    
+
 }
 
 .userLogBut {
@@ -49,17 +49,21 @@
 }
 
 .userName {
+
+    display: inline-flex;
+    align-items: center;
     border-radius: 3px;
-        border: 1px inset rgb(245, 248, 245);
-        background-color: rgba(1, 15, 57, 0.1);
-padding: 1px;
-    
+    border: 1px inset rgb(245, 248, 245);
+    background-color: rgba(1, 15, 57, 0.1);
+    color: rgb(94, 90, 90);
+    padding: 5px;
+    height: 20px;
     font-size: 11px;
     margin-top: 3px;
 }
 
 .login {
-        color: rgb(255 255 255);
+    color: rgb(255 255 255);
     text-align: center;
     text-decoration: none;
     box-sizing: border-box;
@@ -69,7 +73,7 @@ padding: 1px;
     box-shadow: 1px 1px 3px 1px rgb(0 0 0 / 40%);
     transition: all 0.5s ease 0.1s;
     max-height: 30px;
-   
+
 }
 
 .login:hover {
