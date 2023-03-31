@@ -18,6 +18,7 @@ import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/
 import { Breadcrumb, Layout, Menu } from 'antd';
 import SubMenu from 'antd/es/menu/SubMenu';
 import { Header } from './components/Header/Header';
+// import { ChatPage } from './pages/Chat/ChatPage';
 
 
 
@@ -39,6 +40,9 @@ const DialogsContainer = React.lazy(() => import('./components/Content/Dialogs/D
 const UsersPage = React.lazy(() => import('./components/Content/Users/UsersContainer').then(promise => ({ default: promise.UsersPage })));
 const News = React.lazy(() => import('./components/Content/News/News'));
 const Music = React.lazy(() => import('./components/Content/Music/Music'));
+const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage').then(promise => ({ default: promise.ChatPage })));
+
+
 
 // const Settings = React.lazy(() => import('./components/Content/Settings/Settings'));
 
@@ -119,7 +123,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                 </SubMenu>
                 <SubMenu key='sub2' icon={<LaptopOutlined />} title='Developers'>
                   <Menu.Item key='5'><Link to="/users"> Users </Link></Menu.Item>
-                  <Menu.Item key='6'>option3</Menu.Item>
+                  <Menu.Item key='6'><Link to="/chat"> Chat </Link></Menu.Item>
                   <Menu.Item key='7'>option4</Menu.Item>
                 </SubMenu>
                 <Menu.Item key='8' icon={<NotificationOutlined />} >
@@ -156,6 +160,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                   <Route path='users' element={<UsersPage pageTitle='Users' />} />
                   <Route path='login' element={<LoginPage />} />
                   <Route path='settings' element={<Settings />} />
+                  <Route path='chat' element={<ChatPage/>} />
                   <Route path='*' element={<div>404 NOT FOUND</div>} />
                 </Routes>
               </React.Suspense>
