@@ -1,50 +1,26 @@
-import { stopSubmit } from "redux-form";
-import { ResultCodeForCaptchaEnum, ResultCodesEnum } from "../api/api";
 import { InferActionsTypes, BaseThunkType } from "./redux-store";
-import { profileAPI } from "../api/profile-api";
-import { authAPI } from "../api/auth-api";
-import { securityAPI } from "../api/security-api";
+import { ChatMessageType, chatAPI } from "../api/chat-api";
+import { Dispatch } from "redux";
+
 
 const types = {
-    TOGGLE_IS_FETCHING: 'gp-network/auth/TOGGLE_IS_FETCHING' as 'gp-network/auth/TOGGLE_IS_FETCHING',
-    SET_USER_DATA: 'gp-network/auth/SET_USER_DATA' as 'gp-network/auth/SET_USER_DATA',
-    SET_USER_PHOTO: 'gp-network/auth/SET_USER_PHOTO' as 'gp-network/auth/SET_USER_PHOTO',
-    SET_CAPTURE_URL_SUCCESS: 'gp-network/auth/SET_CAPTURE_URL_SUCCESS' as 'gp-network/auth/SET_CAPTURE_URL_SUCCESS'
+    MESSAGES_RECIVED: 'gp-network/auth/MESSAGES_RECIVED' as 'gp-network/auth/MESSAGES_RECIVED',
+
 }
 
 let initialState = {
-    userId: null as number | null,
-    email: null as null | string,
-    login: null as null | string,
-    isAuth: false,
-    isFetching: false,
-    userPhoto: null as null | string,
-    captureUrl: null as null | string // if null then no need to display capture
+    messages: [] as ChatMessageType[],
+
 };
 
-const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+const chatReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case types.SET_USER_DATA:
-        case types.SET_CAPTURE_URL_SUCCESS:
+        case types.MESSAGES_RECIVED:
             return {
                 ...state,
-                ...action.payload,
+                messages: [...state.messages, ...action.payload.messages],
 
             };
-
-        case types.SET_USER_PHOTO:
-            return {
-                ...state,
-                userPhoto: action.userPhoto,
-
-            };
-
-        case types.TOGGLE_IS_FETCHING: {
-            return {
-                ...state,
-                isFetching: action.isFetching
-            }
-        }
 
         default:
             return state;
@@ -52,59 +28,38 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialStateTy
 }
 
 export const actions = {
-    setAuthUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({ type: types.SET_USER_DATA, payload: { userId, email, login, isAuth } }) as const,
-    setAuthUserPhoto: (userPhoto: string | null) => ({ type: types.SET_USER_PHOTO, userPhoto }) as const,
-    authToggleIsFetching: (isFetching: boolean) => ({ type: types.TOGGLE_IS_FETCHING, isFetching }) as const,
-    setCaptureUrlSuccess: (captureUrl: string) => ({ type: types.SET_CAPTURE_URL_SUCCESS, payload: { captureUrl } }) as const
+    messagesRecieved: (messages: ChatMessageType[]) => ({ type: types.MESSAGES_RECIVED, payload: { messages } }) as const,
 }
 
 
-export default authReducer;
+export default chatReducer;
 
-// type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+let _newMessageHandler: ((messages: ChatMessageType[]) => void) | null = null
+
+const newMessageHandlerCreator = (dispatch: Dispatch) => {
+    if (_newMessageHandler === null) {
+        _newMessageHandler = (messages) => {
+            dispatch(actions.messagesRecieved(messages))
+        }
+    }
+    return _newMessageHandler
+}
+
 
 /* Thunk */
-export const getAuthUserData = (): ThunkType => async (dispatch) => {
-    dispatch(actions.authToggleIsFetching(true));
+export const startMessagesListening = (): ThunkType => async (dispatch) => {
+    chatAPI.start()
+    chatAPI.subscribe(newMessageHandlerCreator(dispatch))
 
-    let dataAuth = await authAPI.me()
-    if (dataAuth.resultCode === ResultCodesEnum.Success) {
-        let { id, email, login } = dataAuth.data;
-        dispatch(actions.setAuthUserData(id, email, login, true));
-
-        /* запрос фото пользователя */
-        let dataProfile = await profileAPI.getProfile(id)
-        dispatch(actions.setAuthUserPhoto(dataProfile.photos.small));
-        dispatch(actions.authToggleIsFetching(false));
-    }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean, capture: string | null): ThunkType => async (dispatch: any) => {
-
-    let data = await authAPI.login(email, password, rememberMe, capture)
-    if (data.resultCode === ResultCodesEnum.Success) {
-        dispatch(getAuthUserData())
-    } else {
-        if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
-            dispatch(getCaptchaUrl())
-        }
-
-        let message = data.messages.length > 0 ? data.messages[0] : "Some Error"
-        dispatch(stopSubmit("login", { _error: message }))
-    }
+export const stopMessagesListening = (): ThunkType => async (dispatch) => {
+    chatAPI.unsubscribe(newMessageHandlerCreator(dispatch));
+    chatAPI.stop()
 }
 
-export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
-    const response = await securityAPI.getCaptchaUrl()
-    const captureUrl = response.url;
-    dispatch(actions.setCaptureUrlSuccess(captureUrl));
-}
-
-export const logout = (): ThunkType => async (dispatch) => {
-    let response = await authAPI.logout()
-    if (response.resultCode === ResultCodesEnum.Success) {
-        dispatch(actions.setAuthUserData(null, null, null, false))
-    }
+export const sendMessage = (message: string): ThunkType => async (dispatch) => {
+    chatAPI.sendMessage(message);
 }
 
 export type InitialStateType = typeof initialState
