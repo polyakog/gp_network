@@ -39,7 +39,7 @@ const notifySubscribersAboutStatus = (status: StatusType) => {
 
 function createChannel() {
     cleanUp()
-    ws?.close()
+    // ws?.close()
     ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx') // создаем канал
     notifySubscribersAboutStatus('pending')
     ws.addEventListener('close', closeHandler) // подписка на канал
@@ -62,7 +62,7 @@ export let chatAPI = {
         subscribers["messages-recieved"]=[]
         subscribers["status-changed"] = []
         cleanUp()
-        ws?.close()
+        // ws?.close()
     },
 
     subscribe(eventName: EventNamesType, callback: MessagesRecievedSubcriberType | StatusChangedSubcriberType) {

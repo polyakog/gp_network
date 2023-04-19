@@ -41,10 +41,12 @@ const UsersPage = React.lazy(() => import('./components/Content/Users/UsersConta
 const News = React.lazy(() => import('./components/Content/News/News'));
 const Music = React.lazy(() => import('./components/Content/Music/Music'));
 const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage').then(promise => ({ default: promise.ChatPage })));
+const Game = React.lazy(() => import('./components/Content/Game/Game').then(promise => ({ default: promise.Game })));
 
 
 
 // const Settings = React.lazy(() => import('./components/Content/Settings/Settings'));
+
 
 
 
@@ -70,7 +72,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.initializeApp();
     window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
   }
@@ -81,14 +83,14 @@ class App extends Component<MapPropsType & DispatchPropsType> {
       return <Preloader message='initialization (app) loading' />
     }
 
-    const colorBgContainer = "white"
+    const colorBgContainer = "#89c58ed1"
 
     return (
 
 
       <Layout>
 
-        <Header/>
+        <Header />
         <Content style={{ padding: '0 20px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -98,6 +100,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
           <Layout style={{
             padding: '10px 0',
             background: colorBgContainer,
+            borderRadius: '10px',
           }}
           >
             <Sider style={{ background: colorBgContainer, }} width={200}>
@@ -105,15 +108,11 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 
               <Menu
                 mode="inline"
-                // defaultSelectedKeys={['1']}
-                // defaultOpenKeys={['sub1']}
                 style={{
                   height: '100%',
                   margin: '0 10px'
                 }}
-              // items={items2}
               >
-
 
                 <SubMenu key='sub1' icon={<UserOutlined />} title='My Profile'>
                   <Menu.Item key='1'><Link to="/profile"> Profile </Link></Menu.Item>
@@ -124,7 +123,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                 <SubMenu key='sub2' icon={<LaptopOutlined />} title='Developers'>
                   <Menu.Item key='5'><Link to="/users"> Users </Link></Menu.Item>
                   <Menu.Item key='6'><Link to="/chat"> Chat </Link></Menu.Item>
-                  <Menu.Item key='7'>option4</Menu.Item>
+                  <Menu.Item key='7'><Link to="/game"> Game </Link></Menu.Item>
                 </SubMenu>
                 <Menu.Item key='8' icon={<NotificationOutlined />} >
                   <Link to="/settings" > Settings </Link>
@@ -160,7 +159,8 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                   <Route path='users' element={<UsersPage pageTitle='Users' />} />
                   <Route path='login' element={<LoginPage />} />
                   <Route path='settings' element={<Settings />} />
-                  <Route path='chat' element={<ChatPage/>} />
+                  <Route path='chat' element={<ChatPage />} />
+                  <Route path='game' element={<Game />} />
                   <Route path='*' element={<div>404 NOT FOUND</div>} />
                 </Routes>
               </React.Suspense>
@@ -194,14 +194,15 @@ let AppContainer = compose<React.ComponentType>(
 
 
 const GpNetworkApp: React.FC = () => {
-  return <React.StrictMode>
+  return (
+  // <React.StrictMode> // строгий режим
     <BrowserRouter basename="/">
       <Provider store={store}>
         <AppContainer />
       </Provider>
     </BrowserRouter >
-  </React.StrictMode>
-
+  /* </React.StrictMode> */
+  )
 }
 
 export default GpNetworkApp;
