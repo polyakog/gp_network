@@ -6,7 +6,7 @@ export const Game = () => {
     const player1Name: string = 'Player 1'
     const player2Name: string = 'Player 2'
     let [count1, setCount1] = useState<number>(10)
-    let [count2, setCount2] = useState<number>(12)
+    let [count2, setCount2] = useState<number>(10)
 
 
 

@@ -18,6 +18,7 @@ import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/
 import { Breadcrumb, Layout, Menu } from 'antd';
 import SubMenu from 'antd/es/menu/SubMenu';
 import { Header } from './components/Header/Header';
+// import { Github } from './components/Content/Github/Github';
 // import { ChatPage } from './pages/Chat/ChatPage';
 
 
@@ -42,6 +43,7 @@ const News = React.lazy(() => import('./components/Content/News/News'));
 const Music = React.lazy(() => import('./components/Content/Music/Music'));
 const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage').then(promise => ({ default: promise.ChatPage })));
 const Game = React.lazy(() => import('./components/Content/Game/Game').then(promise => ({ default: promise.Game })));
+const Github = React.lazy(() => import('./components/Content/Github/Github').then(promise => ({ default: promise.Github })));
 
 
 
@@ -117,8 +119,8 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                 <SubMenu key='sub1' icon={<UserOutlined />} title='My Profile'>
                   <Menu.Item key='1'><Link to="/profile"> Profile </Link></Menu.Item>
                   <Menu.Item key='2'><Link to="/dialogs"> Messages </Link></Menu.Item>
-                  <Menu.Item key='3'>option3</Menu.Item>
-                  <Menu.Item key='4'>option4</Menu.Item>
+                  <Menu.Item key='3'><Link to="/github"> Github </Link></Menu.Item>
+                  {/* <Menu.Item key='4'>option4</Menu.Item> */}
                 </SubMenu>
                 <SubMenu key='sub2' icon={<LaptopOutlined />} title='Developers'>
                   <Menu.Item key='5'><Link to="/users"> Users </Link></Menu.Item>
@@ -161,6 +163,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                   <Route path='settings' element={<Settings />} />
                   <Route path='chat' element={<ChatPage />} />
                   <Route path='game' element={<Game />} />
+                  <Route path='github' element={<Github />} />
                   <Route path='*' element={<div>404 NOT FOUND</div>} />
                 </Routes>
               </React.Suspense>
