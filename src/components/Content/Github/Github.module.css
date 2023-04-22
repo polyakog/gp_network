@@ -34,6 +34,11 @@
     width: 60%;
 }
 
+.resetButton {
+    height: 12px;
+    font-size: 14px;
+}
+
 .sidebar ul {
     margin-left: -40px;
     list-style-type: none;

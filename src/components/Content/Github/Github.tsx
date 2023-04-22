@@ -22,14 +22,73 @@ type UserType = {
     repos_url: string
 }
 
+type SearchPropsType = {
+    value: string
+    onSubmit: (fixedValue: string) => void
+
+}
+export const Search = (props: SearchPropsType) => {
+    const [tepmSearch, setTempSearch] = useState<string>('')
+    useEffect(() => {
+        setTempSearch(props.value)
+    }, [props.value])
+
+    return (
+        <div>
+            <input placeholder='search'
+                value={tepmSearch}
+                onChange={(e) => { setTempSearch(e.currentTarget.value) }} />
+            <button onClick={() => {
+                if (tepmSearch !== '') {
+                    props.onSubmit(tepmSearch)
+                }
+
+            }}>find</button>
+        </div>
+    )
+}
+
+type UsersListPropType = {
+    term: string
+    selectedUser: SearchUserDataType | null
+    onUserSelected: (user:SearchUserDataType)=>void
+    
+}
+export const UsersList = (props: UsersListPropType) => {
+    const [users, setUsers] = useState<SearchUserDataType[]>([])
+
+    useEffect(() => {
+        console.log('SYNC USERS', props.term)
+        axios
+            .get<SearchResultType>(`https://api.github.com/search/users?q=${props.term}`)
+            .then(res => {
+                setUsers(res.data.items)
+            })
+
+    }, [props.term])
+
+   return (
+       <ul>
+           {users
+               .map(u => <li key={u.id} className={props.selectedUser === u ? css.selected : ''} onClick={() => {
+                   props.onUserSelected(u)
+
+               }}>
+                   {u.login}
+               </li>)
+           }
+       </ul>
+   )
+
+}
+
 
 export const Github = () => {
-
+    const initialValue = 'polyakog'
     const [selectedUser, setSelectedUser] = useState<SearchUserDataType | null>(null)
-    const [users, setUsers] = useState<SearchUserDataType[]>([])
+
     const [userDetails, setUserDetails] = useState<null | UserType>(null)
-    const [tepmSearch, setTempSearch] = useState<string>('')
-    const [searchTerm, setSearchTerm] = useState('polyakog')
+    const [searchTerm, setSearchTerm] = useState(initialValue)
 
     useEffect(() => {
         console.log('SYNC TAB TITLE')
@@ -38,16 +97,6 @@ export const Github = () => {
         }
 
     }, [selectedUser])
-
-    useEffect(() => {
-        console.log('SYNC USERS', searchTerm)
-        axios
-            .get<SearchResultType>(`https://api.github.com/search/users?q=${searchTerm}`)
-            .then(res => {
-                setUsers(res.data.items)
-            })
-
-    }, [searchTerm])
 
     useEffect(() => {
         console.log('SYNC USER DATAILS')
@@ -68,25 +117,11 @@ export const Github = () => {
         <img src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png" alt='' />
         <div className={css.wrapper}>
             <div className={css.sidebar}>
-                <div>
-                    <input placeholder='search'
-                        value={tepmSearch}
-                        onChange={(e) => { setTempSearch(e.currentTarget.value) }} />
-                    <button onClick={() => {
-                        if (tepmSearch !== '') setSearchTerm(tepmSearch)
-
-                    }}>find</button>
-                </div>
-                <ul>
-                    {users
-                        .map(u => <li key={u.id} className={selectedUser === u ? css.selected : ''} onClick={() => {
-                            setSelectedUser(u)
-
-                        }}>
-                            {u.login}
-                        </li>)
-                    }
-                </ul>
+                <Search value={searchTerm} onSubmit={(value) => {
+                    setSearchTerm(value)
+                }} />
+                <button className={css.resetButton} onClick={() => { setSearchTerm(initialValue) }}>reset</button>
+                <UsersList term={searchTerm} selectedUser={selectedUser} onUserSelected={setSelectedUser} />
             </div>
             <div className={css.details}>
 
