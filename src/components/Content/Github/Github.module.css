@@ -17,13 +17,23 @@
     display: flex;
 }
 
+.searchWrapper {
+    margin-top: 10px;
+}
+
+.searchWrapper button {
+    margin-left: 5px;
+    height: 12px;
+    font-size: 14px;
+}
+
 .sidebar {
     text-align: left;
     justify-content: center;
     padding: 10px 10px;
     margin: 5px 5px;
     line-height: 20px;
-    max-width: 70%;
+    max-width: 55%;
     border-radius: 10px;
     border: 1px inset rgb(245, 248, 245);
     box-sizing: border-box;
@@ -37,6 +47,14 @@
 .resetButton {
     height: 12px;
     font-size: 14px;
+    border-radius: 5px 0 0 5px;
+}
+
+.settingButton {
+    height: 12px;
+    font-size: 14px;
+    border-radius: 0 5px 5px 0;
+
 }
 
 .sidebar ul {
@@ -70,5 +88,31 @@
     list-style-type: square;
     margin: 20px -5px;
     list-style-type: none;
+}
 
+.settingPageSize {
+    text-align: left;
+    justify-content: center;
+    padding: 10px 10px;
+    margin: 5px 5px;
+    line-height: 20px;
+    max-width: 60%;
+    border-radius: 10px;
+    border: 1px inset rgb(245, 248, 245);
+    box-sizing: border-box;
+    background-color: rgba(1, 15, 57, 0.25);
+    padding: 5px 10px;
+}
+
+.settingPageSize p {
+    margin: -5px 20px;
+    font-size: 10px;
+    color: rgb(41, 40, 40);
+    
+}
+
+.settingPageSize button {
+    margin-left: 5px;
+    height: 12px;
+    font-size: 14px;
 }
