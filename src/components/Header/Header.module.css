@@ -1,12 +1,9 @@
 .header {
     grid-area: header;
-
     align-items: center;
-
     background: radial-gradient(circle, rgba(213, 254, 192, 1) 1%, rgba(94, 177, 103, 0.7346288857339811) 66%, rgba(177, 214, 236, 1) 95%);
     padding: 0 10px;
     border: 1px solid rgba(90, 172, 108, 0.586);
-    ;
     border-radius: 0 0 10px 10px;
     margin-left: 10px;
     margin-right: 10px;
@@ -15,24 +12,43 @@
 .subheader {
     display: flex;
     align-items: center;
-
-
 }
 
-.subheader_logo {
-    height: 30%;
-    width: 50px;
+.logo {
+    height: 0;
+}
+
+.logo img {
+    margin: 10px -30px;
+    height: 40px;
+}
+
+.wrapper_Menu_UserData {
+    /* display: flex; */
+    /* flex-direction: row; */
+    margin: 0px 50px;
+    
+    width: 500%;
+}
+
+.menu {
+    min-width: 50px;
 }
 
 .subheader_name {
-    flex-grow: 30;
     text-align: center;
     color: #ed151f;
 }
 
 .userData {
     margin-top: -5px;
+    
+  
 
+}
+
+.userData button {
+    height: 12px;
 }
 
 .userLogBut {
@@ -55,7 +71,7 @@
     border-radius: 3px;
     border: 1px inset rgb(245, 248, 245);
     background-color: rgba(1, 15, 57, 0.1);
-    color: rgb(94, 90, 90);
+    color: rgb(152, 150, 150);
     padding: 5px;
     height: 20px;
     font-size: 11px;

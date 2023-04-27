@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './App.css';
+import ico from './assets/images/cloud-api.ico'
 // import css from './../src/components/Nav/Nav.module.css';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -14,10 +15,10 @@ import Preloader from './components/common/Preloader/Preloader';
 import store, { AppStateType } from './redux/redux-store';
 import Settings from './components/Content/Settings/Settings';
 
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu } from 'antd';
-import SubMenu from 'antd/es/menu/SubMenu';
+import { LaptopOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { Layout, Menu, MenuProps } from 'antd';
 import { Header } from './components/Header/Header';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 // import { Github } from './components/Content/Github/Github';
 // import { ChatPage } from './pages/Chat/ChatPage';
 
@@ -45,13 +46,7 @@ const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage').then(promise =
 const Game = React.lazy(() => import('./components/Content/Game/Game').then(promise => ({ default: promise.Game })));
 const Github = React.lazy(() => import('./components/Content/Github/Github').then(promise => ({ default: promise.Github })));
 
-
-
 // const Settings = React.lazy(() => import('./components/Content/Settings/Settings'));
-
-
-
-
 
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -61,12 +56,12 @@ type DispatchPropsType = {
 
 const { Content, Footer, Sider } = Layout;
 
-
 class App extends Component<MapPropsType & DispatchPropsType> {
   catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
 
     alert(`Some error \n --------------\n Name: ${e.reason.name} \n Description: ${e.reason.message}`)
   }
+
 
   componentDidMount() {
     this.props.initializeApp();
@@ -87,53 +82,88 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 
     const colorBgContainer = "#89c58ed1"
 
-    return (
+     type MenuItem = Required<MenuProps>['items'][number];
 
+    function getItem(
+      label: React.ReactNode,
+      key: React.Key,
+      icon?: React.ReactNode,
+      children?: MenuItem[],
+    ): MenuItem {
+      return {
+        key,
+        icon,
+        children,
+        label,
+      } as MenuItem;
+    }
+
+    function getSubitem(
+      key: React.Key,
+      label?: React.ReactNode,
+      icon?: React.ReactNode,
+      children?: React.ReactNode,
+    ): MenuItem {
+      return {
+        key,
+        icon,
+        children,
+        label,
+      } as MenuItem;
+    }
+
+    const items: MenuItem[] = [
+      getItem('My Profile', 'sub1', <UserOutlined />, [
+        getSubitem('1', <Link to="/profile">Profile</Link>),
+        getSubitem('2', <Link to="/dialogs"> Messages </Link>),
+        getSubitem('3', <Link to="/github"> Github </Link>),
+      ]),
+      getItem('Developers', 'sub2', <LaptopOutlined />, [
+        getSubitem('4', <Link to="/users"> Users </Link>),
+        getSubitem('5', <Link to="/chat"> Chat </Link>),
+        getSubitem('6', <Link to="/game"> Game </Link>),
+      ]),
+      getSubitem('7', <Link to="/settings" > Settings </Link>, <SettingOutlined />,),
+    ];
+
+    console.log(items)
+
+    return (
 
       <Layout>
 
+        <Helmet> {/* renaming title, changing icons etc */}
+          {/* <title>Hello World</title> */}
+          <link rel="icon" href={ico} />
+        </Helmet>
+
         <Header />
-        <Content style={{ padding: '0 20px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
+        <Content style={{
+          padding: '5px 10px',
+
+        }}>
+         
           <Layout style={{
             padding: '10px 0',
+            boxSizing: 'border-box',
             background: colorBgContainer,
             borderRadius: '10px',
           }}
           >
-            <Sider style={{ background: colorBgContainer, }} width={200}>
-
-
+            <Sider style={{
+              margin: '0 10px',
+              borderRadius: '5px',
+              backgroundColor: colorBgContainer,
+            }} width={180}>
               <Menu
                 mode="inline"
                 style={{
                   height: '100%',
-                  margin: '0 10px'
+                  backgroundColor: 'rgba(1, 15, 57, 0.15)',
+                  borderRadius: '5px'
                 }}
-              >
-
-                <SubMenu key='sub1' icon={<UserOutlined />} title='My Profile'>
-                  <Menu.Item key='1'><Link to="/profile"> Profile </Link></Menu.Item>
-                  <Menu.Item key='2'><Link to="/dialogs"> Messages </Link></Menu.Item>
-                  <Menu.Item key='3'><Link to="/github"> Github </Link></Menu.Item>
-                  {/* <Menu.Item key='4'>option4</Menu.Item> */}
-                </SubMenu>
-                <SubMenu key='sub2' icon={<LaptopOutlined />} title='Developers'>
-                  <Menu.Item key='5'><Link to="/users"> Users </Link></Menu.Item>
-                  <Menu.Item key='6'><Link to="/chat"> Chat </Link></Menu.Item>
-                  <Menu.Item key='7'><Link to="/game"> Game </Link></Menu.Item>
-                </SubMenu>
-                <Menu.Item key='8' icon={<NotificationOutlined />} >
-                  <Link to="/settings" > Settings </Link>
-                </Menu.Item>
-
-
-              </Menu>
-
+                items={items}
+              />
 
             </Sider>
             <Content
@@ -198,13 +228,15 @@ let AppContainer = compose<React.ComponentType>(
 
 const GpNetworkApp: React.FC = () => {
   return (
-  // <React.StrictMode> // строгий режим
-    <BrowserRouter basename="/">
-      <Provider store={store}>
-        <AppContainer />
-      </Provider>
-    </BrowserRouter >
-  /* </React.StrictMode> */
+    // <React.StrictMode> // строгий режим
+    <HelmetProvider> {/* for title, icon */}
+      <BrowserRouter basename="/">
+        <Provider store={store}>
+          <AppContainer />
+        </Provider>
+      </BrowserRouter >
+    </HelmetProvider>
+    /* </React.StrictMode> */
   )
 }
 

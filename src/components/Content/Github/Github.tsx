@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import css from './Github.module.css'
+import { SettingOutlined } from '@ant-design/icons';
 import axios from 'axios'
 import Paginator from '../../common/Paginator/Paginator'
+import { Helmet } from 'react-helmet-async';
 
 
 type SearchUserDataType = {
@@ -81,7 +83,7 @@ export const UsersList = (props: UsersListPropType) => {
                     onClick={() => {
                         props.onUserSelected(u)
                     }}>
-                    {(props.page-1)*props.per_page+index+1}. {u.login}
+                    {(props.page - 1) * props.per_page + index + 1}. {u.login}
                 </li>)
             }
         </ul>
@@ -214,8 +216,12 @@ export const Github = () => {
 
     useEffect(() => {
         console.log('SYNC TAB TITLE')
+        const prevTitle = document.title
         if (selectedUser) {
             document.title = selectedUser.login
+        }
+        return () => {
+            document.title = prevTitle
         }
 
     }, [selectedUser])
@@ -228,10 +234,13 @@ export const Github = () => {
 
 
     return <div className={css.container}>
+        {/* <Helmet>
+            <title> Github page</title>
+        </Helmet> */}
         <h2> Github</h2>
         <img src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png" alt='' />
         <div className={css.wrapper}>
-            
+
             <div className={css.sidebar}>
                 <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage} onPageChanged={onPageChanged} />
 
@@ -239,9 +248,11 @@ export const Github = () => {
                     setSearchTerm(value)
                 }} />
                 <button className={css.resetButton} onClick={() => { setSearchTerm(initialValue) }}>reset</button>
-                <button className={css.settingButton} onClick={onPageSizeHandling} style={{ fontWeight: 'bold' }}>...</button>
+                <button className={css.settingButton} onClick={onPageSizeHandling} style={{ fontWeight: 'bold' }}><SettingOutlined style={{ margin: '-7px' }} /></button>
+
+
                 <span>  users per page: {pageSize}</span>
-                <p style={{fontStyle:'italic'}}>  Total number of users found: {totalUsersCount}</p>
+                <p style={{ fontStyle: 'italic' }}>  Total number of users found: {totalUsersCount}</p>
 
                 <PageNumberSetting value={pageSize}
                     pagesInput={pagesInput}

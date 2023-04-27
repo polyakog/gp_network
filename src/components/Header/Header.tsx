@@ -2,10 +2,11 @@ import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import css from './Header.module.css';
 import noPic from '../../assets/images/noPic.jpg'
+import logo from '../../assets/images/API_logo2.png'
 import { NavLink } from 'react-router-dom';
 import { Col, Row } from 'antd/es/grid';
 import { Avatar, Space } from 'antd';
-import { LaptopOutlined } from '@ant-design/icons';
+import { GithubOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { selectIsAuth, selectCurrentUserLogin, selectCurrentUserId, selectCurrentUserPhoto } from './../../redux/auth-selectors';
 import { AppDispatchType } from "../../redux/redux-store";
@@ -31,28 +32,39 @@ export const Header: React.FC<PropsType> = (props) => {
   }
 
   const { Header } = Layout;
-  const url = noPic;
+  const urlNoPic = noPic;
+  const urlLogo = logo;
+
 
   return (<div className={css.header}>
     {/* <header className={css.subheader}> */}
 
     <Header className="header">
-      <div className="logo" />
-      <Row align="middle">
-        <Col flex='auto'>
-          <Menu theme="light" mode="horizontal"
-          // defaultSelectedKeys={['2']}
-          // items={items1} 
-          >
-            <Menu.Item key='1' icon={<LaptopOutlined />}><NavLink to="/users"> Users </NavLink></Menu.Item>
-          </Menu>
-        </Col>
-        <Col flex="300px" push={1} >
+      
+      <div className={css.logo} > 
+        <img src={urlLogo} alt="logo" />
+      </div>
+      <div className={css.wrapper_Menu_UserData}>
+        <Row align="middle">
+          <div className={css.menu}>
+            <Col flex={'300px'}>
+              <Menu theme="dark" mode="horizontal"
+              // defaultSelectedKeys={['2']}
+              // items={items1} 
+              >
+                <Menu.Item key='1' icon={<UsergroupAddOutlined/>} ><NavLink to="/users"> Users </NavLink></Menu.Item>
+                <Menu.Item key='2' icon={<GithubOutlined />}><NavLink to="/github"> Github </NavLink></Menu.Item>
+                
+              </Menu>
+            </Col>
+          </div>
 
+        
+          <Col flex={'auto'} push={2} >
           {isAuth
             ? (<div className={css.userData}>
               <Space size={5}>
-                <Avatar src={<img src={!userPhoto ? url : userPhoto} alt="avatar" />} />
+                <Avatar src={<img src={!userPhoto ? urlNoPic : userPhoto} alt="avatar" />} />
                 <div className={css.userName}> Login: {login} / ID: {userId} </div>
                 <button onClick={logoutCallBack}>Log out</button>
               </Space>
@@ -69,9 +81,10 @@ export const Header: React.FC<PropsType> = (props) => {
             </div>
           }
 
-
         </Col>
-      </Row>
+        </Row>             
+      </div>
+      
     </Header>
 
 
