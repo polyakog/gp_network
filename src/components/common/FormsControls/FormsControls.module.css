@@ -1,4 +1,3 @@
-
 .label {
     display: flex;
     text-align: start;
@@ -14,21 +13,26 @@ div.Text {
     width: 95%;
     min-height: 30px;
     margin-bottom: 10px;
-    
+
 
 
 }
 
 div.Text.errorText {
     border: solid 2px var(--redC);
-    
+
 }
 
-div.Text input,div.Text textarea {
+div.Text input,
+div.Text textarea {
     border: solid 2px rgba(255, 255, 255, 0);
     border-radius: 10px;
     width: 100%;
-    
+
+}
+
+div.classCheckboxText {
+    border: none;
 }
 
 .warningWrap {
@@ -36,7 +40,7 @@ div.Text input,div.Text textarea {
     display: flex;
     align-items: center;
 
-    
+
 }
 
 .formError {

@@ -1,4 +1,3 @@
-import { stopSubmit } from "redux-form";
 import { ResultCodeForCaptchaEnum, ResultCodesEnum } from "../api/api";
 import { InferActionsTypes, BaseThunkType } from "./redux-store";
 import { profileAPI } from "../api/profile-api";
@@ -79,18 +78,22 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
     }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean, capture: string | null): ThunkType => async (dispatch: any) => {
+export const login = (email: string, password: string, rememberMe: boolean, capture: string | null, setStatus: (message: string) => void): ThunkType => async (dispatch: any) => {
 
     let data = await authAPI.login(email, password, rememberMe, capture)
     if (data.resultCode === ResultCodesEnum.Success) {
+        
         dispatch(getAuthUserData())
+        dispatch(actions.setCaptureUrlSuccess(''));
+
     } else {
         if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
             dispatch(getCaptchaUrl())
         }
 
         let message = data.messages.length > 0 ? data.messages[0] : "Some Error"
-        dispatch(stopSubmit("login", { _error: message }))
+        // dispatch(stopSubmit("login", { _error: message }))
+        setStatus(message)
     }
 }
 

@@ -14,11 +14,11 @@ import { initializeApp } from './redux/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
 import store, { AppStateType } from './redux/redux-store';
 import Settings from './components/Content/Settings/Settings';
-
 import { LaptopOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { Layout, Menu, MenuProps } from 'antd';
 import { Header } from './components/Header/Header';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { LoginPage2 } from './components/Login/LoginFormik';
 // import { Github } from './components/Content/Github/Github';
 // import { ChatPage } from './pages/Chat/ChatPage';
 
@@ -29,14 +29,12 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 // import News from './components/Content/News/News';
 // import Music from './components/Content/Music/Music';
 // import { UsersPage } from './components/Content/Users/UsersContainer';
-// import { LoginPage } from './components/Login/Login';
 
 
 
 
-const LoginPage = React.lazy(
-  () => import('./components/Login/Login').then(promise => ({ default: promise.LoginPage }))
-);
+
+// const LoginPage = React.lazy(() => import('./components/Login/Login').then(promise => ({ default: promise.LoginPage })));
 const ProfileContainer = React.lazy(() => import('./components/Content/Profile/ProfileContainer'));
 const DialogsContainer = React.lazy(() => import('./components/Content/Dialogs/DialogsContainer'));
 const UsersPage = React.lazy(() => import('./components/Content/Users/UsersContainer').then(promise => ({ default: promise.UsersPage })));
@@ -126,8 +124,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
       getSubitem('7', <Link to="/settings" > Settings </Link>, <SettingOutlined />,),
     ];
 
-    console.log(items)
-
+   
     return (
 
       <Layout>
@@ -189,7 +186,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                   <Route path='news' element={<News />} />
                   <Route path='music' element={<Music />} />
                   <Route path='users' element={<UsersPage pageTitle='Users' />} />
-                  <Route path='login' element={<LoginPage />} />
+                  <Route path='login' element={<LoginPage2 />} />
                   <Route path='settings' element={<Settings />} />
                   <Route path='chat' element={<ChatPage />} />
                   <Route path='game' element={<Game />} />

@@ -50,3 +50,8 @@ h2.formHead {
     height: 70px;
     opacity: 80%;
 }
+
+.errorAttempts {
+    color: gray;
+    font-style: italic;
+}

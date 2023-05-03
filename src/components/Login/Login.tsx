@@ -77,7 +77,7 @@ export const LoginPage: React.FC = (props) => {
 
 
     const onSubmit = (formData: LoginFormValueType) => {
-        dispatch(login(formData.email, formData.password, formData.rememberMe, formData.capture))
+        // dispatch(login(formData.email, formData.password, formData.rememberMe, formData.capture))
     }
 
     if (isAuth) {
