@@ -9,6 +9,7 @@ import ThunkMiddleware, { ThunkAction } from "redux-thunk";
 import { reducer as formReducer } from 'redux-form'
 import appReducer from "./app-reducer";
 import chatReducer from "./chat-reducer";
+import dialogsApiReducer from "./dialogsApi-reducer";
 
 
 
@@ -21,6 +22,7 @@ let rootReducer = combineReducers({
     form: formReducer,
     app: appReducer,
     chat: chatReducer,
+    dialogsApiPage: dialogsApiReducer,
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>

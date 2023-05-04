@@ -31,6 +31,8 @@ export type UserType = {
     followed: boolean
 }
 
+/* <----------OLD DIALOG PAGE-----------> */
+
 export type DialogDataType = {
     id: number
     name: string
@@ -42,3 +44,27 @@ export type MessageDataType = {
     name: string
     text: string
 }
+/* </-----------------------------------> */
+
+export type DialogsResponseType = {
+    id: number
+    userName: string
+    hasNewMessages: boolean
+    lastDialogActivityDate: string
+    lastUserActivityDate: string
+    newMessagesCount: number
+    photos: PhotosType
+}
+
+export type MessageItemsType = {
+    id: string
+    body: string
+    translatedBody: string
+    addedAt: string
+    senderId: number
+    senderName: string
+    recipientId: number
+    viewed: boolean
+}
+
+

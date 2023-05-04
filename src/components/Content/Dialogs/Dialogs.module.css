@@ -16,27 +16,25 @@ h2 {
 .dialogs {
     display: flexbox;
     flex-direction: column;
-    font-weight: bold;
-    align-items: center;
-    position: relative;
+    margin-top: -15px;
+
 
 }
 
 .dialog>.user span {
-    margin-top: 0px;
+    margin-top: 5px;
     position: absolute;
 
 
 }
 
 .dialog>.user {
-    font-weight: normal;
+    font-weight: bold;
     margin-top: 10px;
 
 }
 
 .dialogs a {
-    text-decoration: none;
     color: rgba(32, 88, 88, 0.897);
 
 
@@ -47,9 +45,23 @@ h2 {
     color: rgba(255, 0, 0, 0.754);
 }
 
+.additionalDialogInfo {
+    margin-top: -10px;
+        font-weight: normal;
+    font-size: 11px;
+}
+
+.dialogHasMessages {
+    margin-top: -10px;
+    color: rgb(66, 48, 228);
+}
+
+.dialogHasMessages.dialogNoMessages {
+        color: gray;
+}
+
 .messages {
     font-weight: bold;
-
     display: flex;
     flex-direction: column;
 
@@ -65,12 +77,12 @@ h2 {
 .dialogWindow img {
     height: 30px;
     border-radius: 15px;
-    border: 2px solid yellow;
+    border: 2px solid rgb(38, 0, 255);
 }
 
 .user span {
     margin-left: 10px;
-  
+
 
 }
 
@@ -90,11 +102,13 @@ h2 {
 }
 
 .dialog>.user:hover img {
-    border: 4px solid rgb(0, 255, 26);
+    border: 2px solid var(--greenC);
+    box-shadow: 1px 4px 3px 1px rgba(243, 241, 97, 0.88);
 }
 
 .dialog>.user:hover span {
-    font-weight: bold;
+    color: var(--greenC);
+    box-shadow: 1px 4px 3px 1px rgba(243, 241, 97, 0.88);
 }
 
 
@@ -113,9 +127,9 @@ h2 {
 }
 
 .newMessageButton {
-    
+
     margin: 20px 10px;
-    
+
 }
 
 .NewMessagetTextarea {
@@ -124,9 +138,8 @@ h2 {
     border-radius: 5px;
 
     background-color: rgba(237, 244, 241, 0.928);
-        color: rgb(25, 20, 20);
-        border: solid 3px rgba(2, 36, 20, 0.861);
-        border-style: inset;
-        box-shadow: 5px 4px 3px -2px rgba(34, 60, 80, 0.3) inset;
+    color: rgb(25, 20, 20);
+    border: solid 3px rgba(2, 36, 20, 0.861);
+    border-style: inset;
+    box-shadow: 5px 4px 3px -2px rgba(34, 60, 80, 0.3) inset;
 }
-
