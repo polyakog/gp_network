@@ -73,12 +73,14 @@ export const requestDialogs = (): ThunkType => async (dispatch, getState) => {
     dispatch(actions.setDialogs(data));   
 }
 
-export const requestMessages = (userId: number): ThunkType => async (dispatch, getState) => {
+export const requestMessages = (userId: number, currenPage: number, pageSize: number, setTotalUsersCount: (totalCount:number)=>void): ThunkType => async (dispatch, getState) => {
     // dispatch(actions.toggleIsFetching(true));
     
-    const data = await dialogsAPI.getMessagesList(userId)
+    const data = await dialogsAPI.getMessagesList(userId, currenPage, pageSize)
     // dispatch(actions.toggleIsFetching(false));
-    dispatch(actions.setMessages(data.items));   
+    dispatch(actions.setMessages(data.items));  
+    setTotalUsersCount(data.totalCount)
+
 }
 
 

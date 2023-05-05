@@ -4,6 +4,7 @@ import { SettingOutlined } from '@ant-design/icons';
 import axios from 'axios'
 import Paginator from '../../common/Paginator/Paginator'
 import { Helmet } from 'react-helmet-async';
+import { PageNumberSetting } from '../../common/Paginator/PageNumberSettings';
 
 
 type SearchUserDataType = {
@@ -30,7 +31,7 @@ type UserType = {
 type SearchPropsType = {
     value: string
     onSubmit: (fixedValue: string) => void
-    setCurrentPage: (page:number)=>void
+    setCurrentPage: (page: number) => void
 
 }
 export const Search = (props: SearchPropsType) => {
@@ -166,48 +167,15 @@ export const UserDetails = (props: UserDetailsPropsType) => {
     )
 }
 
-type PageNumberSettingsPropsType = {
-    pagesInput: boolean
-    value: number
-    onSubmit: (fixedValue: number) => void
-    settings: (isVisible: boolean) => void
-}
 
-export const PageNumberSetting = (props: PageNumberSettingsPropsType) => {
-    const [tepmNumber, setTempNumber] = useState<number>(5)
-    useEffect(() => {
-        setTempNumber(props.value)
-    }, [props.value])
 
-    return (
-        <div >
-            {props.pagesInput &&
-                <div className={css.settingPageSize}>
-                    <span> Enter number of users per page </span>
-                    <input placeholder='search'
-                        type={'number'}
-                        value={tepmNumber}
-                        onChange={(e) => { setTempNumber(+e.currentTarget.value) }} />
 
-                    <button onClick={() => {
-                        if (tepmNumber !== null) {
-                            props.onSubmit(tepmNumber)
-                        }
-                        props.settings(false)
-                    }}>Apply</button>
-                    <p> (max = 100) </p>
-                </div>
-            }
-
-        </div>
-
-    )
-}
 export const Github = () => {
     const initialValue = 'polyakog'
     const [selectedUser, setSelectedUser] = useState<SearchUserDataType | null>(null)
     const [searchTerm, setSearchTerm] = useState(initialValue)
 
+    /* Page Settings */
     const [totalUsersCount, setTotalUsersCount] = useState(100)
     const [pageSize, setPageSize] = useState(5)
     const [currentPage, setCurrentPage] = useState(1)
@@ -252,15 +220,19 @@ export const Github = () => {
                 <button className={css.resetButton} onClick={() => { setSearchTerm(initialValue) }}>reset</button>
                 <button className={css.settingButton} onClick={onPageSizeHandling} style={{ fontWeight: 'bold' }}><SettingOutlined style={{ margin: '-7px' }} /></button>
 
+                <div>
+                    <PageNumberSetting value={pageSize}
+                        pagesInput={pagesInput}
+                        settings={setPageInput}
+                        onSubmit={(value) => { setPageSize(value) }}
+                    /><span>  users per page: {pageSize}</span>
+                </div>
 
-                <span>  users per page: {pageSize}</span>
+
+
                 <p style={{ fontStyle: 'italic' }}>  Total number of users found: {totalUsersCount}</p>
 
-                <PageNumberSetting value={pageSize}
-                    pagesInput={pagesInput}
-                    settings={setPageInput}
-                    onSubmit={(value) => { setPageSize(value) }}
-                />
+
 
                 <UsersList term={searchTerm}
                     selectedUser={selectedUser}

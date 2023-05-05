@@ -14,15 +14,18 @@ export const dialogsAPI = {
             .then(response => response.data)
     },
 
+getMessagesList(userId: number, currentPage = 1, pageSize = 3) {       //get list of messages with your friend
+        return instance.get(`dialogs/${userId}/messages?page=${currentPage}&count=${pageSize}`)
+            .then(res => res.data)
+    },
+
+
     startChat(userId: number) {                                         //start chatting, refresh your companion so that he was on top
         return instance.put<GetMessagesItemsResponseType>(`dialogs/${userId}`)
             .then(response => response.data)
     },
 
-    getMessagesList(userId: number, currentPage = 1, pageSize = 3) {       //get list of messages with your friend
-        return instance.get(`dialogs/${userId}/messages?page=${currentPage}&count=${pageSize}`)
-            .then(res => res.data)
-    },
+    
 
     sendMessage(userId: number, body: string) {                            //send message to your friend
         return instance.post(`dialogs/${userId}/messages`, { body: body })

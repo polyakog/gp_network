@@ -14,20 +14,21 @@ const MessageItem: React.FC<PropsType & MessageItemsType> = (props) => {
     let addedAtDate = props.addedAt.split('T')[0]
     let addedAtTime = props.addedAt.split('T')[1].slice(0, 5)
     return (
-        <div className={css.message}>
-            <div >
+        <div >
+            
                 {/* <div className={({props.name}) => (props.name = "Gennadij" ? (css.message + " " + css.activeM) : css.message)}> */}
 
 
                 {/* <img src={avatarPhoto} alt="" /> */}
-                <span className={css.userNameAtMessage}> {props.senderName}</span>
+                
 
-                <div className={css.messageBody}>
+            <div className={css.message}>
+                    <div className={css.userNameAtMessage}> {props.senderName}</div>
                     {props.body}
                     <div className={css.messageDate}> {addedAtDate} @  {addedAtTime}</div>
                 </div>
 
-            </div>
+            
 
         </div>
     )

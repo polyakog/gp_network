@@ -71,3 +71,24 @@ button.arrow.disabled:hover {
     color: rgba(0, 0, 0, 0.2);
     cursor:not-allowed;
 }
+
+.settingPageSize {
+    text-align: left;
+    justify-content: center;
+    padding: 10px 10px;
+    margin: 5px 5px;
+    line-height: 20px;
+    max-width: 60%;
+    border-radius: 10px;
+    border: 1px inset rgb(245, 248, 245);
+    box-sizing: border-box;
+    background-color: rgba(1, 15, 57, 0.25);
+    padding: 5px 10px;
+}
+
+.settingPageSize p {
+    margin: -5px 20px;
+    font-size: 10px;
+    color: rgb(41, 40, 40);
+
+}
