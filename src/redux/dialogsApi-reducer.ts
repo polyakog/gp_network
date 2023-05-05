@@ -73,6 +73,14 @@ export const requestDialogs = (): ThunkType => async (dispatch, getState) => {
     dispatch(actions.setDialogs(data));   
 }
 
+export const requestMessages = (userId: number): ThunkType => async (dispatch, getState) => {
+    // dispatch(actions.toggleIsFetching(true));
+    
+    const data = await dialogsAPI.getMessagesList(userId)
+    // dispatch(actions.toggleIsFetching(false));
+    dispatch(actions.setMessages(data.items));   
+}
+
 
 
 export default dialogsApiReducer

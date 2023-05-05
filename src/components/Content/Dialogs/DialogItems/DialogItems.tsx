@@ -3,10 +3,12 @@ import { NavLink } from 'react-router-dom';
 import noPhoto from '../../../../assets/images/noPic.jpg'
 import css from './../Dialogs.module.css';
 import { DialogsResponseType } from '../../../../types/types';
+import { SelectedUserType } from '../Dialogs';
 
 
 type PropsType = {
-
+    selectedUser: SelectedUserType | null
+    onUserSelected: (user: SelectedUserType) => void
 }
 
 const DialogItem: React.FC<PropsType & DialogsResponseType> = (props) => {
@@ -20,8 +22,10 @@ const DialogItem: React.FC<PropsType & DialogsResponseType> = (props) => {
     return (
         <div>
 
-
-            <NavLink className={({ isActive }) => (isActive ? (css.dialog + " " + css.active) : css.dialog)} to={'/dialogs/' + props.id}>
+            <NavLink onClick={()=>{
+                props.onUserSelected({userId: props.id, name:props.userName})
+            }
+            } className={({ isActive }) => (isActive ? (css.dialog + " " + css.active) : css.dialog)} to={'/dialogs/' + props.id}>
                 <div className={css.user}>
                     <img src={avatarPhoto} alt="" />
                     <span>{props.userName}</span>

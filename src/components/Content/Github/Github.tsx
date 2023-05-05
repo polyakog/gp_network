@@ -30,6 +30,7 @@ type UserType = {
 type SearchPropsType = {
     value: string
     onSubmit: (fixedValue: string) => void
+    setCurrentPage: (page:number)=>void
 
 }
 export const Search = (props: SearchPropsType) => {
@@ -46,6 +47,7 @@ export const Search = (props: SearchPropsType) => {
             <button onClick={() => {
                 if (tepmSearch !== '') {
                     props.onSubmit(tepmSearch)
+                    props.setCurrentPage(1)
                 }
 
             }}>find</button>
@@ -208,7 +210,7 @@ export const Github = () => {
 
     const [totalUsersCount, setTotalUsersCount] = useState(100)
     const [pageSize, setPageSize] = useState(5)
-    const [currentPage, setCurrentPage] = useState(2)
+    const [currentPage, setCurrentPage] = useState(1)
     const [pagesInput, setPageInput] = useState(false)
     const onPageChanged = (pageNumber: number) => {
         setCurrentPage(pageNumber)
@@ -244,7 +246,7 @@ export const Github = () => {
             <div className={css.sidebar}>
                 <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage} onPageChanged={onPageChanged} />
 
-                <Search value={searchTerm} onSubmit={(value) => {
+                <Search value={searchTerm} setCurrentPage={setCurrentPage} onSubmit={(value) => {
                     setSearchTerm(value)
                 }} />
                 <button className={css.resetButton} onClick={() => { setSearchTerm(initialValue) }}>reset</button>

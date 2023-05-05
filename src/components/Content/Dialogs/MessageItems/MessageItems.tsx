@@ -1,24 +1,31 @@
 import React from 'react';
 import css from './../Dialogs.module.css';
-import userPhoto from '../../../../assets/images/noPic.jpg'
+// import noPhoto from '../../../../assets/images/noPic.jpg'
+import { MessageItemsType } from '../../../../types/types';
 
 type PropsType = {
-    name:string
-    id:number
-    text:string
+
 }
 
-const MessageItem: React.FC<PropsType> = (props) => {
+const MessageItem: React.FC<PropsType & MessageItemsType> = (props) => {
+    // let avatarPhoto: string = noPhoto
+    // if (props.photos.small) { avatarPhoto = props.photos.small }
 
+    let addedAtDate = props.addedAt.split('T')[0]
+    let addedAtTime = props.addedAt.split('T')[1].slice(0, 5)
     return (
         <div className={css.message}>
             <div >
                 {/* <div className={({props.name}) => (props.name = "Gennadij" ? (css.message + " " + css.activeM) : css.message)}> */}
 
 
-                <img src={userPhoto} alt="" />
-                <span className={css.userMessage}> {props.name} (ID{props.id}): </span>
-                <div>- {props.text} </div>
+                {/* <img src={avatarPhoto} alt="" /> */}
+                <span className={css.userNameAtMessage}> {props.senderName}</span>
+
+                <div className={css.messageBody}>
+                    {props.body}
+                    <div className={css.messageDate}> {addedAtDate} @  {addedAtTime}</div>
+                </div>
 
             </div>
 

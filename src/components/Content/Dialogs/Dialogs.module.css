@@ -14,11 +14,17 @@ h2 {
 }
 
 .dialogs {
-    display: flexbox;
+
     flex-direction: column;
-    margin-top: -15px;
+    margin: -15px -10px;
+    padding-left: 5px;
+    border-radius: 10px;
+    border: 1px inset rgb(245, 248, 245);
+    background-color: rgba(1, 15, 57, 0.08);
+}
 
-
+.dialogs h4 {
+    margin-top: 15px;
 }
 
 .dialog>.user span {
@@ -34,6 +40,12 @@ h2 {
 
 }
 
+.dialogWindow img {
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgb(38, 0, 255);
+}
+
 .dialogs a {
     color: rgba(32, 88, 88, 0.897);
 
@@ -47,7 +59,7 @@ h2 {
 
 .additionalDialogInfo {
     margin-top: -10px;
-        font-weight: normal;
+    font-weight: normal;
     font-size: 11px;
 }
 
@@ -57,38 +69,13 @@ h2 {
 }
 
 .dialogHasMessages.dialogNoMessages {
-        color: gray;
-}
-
-.messages {
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-
-
-}
-
-.messages>.message {
-    font-weight: normal;
-    padding-top: 10px;
-
-}
-
-.dialogWindow img {
-    height: 30px;
-    border-radius: 15px;
-    border: 2px solid rgb(38, 0, 255);
+    color: rgba(0, 0, 0, 0.4);
 }
 
 .user span {
     margin-left: 10px;
 
 
-}
-
-.userMessage {
-    font-size: 14px;
-    color: rgb(18, 42, 136)
 }
 
 .activeM {
@@ -112,6 +99,58 @@ h2 {
 }
 
 
+.messages {
+    flex-direction: column;
+    margin: -15px 15px;
+    width: 98%;
+    padding-left: 5px;
+    border-radius: 10px;
+    border: 1px inset rgb(245, 248, 245);
+    background-color: rgba(1, 15, 57, 0.08);
+}
+
+.messages h4 {
+    margin-top: 15px;
+}
+
+.userNameAtMessage {
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: rgb(18, 42, 136);
+    position: absolute;
+    margin-top: -25px;
+    border-radius: 10px;
+    border: 1px inset rgb(245, 248, 245);
+    background-color: rgb(145, 205, 223);
+    width: fit-content;
+
+}
+
+.messages>.message {
+    padding-top: 0px;
+    padding-left: 5px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px inset rgb(245, 248, 245);
+    background-color: rgba(228, 229, 231, 0.929);
+    box-shadow: 2px 5px 10px 3px rgba(34, 60, 80, 0.37);
+
+    width: 80%;
+}
+
+.messageBody {
+    margin-top: 15px;
+}
+
+.messageDate{
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 11px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: right;
+}
 
 .addMessage {
     display: grid;
