@@ -21,8 +21,10 @@ getMessagesList(userId: number, currentPage = 1, pageSize = 3) {       //get lis
 
 
     startChat(userId: number) {                                         //start chatting, refresh your companion so that he was on top
-        return instance.put<GetMessagesItemsResponseType>(`dialogs/${userId}`)
+                return instance.put<GetMessagesItemsResponseType>(`dialogs/${userId}`)
             .then(response => response.data)
+           
+            
     },
 
     

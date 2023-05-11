@@ -1,35 +1,56 @@
 import React from 'react';
 import css from './../Dialogs.module.css';
-// import noPhoto from '../../../../assets/images/noPic.jpg'
-import { MessageItemsType } from '../../../../types/types';
+import { MessageItemsType, PhotosType } from '../../../../types/types';
+import { AppStateType } from '../../../../redux/redux-store';
+import { useSelector } from 'react-redux';
+import noPhoto from '../../../../assets/images/noPic.jpg'
+import { CheckCircleTwoTone } from '@ant-design/icons';
+
 
 type PropsType = {
-
+    contactPhoto: PhotosType | undefined
 }
 
 const MessageItem: React.FC<PropsType & MessageItemsType> = (props) => {
-    // let avatarPhoto: string = noPhoto
-    // if (props.photos.small) { avatarPhoto = props.photos.small }
+
+    const myId = useSelector((state: AppStateType) => state.auth.userId)
+    const myPhoto = useSelector((state: AppStateType) => state.auth.userPhoto)
+
 
     let addedAtDate = props.addedAt.split('T')[0]
     let addedAtTime = props.addedAt.split('T')[1].slice(0, 5)
+
+    let userPhoto: string = noPhoto
+    if (props.contactPhoto) {
+        if (props.contactPhoto.small !== null) userPhoto = props.contactPhoto.small
+    }
+    let ownerPhoto: string = noPhoto
+    if (myPhoto) { ownerPhoto = myPhoto }
     return (
         <div >
-            
-                {/* <div className={({props.name}) => (props.name = "Gennadij" ? (css.message + " " + css.activeM) : css.message)}> */}
+            <div className={css.message + ' ' + ((myId === props.senderId) ? css.green : css.grey)}>
 
-
-                {/* <img src={avatarPhoto} alt="" /> */}
-                
-
-            <div className={css.message}>
-                    <div className={css.userNameAtMessage}> {props.senderName}</div>
-                    {props.body}
-                    <div className={css.messageDate}> {addedAtDate} @  {addedAtTime}</div>
+                <div className={css.messagePhoto + ' ' + ((myId === props.senderId) ? css.greenPhoto : css.greyPhoto)}>
+                    <img src={myId === props.senderId
+                        ? ownerPhoto
+                        : userPhoto
+                    } alt='avatar' />
                 </div>
 
-            
+                <div className={css.userNameAtMessage}> {props.senderName}</div>
+                <p>{props.id}</p>
+                {props.body}
+                <div className={css.messageDate}> {addedAtDate} @  {addedAtTime}</div>
+                {myId === props.senderId &&
+                    <div className={css.viewedMessage}>{props.viewed
+                        ? <CheckCircleTwoTone twoToneColor="#52c41a" />
+                        : <CheckCircleTwoTone twoToneColor="grey" />
+                    }
 
+                    </div>
+
+                }
+            </div>
         </div>
     )
 }

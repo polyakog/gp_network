@@ -126,17 +126,75 @@ h2 {
     box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.7) inset;
 }
 
+.messagePhoto img{
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.581);
+}
+
+.message>.messagePhoto.greyPhoto {
+    position: absolute;
+    bottom: -20px;
+    left: -44px
+}
+
+.message>.messagePhoto.greenPhoto {
+    position: absolute;
+    bottom: -20px;
+    right: -44px
+}
+
+
+
 .message {
     padding-top: 0px;
     padding-left: 5px;
-    margin: 15px 5px 20px 10px;
-    
+    margin: 15px 5px 20px 45px;
+    position: relative;
+
     border-radius: 10px;
     border: 1px inset rgb(245, 248, 245);
-    background-color: rgba(228, 229, 231, 0.929);
+
     box-shadow: 2px 5px 10px 3px rgba(34, 60, 80, 0.37);
-    width: 80%;
+    width: 70%;
 }
+
+
+
+.message.grey {
+    background-color: rgba(228, 229, 231, 1);
+}
+
+.message.green {
+    margin-left: 90px;
+    background-color: rgba(213, 237, 171, 1);
+}
+
+.message.grey::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-bottom: 9px solid rgba(228, 229, 231, 1);
+    border-left: 12px solid transparent;
+    border-right: 7px solid transparent;
+    top: calc(100% - 8px);
+    left: -11px;
+}
+
+.message.green::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-bottom: 9px solid rgba(213, 237, 171, 1);
+    border-left: 12px solid transparent;
+    border-right: 10px solid transparent;
+    top: calc(100% - 8px);
+    right: -11px;
+}
+
+
 
 .userNameAtMessage {
     font-size: 14px;
@@ -144,7 +202,7 @@ h2 {
     padding-left: 5px;
     padding-right: 5px;
     color: rgb(18, 42, 136);
-    /* position: absolute; */
+    
     margin-top: -8px;
     margin-bottom: 5px;
     border-radius: 10px;
@@ -159,6 +217,13 @@ h2 {
     margin-right: 10px;
     display: flex;
     justify-content: right;
+}
+
+.viewedMessage {
+    right: 120px;
+    bottom: 0px;
+    position: absolute;
+
 }
 
 .addMessage {

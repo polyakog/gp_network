@@ -1,10 +1,9 @@
-import { actions as actions2 } from '../../../redux/dialogs-reducer'; // DELETE 
-import { actions } from '../../../redux/dialogsApi-reducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { AppStateType } from '../../../redux/redux-store';
+import { requestDialogs, requestMessages, addMessage } from './../../../redux/dialogsApi-reducer';
 
 let mapStateToProps = (state: AppStateType) => {
     return {
@@ -20,9 +19,9 @@ let mapStateToProps = (state: AppStateType) => {
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, { 
-        setDialogs: actions.setDialogs, 
-        setMessages: actions.sendMessage, 
-        sendMessage: actions2.sendMessage // DELETE 
+        requestDialogs, 
+        requestMessages, 
+        addMessage,
     }),
     withAuthRedirect
 )(Dialogs);

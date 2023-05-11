@@ -23,7 +23,7 @@ const DialogItem: React.FC<PropsType & DialogsResponseType> = (props) => {
         <div>
 
             <NavLink onClick={()=>{
-                props.onUserSelected({userId: props.id, name:props.userName})
+                props.onUserSelected({userId: props.id, name:props.userName, photo: props.photos})
             }
             } className={({ isActive }) => (isActive ? (css.dialog + " " + css.active) : css.dialog)} to={'/dialogs/' + props.id}>
                 <div className={css.user}>

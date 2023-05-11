@@ -8,7 +8,7 @@ const types = {
     SET_DIALOGS: 'gp-network/dialogsApi/SET_DIALOGS' as 'gp-network/dialogsApi/SET_DIALOGS',
     SET_MESSAGES: 'gp-network/dialogsApi/SET-MESSAGES' as 'gp-network/dialogsApi/SET-MESSAGES',
 
-    ADD_MESSAGE: 'gp-network/dialogsApi/ADD-MESSAGE' as 'gp-network/dialogsApi/ADD-MESSAGE',
+    // ADD_MESSAGE: 'gp-network/dialogsApi/ADD-MESSAGE' as 'gp-network/dialogsApi/ADD-MESSAGE',
     DELETE_MESSAGE: 'gp-network/dialogsApi/DELETE_MESSAGE' as 'gp-network/dialogsApi/DELETE_MESSAGE'
 }
 let initialState = {
@@ -60,7 +60,7 @@ export const actions = {
     setMessages: (messages: MessageItemsType[]) => ({ type: types.SET_MESSAGES, messages }) as const,
 
 
-    sendMessage: (newText: string) => ({ type: types.ADD_MESSAGE, newText }) as const,
+    // sendMessage: (newText: string) => ({ type: types.ADD_MESSAGE, newText }) as const,
     deleteMessage: (messageId: number) => ({ type: types.DELETE_MESSAGE, messageId }) as const
 }
 
@@ -82,6 +82,19 @@ export const requestMessages = (userId: number, currenPage: number, pageSize: nu
     setTotalUsersCount(data.totalCount)
 
 }
+export const startChatting = (userId: number): ThunkType => async (dispatch, getState) => {
+   
+    const data = await dialogsAPI.startChat(userId)
+    
+}
+
+export const addMessage = (userId: number, body: string): ThunkType => async (dispatch, getState) => {
+    
+    const data = await dialogsAPI.sendMessage(userId, body)
+    
+}
+
+
 
 
 

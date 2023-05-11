@@ -8,16 +8,19 @@ import { DialogsResponseType, MessageItemsType } from '../../../types/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDialogs, getMessages } from '../../../redux/dialogApi-selectors';
 import { AppDispatchType } from '../../../redux/redux-store';
-import { requestDialogs, requestMessages } from '../../../redux/dialogsApi-reducer';
+import { requestDialogs, requestMessages, startChatting } from '../../../redux/dialogsApi-reducer';
 import Paginator from '../../common/Paginator/Paginator';
 import { SettingOutlined } from '@ant-design/icons';
 import { PageNumberSetting } from '../../common/Paginator/PageNumberSettings';
+import { PhotosType } from '../../../types/types';
+
+
 
 type PropsType = {
     dialogsPage: InitialStateType
-    setDialogs: (dialogs: DialogsResponseType[]) => void
-    setMessages: (messages: MessageItemsType[]) => void
-    sendMessage: (newMessageText: string) => void
+    requestDialogs: () => void
+    requestMessages: (userId: number, currentPage: number, pageSize: number, setTotalUsersCount: any) => void
+    addMessage: (userId: number, newMessageText: string) => void
 }
 
 export type NewMessageFormType = {
@@ -28,11 +31,12 @@ export type NewMessageFormType = {
 export type SelectedUserType = {
     name: string
     userId: number
+    photo: PhotosType 
 }
 
 
 
-const Dialogs: React.FC<PropsType> = ({ dialogsPage, setDialogs, setMessages, sendMessage }) => {
+const Dialogs: React.FC<PropsType> = ({ addMessage }) => {
 
     const dialogs = useSelector(getDialogs)
     const messages = useSelector(getMessages)
@@ -49,13 +53,21 @@ const Dialogs: React.FC<PropsType> = ({ dialogsPage, setDialogs, setMessages, se
         setCurrentPage(pageNumber)
     }
 
+    const showMessages = ()=> {
+if (!!selectedUser) {
+            dispatch(requestMessages(selectedUser.userId, currentPage, pageSize, setTotalUsersCount))
+            dispatch(startChatting(selectedUser.userId))
+        }
+    }
+
     useEffect(() => {
         dispatch(requestDialogs())
 
     }, [])
 
     useEffect(() => {
-        if (!!selectedUser) dispatch(requestMessages(selectedUser.userId, currentPage, pageSize, setTotalUsersCount))
+        showMessages()
+
 
     }, [selectedUser, totalUsersCount, currentPage, pageSize])
 
@@ -90,11 +102,20 @@ const Dialogs: React.FC<PropsType> = ({ dialogsPage, setDialogs, setMessages, se
             senderName={m.senderName}
             recipientId={m.recipientId}
             viewed={m.viewed}
+            contactPhoto={selectedUser?.photo}
+            
         />
     ));
 
     const addNewMessage = (values: NewMessageFormType) => {
-        sendMessage(values.newMessageText);
+        if (!!selectedUser) {
+            addMessage(selectedUser.userId, values.newMessageText);
+        }
+        
+        showMessages()
+
+        
+
     }
 
     const onPageSizeHandling = () => {
@@ -102,7 +123,7 @@ const Dialogs: React.FC<PropsType> = ({ dialogsPage, setDialogs, setMessages, se
 
     }
 
-    return (
+      return (
         <div className={css.wrapper} >
             <h1> Dialog page</h1>
 
@@ -117,7 +138,11 @@ const Dialogs: React.FC<PropsType> = ({ dialogsPage, setDialogs, setMessages, se
 
 
                 <div className={css.messages}>
-                    <h4>Messages</h4>
+                    <h4>{'Messages with '}
+                        {selectedUser
+                            ? (selectedUser.name)
+                            : ' ...'}
+                    </h4>
                     <button className={css.settingButton} onClick={onPageSizeHandling} style={{ fontWeight: 'bold', marginTop: '-60px', marginLeft: "92%" }}><SettingOutlined style={{ margin: '-7px' }} /></button>
                     <div style={{ display: 'flex', justifyContent: 'right', marginTop: '-40px' }}>
                         <PageNumberSetting value={pageSize}
@@ -129,7 +154,10 @@ const Dialogs: React.FC<PropsType> = ({ dialogsPage, setDialogs, setMessages, se
 
 
                     <div className={css.messagesBox}> {/* _____Message Box____ */}
-                        {messageElements}
+                        {selectedUser
+                            ? messageElements
+                            : ''}
+
                     </div>
 
 
@@ -139,6 +167,9 @@ const Dialogs: React.FC<PropsType> = ({ dialogsPage, setDialogs, setMessages, se
 
 
                     <AddMessageForm onSubmit={addNewMessage} />
+
+
+
 
                 </div>
             </div>
