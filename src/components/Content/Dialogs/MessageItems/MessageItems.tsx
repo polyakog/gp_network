@@ -4,11 +4,17 @@ import { MessageItemsType, PhotosType } from '../../../../types/types';
 import { AppStateType } from '../../../../redux/redux-store';
 import { useSelector } from 'react-redux';
 import noPhoto from '../../../../assets/images/noPic.jpg'
-import { CheckCircleTwoTone } from '@ant-design/icons';
+
+import { CheckCircleTwoTone, DeleteTwoTone, DislikeTwoTone } from '@ant-design/icons';
+
+
 
 
 type PropsType = {
     contactPhoto: PhotosType | undefined
+    deleteMessage: (messageId: string) => void
+    spamMessage: (messageId: string) => void
+    restoreDeletedSpamMessages: (messageId: string) => void
 }
 
 const MessageItem: React.FC<PropsType & MessageItemsType> = (props) => {
@@ -26,6 +32,18 @@ const MessageItem: React.FC<PropsType & MessageItemsType> = (props) => {
     }
     let ownerPhoto: string = noPhoto
     if (myPhoto) { ownerPhoto = myPhoto }
+
+    const onDeleteClicked = () => {
+        props.deleteMessage(props.id)
+        console.log('message deleting', props.id)
+
+    }
+    const onSpamClicked = () => {
+        props.deleteMessage(props.id)
+        console.log('message spammed', props.id)
+    }
+
+
     return (
         <div >
             <div className={css.message + ' ' + ((myId === props.senderId) ? css.green : css.grey)}>
@@ -46,10 +64,19 @@ const MessageItem: React.FC<PropsType & MessageItemsType> = (props) => {
                         ? <CheckCircleTwoTone twoToneColor="#52c41a" />
                         : <CheckCircleTwoTone twoToneColor="grey" />
                     }
-
                     </div>
-
                 }
+                <div className={css.deletedMessage + ' ' + ((myId === props.senderId) ? css.green : css.grey)}>
+                    <button onClick={onDeleteClicked} data-hint="Delete message">
+                        <DeleteTwoTone style={{ fontSize: '20px' }} />
+                    </button>
+                    <button onClick={onSpamClicked} data-hint="Spam message">
+                        <DislikeTwoTone twoToneColor="#eb2f96" style={{ fontSize: '20px' }} />
+                    </button>
+
+                </div>
+
+
             </div>
         </div>
     )

@@ -5,6 +5,7 @@
     --h2: rgb(173, 15, 15);
     --btnBackC: rgb(65, 145, 82);
     --btnBackCoHov: rgb(89, 190, 110);
+    --color-light-blue-gray: rgb(222, 233, 242); 
 }
 
 button {

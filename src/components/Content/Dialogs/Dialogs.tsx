@@ -21,6 +21,9 @@ type PropsType = {
     requestDialogs: () => void
     requestMessages: (userId: number, currentPage: number, pageSize: number, setTotalUsersCount: any) => void
     addMessage: (userId: number, newMessageText: string) => void
+    deleteMessage: (messageId: string) => void
+    spamMessage: (messageId: string) => void
+    restoreDeletedSpamMessages: (messageId: string) => void
 }
 
 export type NewMessageFormType = {
@@ -31,12 +34,12 @@ export type NewMessageFormType = {
 export type SelectedUserType = {
     name: string
     userId: number
-    photo: PhotosType 
+    photo: PhotosType
 }
 
 
 
-const Dialogs: React.FC<PropsType> = ({ addMessage }) => {
+const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, restoreDeletedSpamMessages }) => {
 
     const dialogs = useSelector(getDialogs)
     const messages = useSelector(getMessages)
@@ -53,8 +56,8 @@ const Dialogs: React.FC<PropsType> = ({ addMessage }) => {
         setCurrentPage(pageNumber)
     }
 
-    const showMessages = ()=> {
-if (!!selectedUser) {
+    const showMessages = () => {
+        if (!!selectedUser) {
             dispatch(requestMessages(selectedUser.userId, currentPage, pageSize, setTotalUsersCount))
             dispatch(startChatting(selectedUser.userId))
         }
@@ -103,7 +106,10 @@ if (!!selectedUser) {
             recipientId={m.recipientId}
             viewed={m.viewed}
             contactPhoto={selectedUser?.photo}
-            
+            deleteMessage={deleteMessage}
+            spamMessage={spamMessage}
+            restoreDeletedSpamMessages={restoreDeletedSpamMessages}
+
         />
     ));
 
@@ -111,10 +117,10 @@ if (!!selectedUser) {
         if (!!selectedUser) {
             addMessage(selectedUser.userId, values.newMessageText);
         }
-        
+
         showMessages()
 
-        
+
 
     }
 
@@ -123,7 +129,7 @@ if (!!selectedUser) {
 
     }
 
-      return (
+    return (
         <div className={css.wrapper} >
             <h1> Dialog page</h1>
 
@@ -167,6 +173,10 @@ if (!!selectedUser) {
 
 
                     <AddMessageForm onSubmit={addNewMessage} />
+                    <div className={css.updateButton}> <button >Update</button></div>
+
+
+
 
 
 

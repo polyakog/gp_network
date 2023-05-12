@@ -107,6 +107,7 @@ h2 {
     border-radius: 10px;
     border: 1px inset rgb(245, 248, 245);
     background-color: rgba(1, 15, 57, 0.08);
+    position: relative;
 }
 
 .messages h4 {
@@ -126,7 +127,7 @@ h2 {
     box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.7) inset;
 }
 
-.messagePhoto img{
+.messagePhoto img {
     width: 30px;
     height: 30px;
     border: 1px solid rgba(255, 255, 255, 0.581);
@@ -202,7 +203,7 @@ h2 {
     padding-left: 5px;
     padding-right: 5px;
     color: rgb(18, 42, 136);
-    
+
     margin-top: -8px;
     margin-bottom: 5px;
     border-radius: 10px;
@@ -226,6 +227,31 @@ h2 {
 
 }
 
+.message>.deletedMessage.green {
+    position: absolute;
+    top: 18px;
+    left: -64px
+}
+
+.message>.deletedMessage.grey {
+    position: absolute;
+    top: 18px;
+    right: -64px
+}
+
+
+.deletedMessage button {
+    padding-left: 0px;
+    background: transparent;
+    height: auto;
+    width: 25px;
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+}
+
+
 .addMessage {
     display: grid;
     grid-template-columns: auto fit-content(100px);
@@ -245,6 +271,12 @@ h2 {
 
 }
 
+.messages>.updateButton {
+position: absolute;
+bottom: 20px;
+left: 155px;
+}
+
 .NewMessagetTextarea {
     padding: 10px;
     font-size: 13px;
@@ -255,4 +287,34 @@ h2 {
     border: solid 3px rgba(2, 36, 20, 0.861);
     border-style: inset;
     box-shadow: 5px 4px 3px -2px rgba(34, 60, 80, 0.3) inset;
+}
+
+/* ------------------------------------- */
+
+*[data-hint] {
+    position: relative;
+}
+
+*[data-hint]:hover:after {
+    visibility: visible;
+    transform: translate(-50%, -100%);
+}
+
+*[data-hint]:after {
+    visibility: hidden;
+    position: absolute;
+    transition: transform .5s ease;
+    top: -3px;
+    left: 50%;
+    z-index: 2;
+    transform: translate(-50%, 0%);
+    background-color: var(--color-light-blue-gray);
+    color: rgb(16, 18, 23);
+    content: attr(data-hint);
+    display: inline-block;
+    padding: 7px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    line-height: 1em;
+    box-shadow: 2px 5px 10px 3px rgba(34, 60, 80, 0.37)
 }

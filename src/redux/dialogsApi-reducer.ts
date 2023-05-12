@@ -14,6 +14,7 @@ const types = {
 let initialState = {
     dialogData: [] as Array<DialogsResponseType>,
     messageData: [] as Array<MessageItemsType>,
+    deletedMessageData: [] as Array<MessageItemsType>,
 };
 
 const dialogsApiReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
@@ -67,33 +68,45 @@ export const actions = {
 
 export const requestDialogs = (): ThunkType => async (dispatch, getState) => {
     // dispatch(actions.toggleIsFetching(true));
-    
+
     const data = await dialogsAPI.getDialogs()
     // dispatch(actions.toggleIsFetching(false));
-    dispatch(actions.setDialogs(data));   
+    dispatch(actions.setDialogs(data));
 }
 
-export const requestMessages = (userId: number, currenPage: number, pageSize: number, setTotalUsersCount: (totalCount:number)=>void): ThunkType => async (dispatch, getState) => {
+export const requestMessages = (userId: number, currenPage: number, pageSize: number, setTotalUsersCount: (totalCount: number) => void): ThunkType => async (dispatch, getState) => {
     // dispatch(actions.toggleIsFetching(true));
-    
+
     const data = await dialogsAPI.getMessagesList(userId, currenPage, pageSize)
     // dispatch(actions.toggleIsFetching(false));
-    dispatch(actions.setMessages(data.items));  
+    dispatch(actions.setMessages(data.items));
     setTotalUsersCount(data.totalCount)
 
 }
 export const startChatting = (userId: number): ThunkType => async (dispatch, getState) => {
-   
     const data = await dialogsAPI.startChat(userId)
-    
+
 }
 
 export const addMessage = (userId: number, body: string): ThunkType => async (dispatch, getState) => {
-    
     const data = await dialogsAPI.sendMessage(userId, body)
-    
+
 }
 
+export const deleteMessage = (messageId: string): ThunkType => async (dispatch, getState) => {
+    const data = await dialogsAPI.deleteMessage(messageId)
+    console.log(data)
+}
+
+export const spamMessage = (messageId: string): ThunkType => async (dispatch, getState) => {
+    const data = await dialogsAPI.spamMessage(messageId)
+    console.log(data)
+}
+
+export const restoreDeletedSpamMessages = (messageId: string): ThunkType => async (dispatch, getState) => {
+    const data = await dialogsAPI.spamMessage(messageId)
+    console.log(data)
+}
 
 
 
