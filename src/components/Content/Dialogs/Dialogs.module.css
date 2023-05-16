@@ -127,6 +127,38 @@ h2 {
     box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.7) inset;
 }
 
+.closeWindow {
+    display: flex;
+    justify-content: right;
+    width: 98%;
+
+}
+
+.closeWindow button {
+    padding-right: 20px;
+
+    background: transparent;
+    height: auto;
+    width: 25px;
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.deletedMessagesBox {
+    height: 250px;
+    width: 98%;
+    overflow-y: scroll;
+
+    margin-top: 7x;
+    margin-bottom: 10px;
+    border-radius: 10px 0 0 10px;
+    border: 3px inset rgba(201, 199, 199, 0.88);
+    background-color: rgba(244, 244, 246, 1);
+    box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.7) inset;
+
+}
+
 .messagePhoto img {
     width: 30px;
     height: 30px;
@@ -195,6 +227,17 @@ h2 {
     right: -11px;
 }
 
+.message>.messageStatus.green {
+    position: absolute;
+    top: -10px;
+    left: -72px
+}
+
+.message>.messageStatus.grey {
+    position: absolute;
+    top: -10px;
+    right: -72px
+}
 
 
 .userNameAtMessage {
@@ -271,10 +314,15 @@ h2 {
 
 }
 
-.messages>.updateButton {
-position: absolute;
-bottom: 20px;
-left: 155px;
+.updateButton {
+    position: absolute;
+    bottom: 20px;
+    left: 155px;
+}
+.restoreButton {
+    position: absolute;
+    bottom: 20px;
+    left: 240px;
 }
 
 .NewMessagetTextarea {
@@ -297,7 +345,7 @@ left: 155px;
 
 *[data-hint]:hover:after {
     visibility: visible;
-    transform: translate(-50%, -100%);
+    transform: translate(-50%, -90%);
 }
 
 *[data-hint]:after {
@@ -307,9 +355,9 @@ left: 155px;
     top: -3px;
     left: 50%;
     z-index: 2;
-    transform: translate(-50%, 0%);
-    background-color: var(--color-light-blue-gray);
-    color: rgb(16, 18, 23);
+    transform: translate(-50%, -80%);
+    background-color: var(--color-dark-blue-gray);
+    color: var(--color-light-blue-gray);
     content: attr(data-hint);
     display: inline-block;
     padding: 7px;

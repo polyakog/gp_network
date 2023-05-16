@@ -1,6 +1,7 @@
 import { DialogsResponseType, MessageItemsType } from "../types/types";
 import { BaseThunkType, InferActionsTypes } from "./redux-store";
 import { dialogsAPI } from "../api/dialogs-api";
+import { SelectedUserType } from "../components/Content/Dialogs/Dialogs";
 
 
 
@@ -9,8 +10,10 @@ const types = {
     SET_MESSAGES: 'gp-network/dialogsApi/SET-MESSAGES' as 'gp-network/dialogsApi/SET-MESSAGES',
 
     // ADD_MESSAGE: 'gp-network/dialogsApi/ADD-MESSAGE' as 'gp-network/dialogsApi/ADD-MESSAGE',
-    DELETE_MESSAGE: 'gp-network/dialogsApi/DELETE_MESSAGE' as 'gp-network/dialogsApi/DELETE_MESSAGE'
+    DELETED_MESSAGE: 'gp-network/dialogsApi/DELETED_MESSAGE' as 'gp-network/dialogsApi/DELETED_MESSAGE',
+    RESTORED_DELETED_MESSAGE: 'gp-network/dialogsApi/RESTORED_DELETED_MESSAGE' as 'gp-network/dialogsApi/RESTORED_DELETED_MESSAGE'
 }
+
 let initialState = {
     dialogData: [] as Array<DialogsResponseType>,
     messageData: [] as Array<MessageItemsType>,
@@ -35,6 +38,20 @@ const dialogsApiReducer = (state = initialState, action: ActionsTypes): InitialS
             }
         }
 
+        case types.DELETED_MESSAGE:
+
+            return {
+                ...state,
+                deletedMessageData: [...state.deletedMessageData, action.delSpamMessage]
+            };
+
+        case types.RESTORED_DELETED_MESSAGE:
+
+            return {
+                ...state,
+                deletedMessageData: [...state.deletedMessageData.filter(m=> m.id!== action.messageId)]
+            };
+
         // case types.ADD_MESSAGE:
 
         //                 return {
@@ -43,12 +60,7 @@ const dialogsApiReducer = (state = initialState, action: ActionsTypes): InitialS
         //     };
 
 
-        // case types.DELETE_MESSAGE:
 
-        //     return {
-        //         ...state,
-        //         messageData: state.messageData.filter(m => m.idMessage !== action.messageId)
-        //     };
         default:
             return state;
 
@@ -59,10 +71,10 @@ const dialogsApiReducer = (state = initialState, action: ActionsTypes): InitialS
 export const actions = {
     setDialogs: (dialogs: DialogsResponseType[]) => ({ type: types.SET_DIALOGS, dialogs }) as const,
     setMessages: (messages: MessageItemsType[]) => ({ type: types.SET_MESSAGES, messages }) as const,
-
-
+    setDeletedMessage: (delSpamMessage: MessageItemsType) => ({ type: types.DELETED_MESSAGE, delSpamMessage }) as const,
+    restoredDeletedMessage: (messageId: string) => ({ type: types.RESTORED_DELETED_MESSAGE, messageId }) as const
     // sendMessage: (newText: string) => ({ type: types.ADD_MESSAGE, newText }) as const,
-    deleteMessage: (messageId: number) => ({ type: types.DELETE_MESSAGE, messageId }) as const
+
 }
 
 
@@ -90,23 +102,39 @@ export const startChatting = (userId: number): ThunkType => async (dispatch, get
 
 export const addMessage = (userId: number, body: string): ThunkType => async (dispatch, getState) => {
     const data = await dialogsAPI.sendMessage(userId, body)
-
 }
 
-export const deleteMessage = (messageId: string): ThunkType => async (dispatch, getState) => {
+export const addDeletedMessage = (delSpamMessage: MessageItemsType): ThunkType => async (dispatch, getState) => {
+    dispatch(actions.setDeletedMessage(delSpamMessage))
+}
+
+export const deleteMessage = (messageId: string, delSpamMessage: MessageItemsType): ThunkType => async (dispatch, getState) => {
     const data = await dialogsAPI.deleteMessage(messageId)
     console.log(data)
+    dispatch(addDeletedMessage(delSpamMessage))
+
 }
 
-export const spamMessage = (messageId: string): ThunkType => async (dispatch, getState) => {
+export const spamMessage = (messageId: string, delSpamMessage: MessageItemsType): ThunkType => async (dispatch, getState) => {
     const data = await dialogsAPI.spamMessage(messageId)
     console.log(data)
+    dispatch(addDeletedMessage(delSpamMessage))
 }
 
-export const restoreDeletedSpamMessages = (messageId: string): ThunkType => async (dispatch, getState) => {
-    const data = await dialogsAPI.spamMessage(messageId)
+export const restoreMessages = (messageId: string): ThunkType => async (dispatch, getState) => {
+    const data = await dialogsAPI.restoreMessage(messageId)
     console.log(data)
+    dispatch(actions.restoredDeletedMessage(messageId))
+
 }
+
+export const showMessages = (userId: number, currentPage: number, pageSize: number, setTotalCount: React.Dispatch<React.SetStateAction<number>>): ThunkType => async (dispatch, getState) => {
+    
+        dispatch(requestMessages(userId, currentPage, pageSize, setTotalCount))
+        dispatch(startChatting(userId))
+    
+}
+
 
 
 

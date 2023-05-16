@@ -9,3 +9,7 @@ export const getMessages = (state:AppStateType) => {
     return state.dialogsApiPage.messageData
 }
 
+export const getDeletedMessages = (state:AppStateType) => {
+    return state.dialogsApiPage.deletedMessageData
+}
+

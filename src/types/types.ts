@@ -65,6 +65,7 @@ export type MessageItemsType = {
     senderName: string
     recipientId: number
     viewed: boolean
+    status:string
 }
 
 

@@ -4,13 +4,13 @@ import DialogItem from './DialogItems/DialogItems';
 import MessageItem from './MessageItems/MessageItems';
 import AddMessageForm from '../../common/Forms/AddMessageForm';
 import { InitialStateType } from '../../../redux/dialogs-reducer';
-import { DialogsResponseType, MessageItemsType } from '../../../types/types';
+import { MessageItemsType } from '../../../types/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDialogs, getMessages } from '../../../redux/dialogApi-selectors';
+import { getDeletedMessages, getDialogs, getMessages } from '../../../redux/dialogApi-selectors';
 import { AppDispatchType } from '../../../redux/redux-store';
-import { requestDialogs, requestMessages, startChatting } from '../../../redux/dialogsApi-reducer';
+import { requestDialogs, showMessages} from '../../../redux/dialogsApi-reducer';
 import Paginator from '../../common/Paginator/Paginator';
-import { SettingOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import { PageNumberSetting } from '../../common/Paginator/PageNumberSettings';
 import { PhotosType } from '../../../types/types';
 
@@ -21,9 +21,10 @@ type PropsType = {
     requestDialogs: () => void
     requestMessages: (userId: number, currentPage: number, pageSize: number, setTotalUsersCount: any) => void
     addMessage: (userId: number, newMessageText: string) => void
-    deleteMessage: (messageId: string) => void
+    deleteMessage: (messageId: string, delSpamMessage: MessageItemsType) => void
     spamMessage: (messageId: string) => void
-    restoreDeletedSpamMessages: (messageId: string) => void
+    restoreMessages: (messageId: string) => void
+
 }
 
 export type NewMessageFormType = {
@@ -39,16 +40,20 @@ export type SelectedUserType = {
 
 
 
-const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, restoreDeletedSpamMessages }) => {
+const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, restoreMessages }) => {
 
     const dialogs = useSelector(getDialogs)
     const messages = useSelector(getMessages)
+    const deletedMessages = useSelector(getDeletedMessages)
     const [selectedUser, setSelectedUser] = useState<SelectedUserType | null>(null)
+    const [isRestoredMessage, setIsRestoredMessage] = useState(false)
+
+
     const dispatch: AppDispatchType = useDispatch()
 
 
     /* Page Settings */
-    const [totalUsersCount, setTotalUsersCount] = useState(1)
+    const [totalCount, setTotalCount] = useState(1)
     const [pageSize, setPageSize] = useState(5)
     const [currentPage, setCurrentPage] = useState(1)
     const [pagesInput, setPageInput] = useState(false)
@@ -56,12 +61,14 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
         setCurrentPage(pageNumber)
     }
 
-    const showMessages = () => {
+    const requestMessages = () => {
         if (!!selectedUser) {
-            dispatch(requestMessages(selectedUser.userId, currentPage, pageSize, setTotalUsersCount))
-            dispatch(startChatting(selectedUser.userId))
+            dispatch(showMessages(selectedUser.userId, currentPage, pageSize, setTotalCount))
         }
+
     }
+
+
 
     useEffect(() => {
         dispatch(requestDialogs())
@@ -69,15 +76,15 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
     }, [])
 
     useEffect(() => {
-        showMessages()
+        requestMessages()
 
 
-    }, [selectedUser, totalUsersCount, currentPage, pageSize])
+    }, [selectedUser, totalCount, currentPage, pageSize])
 
 
     useEffect(() => {
         setCurrentPage(1)
-    }, [pageSize, selectedUser, totalUsersCount])
+    }, [pageSize, selectedUser, totalCount])
 
 
     let dialogElements = dialogs.map(d => (
@@ -93,7 +100,8 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
             onUserSelected={setSelectedUser}
             selectedUser={selectedUser}
         />
-    ));
+    ))
+
     let messageElements = messages.map(m => (
         <MessageItem
             key={m.id}
@@ -108,7 +116,32 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
             contactPhoto={selectedUser?.photo}
             deleteMessage={deleteMessage}
             spamMessage={spamMessage}
-            restoreDeletedSpamMessages={restoreDeletedSpamMessages}
+            restoreMessages={restoreMessages}
+            status={m.status}
+            showMessages={requestMessages}
+            component='messages'
+        />
+    ));
+
+    let deletedMessageElements = deletedMessages.map(m => (
+        <MessageItem
+            key={m.id}
+            id={m.id}
+            body={m.body}
+            translatedBody={m.translatedBody}
+            addedAt={m.addedAt}
+            senderId={m.senderId}
+            senderName={m.senderName}
+            recipientId={m.recipientId}
+            viewed={m.viewed}
+            contactPhoto={selectedUser?.photo}
+            deleteMessage={deleteMessage}
+            spamMessage={spamMessage}
+            restoreMessages={restoreMessages}
+            status={m.status}
+            showMessages={requestMessages}
+            component='deletedMessages'
+
 
         />
     ));
@@ -117,16 +150,11 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
         if (!!selectedUser) {
             addMessage(selectedUser.userId, values.newMessageText);
         }
-
-        showMessages()
-
-
-
+        requestMessages()
     }
 
     const onPageSizeHandling = () => {
         setPageInput(true)
-
     }
 
     return (
@@ -149,37 +177,48 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
                             ? (selectedUser.name)
                             : ' ...'}
                     </h4>
-                    <button className={css.settingButton} onClick={onPageSizeHandling} style={{ fontWeight: 'bold', marginTop: '-60px', marginLeft: "92%" }}><SettingOutlined style={{ margin: '-7px' }} /></button>
-                    <div style={{ display: 'flex', justifyContent: 'right', marginTop: '-40px' }}>
-                        <PageNumberSetting value={pageSize}
-                            pagesInput={pagesInput}
-                            settings={setPageInput}
-                            onSubmit={(value) => { setPageSize(value) }}
-                        />
-                    </div>
 
+                    {
+                        isRestoredMessage
+                            ? <div >
+                                <h5 style={{ marginBottom: '-15px' }}>Restoring messages</h5>
+                                <div className={css.closeWindow}>
+                                    <button onClick={() => setIsRestoredMessage(false)} data-hint="Close restoring"><CloseCircleOutlined /></button>
+                                </div>
+                                <div className={css.deletedMessagesBox}>
+                                    {deletedMessageElements}
+                                </div>
+                            </div>
 
-                    <div className={css.messagesBox}> {/* _____Message Box____ */}
-                        {selectedUser
-                            ? messageElements
-                            : ''}
+                            : <div>
 
-                    </div>
+                                <button className={css.settingButton} onClick={onPageSizeHandling} style={{ fontWeight: 'bold', marginTop: '-60px', marginLeft: "92%" }}><SettingOutlined style={{ margin: '-7px' }} /></button>
+                                <div style={{ display: 'flex', justifyContent: 'right', marginTop: '-40px' }}>
+                                    <PageNumberSetting value={pageSize}
+                                        pagesInput={pagesInput}
+                                        settings={setPageInput}
+                                        onSubmit={(value) => { setPageSize(value) }}
+                                    />
+                                </div>
 
+                                {/* _____Message Box____  */}
+                                < div className={css.messagesBox}>
+                                    {selectedUser
+                                        ? messageElements
+                                        : ''}
+                                </div>
+                                {/* __________________________________ */}
 
-                    <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage} onPageChanged={onPageChanged} />
-                    <span>  messages per page: {pageSize}</span>
+                                <Paginator totalItemsCount={totalCount} pageSize={pageSize} currentPage={currentPage} onPageChanged={onPageChanged} />
+                                <span>  messages per page: {pageSize}</span>
 
+                                <AddMessageForm onSubmit={addNewMessage} />
+                                <div className={css.updateButton}> <button onClick={() => requestMessages()} data-hint="Update messages">Update</button></div>
+                                <div className={css.restoreButton} > <button onClick={() => setIsRestoredMessage(true)} data-hint="Restore deleted messages">Restore</button></div>
 
+                            </div>
 
-                    <AddMessageForm onSubmit={addNewMessage} />
-                    <div className={css.updateButton}> <button >Update</button></div>
-
-
-
-
-
-
+                    }
 
                 </div>
             </div>

@@ -47,7 +47,7 @@ export const dialogsAPI = {
             .then(res => res.data) as Promise<APIResponseType>
     },
 
-    restoreMessageForm(messageId: number) {                             //restore your message form deleted and spam
+    restoreMessage(messageId: string) {                             //restore your message from deleted and spam
         return instance.put(`dialogs/messages/${messageId}/restore`)
             .then(res => res.data)
     },

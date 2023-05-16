@@ -6,6 +6,7 @@
     --btnBackC: rgb(65, 145, 82);
     --btnBackCoHov: rgb(89, 190, 110);
     --color-light-blue-gray: rgb(222, 233, 242); 
+    --color-dark-blue-gray: rgba(7, 21, 33, 0.804); 
 }
 
 button {
