@@ -64,8 +64,14 @@ export type MessageItemsType = {
     senderId: number
     senderName: string
     recipientId: number
+    recipientName: string
     viewed: boolean
+    deletedBySender: boolean
+    deletedByRecipient: boolean
+    isSpam: boolean
+
     status:string
+
 }
 
 

@@ -4,8 +4,9 @@ import { MessageItemsType, PhotosType } from '../../../../types/types';
 import { AppDispatchType, AppStateType } from '../../../../redux/redux-store';
 import { useDispatch, useSelector } from 'react-redux';
 import noPhoto from '../../../../assets/images/noPic.jpg'
-
+import { formatDate } from '../../../common/Date/formatDate'
 import { CheckCircleTwoTone, DeleteTwoTone, DislikeTwoTone, InteractionTwoTone } from '@ant-design/icons';
+
 
 
 
@@ -16,22 +17,26 @@ type PropsType = {
     deleteMessage: (messageId: string, delSpamMessage: MessageItemsType) => void
     spamMessage: (messageId: string, delSpamMessage: MessageItemsType) => void
     restoreMessages: (messageId: string) => void
-    showMessages: () => void
+    requestMessages: () => void
         // addDeletedMessage: (delSpamMessage: MessageItemsType) => void
     
     component: string
 }
 
-const MessageItem: React.FC<PropsType & MessageItemsType> = ({ contactPhoto, deleteMessage, spamMessage,
-    restoreMessages, showMessages, component, ...message }) => {
+const MessageItem: React.FC<PropsType & MessageItemsType> = React.memo(({ contactPhoto, deleteMessage, spamMessage,
+    restoreMessages, requestMessages, component, ...message }) => {
 
     const myId = useSelector((state: AppStateType) => state.auth.userId)
     const myPhoto = useSelector((state: AppStateType) => state.auth.userPhoto)
+    
     const dispatch: AppDispatchType = useDispatch()
     
 
-    let addedAtDate = message.addedAt.split('T')[0]
-    let addedAtTime = message.addedAt.split('T')[1].slice(0, 5)
+    // let addedAtDate = message.addedAt.split('T')[0]
+    // let addedAtTime = message.addedAt.split('T')[1].slice(0, 5)
+        let formatedDate = formatDate(new Date(message.addedAt + 'Z'))
+ 
+
 
     let userPhoto: string = noPhoto
     if (contactPhoto) {
@@ -44,25 +49,23 @@ const MessageItem: React.FC<PropsType & MessageItemsType> = ({ contactPhoto, del
     const onDeleteClicked = () => {
         message.status = 'deleted'
         deleteMessage(message.id, message)
-        dispatch(showMessages())
+        requestMessages()
         console.log('message deleted', message.id, 'status:', message.status)
 
-        // addDeletedMessage(message)
 
     }
     const onSpamClicked = () => {
         message.status = 'spam'
         spamMessage(message.id, message)
-        dispatch(showMessages())
+        requestMessages()
         console.log('message spammed', message.id)
-
-        // addDeletedMessage(message)
     }
 
     const onRestoreClicked = () => {
         message.status = ''
         restoreMessages(message.id)
-        dispatch(showMessages())
+        requestMessages()
+        // dispatch(requestMessages())
         console.log('message restored', message.id)
 
 
@@ -86,7 +89,10 @@ const MessageItem: React.FC<PropsType & MessageItemsType> = ({ contactPhoto, del
                 <div className={css.userNameAtMessage}> {message.senderName}</div>
                 <p>{message.id}</p>
                 {message.body}
-                <div className={css.messageDate}> {addedAtDate} @  {addedAtTime}</div>
+                {/* <div className={css.messageDate}> {addedAtDate} @  {addedAtTime}</div> */}
+                <div className={css.messageDate}> 
+                    {formatedDate}
+                </div>
 
                 {myId === message.senderId &&
                     <div className={css.viewedMessage}>{message.viewed
@@ -123,6 +129,6 @@ const MessageItem: React.FC<PropsType & MessageItemsType> = ({ contactPhoto, del
             </div>
         </div>
     )
-}
+})
 
 export default MessageItem;

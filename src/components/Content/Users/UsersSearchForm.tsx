@@ -16,10 +16,10 @@ type PropsType = {
     onFilterChanged: (filter: FilterType) => void
 }
 
-type FeiendFormType = 'true' | 'false' | 'null'
+type FriendFormType = 'true' | 'false' | 'null'
 type FormType = {
     term: string,
-    friend: FeiendFormType
+    friend: FriendFormType
 }
 
 export const UsersSearchForm: React.FC<PropsType> = React.memo(({ onFilterChanged }) => {
@@ -37,7 +37,7 @@ export const UsersSearchForm: React.FC<PropsType> = React.memo(({ onFilterChange
     return <div className={css.formik}>
         <Formik
             enableReinitialize
-            initialValues={{ term: filter.term, friend: String(filter.friend) as FeiendFormType }}
+            initialValues={{ term: filter.term, friend: String(filter.friend) as FriendFormType }}
             validate={usersSearchFormValidate}
             onSubmit={submit}
         >

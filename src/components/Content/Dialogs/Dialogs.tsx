@@ -6,13 +6,15 @@ import AddMessageForm from '../../common/Forms/AddMessageForm';
 import { InitialStateType } from '../../../redux/dialogs-reducer';
 import { MessageItemsType } from '../../../types/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDeletedMessages, getDialogs, getMessages } from '../../../redux/dialogApi-selectors';
+import { getDeletedMessages, getDialogs, getIsFetching, getMessages } from '../../../redux/dialogApi-selectors';
 import { AppDispatchType } from '../../../redux/redux-store';
-import { requestDialogs, showMessages} from '../../../redux/dialogsApi-reducer';
+import { requestDialogs, showMessages, requestMessagesAfterDate } from '../../../redux/dialogsApi-reducer';
 import Paginator from '../../common/Paginator/Paginator';
 import { CloseCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import { PageNumberSetting } from '../../common/Paginator/PageNumberSettings';
 import { PhotosType } from '../../../types/types';
+import { MessageSearchForm } from './MessageSearchForm';
+import Preloader from '../../common/Preloader/Preloader';
 
 
 
@@ -47,7 +49,7 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
     const deletedMessages = useSelector(getDeletedMessages)
     const [selectedUser, setSelectedUser] = useState<SelectedUserType | null>(null)
     const [isRestoredMessage, setIsRestoredMessage] = useState(false)
-
+    const isFetching = useSelector(getIsFetching)
 
     const dispatch: AppDispatchType = useDispatch()
 
@@ -57,28 +59,27 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
     const [pageSize, setPageSize] = useState(5)
     const [currentPage, setCurrentPage] = useState(1)
     const [pagesInput, setPageInput] = useState(false)
+
+
     const onPageChanged = (pageNumber: number) => {
         setCurrentPage(pageNumber)
     }
 
     const requestMessages = () => {
+
         if (!!selectedUser) {
+            // showMessages(selectedUser.userId, currentPage, pageSize, setTotalCount)
             dispatch(showMessages(selectedUser.userId, currentPage, pageSize, setTotalCount))
         }
-
     }
-
 
 
     useEffect(() => {
         dispatch(requestDialogs())
-
     }, [])
 
     useEffect(() => {
         requestMessages()
-
-
     }, [selectedUser, totalCount, currentPage, pageSize])
 
 
@@ -117,8 +118,13 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
             deleteMessage={deleteMessage}
             spamMessage={spamMessage}
             restoreMessages={restoreMessages}
+            deletedByRecipient={m.deletedByRecipient}
+            deletedBySender={m.deletedByRecipient}
+            isSpam={m.isSpam}
+            recipientName={m.recipientName}
+
             status={m.status}
-            showMessages={requestMessages}
+            requestMessages={requestMessages}
             component='messages'
         />
     ));
@@ -138,8 +144,13 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
             deleteMessage={deleteMessage}
             spamMessage={spamMessage}
             restoreMessages={restoreMessages}
+            deletedByRecipient={m.deletedByRecipient}
+            deletedBySender={m.deletedByRecipient}
+            isSpam={m.isSpam}
+            recipientName={m.recipientName}
+
             status={m.status}
-            showMessages={requestMessages}
+            requestMessages={requestMessages}
             component='deletedMessages'
 
 
@@ -155,6 +166,14 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
 
     const onPageSizeHandling = () => {
         setPageInput(true)
+    }
+
+    const onDateChanged = (date: string) => {
+        console.log(date)
+
+        if (!!selectedUser) {
+            dispatch(requestMessagesAfterDate(selectedUser.userId, date))
+        }
     }
 
     return (
@@ -192,8 +211,10 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
 
                             : <div>
 
+                                <MessageSearchForm onDateChanged={onDateChanged} />
+
                                 <button className={css.settingButton} onClick={onPageSizeHandling} style={{ fontWeight: 'bold', marginTop: '-60px', marginLeft: "92%" }}><SettingOutlined style={{ margin: '-7px' }} /></button>
-                                <div style={{ display: 'flex', justifyContent: 'right', marginTop: '-40px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'right', marginTop: '-10px' }}>
                                     <PageNumberSetting value={pageSize}
                                         pagesInput={pagesInput}
                                         settings={setPageInput}
@@ -204,7 +225,11 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
                                 {/* _____Message Box____  */}
                                 < div className={css.messagesBox}>
                                     {selectedUser
-                                        ? messageElements
+                                        ? <div >
+                                            <div className={css.preloader}> {isFetching ? <Preloader /> : null}</div>
+                                            {messageElements}
+                                        </div>
+
                                         : ''}
                                 </div>
                                 {/* __________________________________ */}

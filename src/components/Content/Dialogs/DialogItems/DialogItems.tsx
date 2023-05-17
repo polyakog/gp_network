@@ -4,6 +4,7 @@ import noPhoto from '../../../../assets/images/noPic.jpg'
 import css from './../Dialogs.module.css';
 import { DialogsResponseType } from '../../../../types/types';
 import { SelectedUserType } from '../Dialogs';
+import { formatDate } from '../../../common/Date/formatDate';
 
 
 type PropsType = {
@@ -15,9 +16,10 @@ const DialogItem: React.FC<PropsType & DialogsResponseType> = (props) => {
     let avatarPhoto: string = noPhoto
     if (props.photos.small) { avatarPhoto = props.photos.small }
 
-    let actitvityDate = props.lastUserActivityDate.split('T')[0]
-    let actitvityTime = props.lastUserActivityDate.split('T')[1].slice(0, 5)
-
+    // let actitvityDate = props.lastUserActivityDate.split('T')[0]
+    // let actitvityTime = props.lastUserActivityDate.split('T')[1].slice(0, 5)
+  
+    let formatedDate = formatDate(new Date(props.lastUserActivityDate + 'Z'))
 
     return (
         <div>
@@ -32,7 +34,7 @@ const DialogItem: React.FC<PropsType & DialogsResponseType> = (props) => {
                 </div>
             </NavLink>
             <div className={css.additionalDialogInfo}>
-                <p>online: {actitvityDate} at {actitvityTime}</p>
+                <p>online: {formatedDate}</p>
                 {props.hasNewMessages
                     ? <p className={css.dialogHasMessages}>new messages: {props.newMessagesCount}</p>
                     : <p className={css.dialogHasMessages + ' ' + css.dialogNoMessages}>no new messages</p>}

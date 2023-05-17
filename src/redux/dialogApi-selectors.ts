@@ -13,3 +13,7 @@ export const getDeletedMessages = (state:AppStateType) => {
     return state.dialogsApiPage.deletedMessageData
 }
 
+export const getIsFetching = (state: AppStateType) => {
+    return state.dialogsApiPage.isFetching
+}
+

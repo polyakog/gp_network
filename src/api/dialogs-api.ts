@@ -52,8 +52,10 @@ export const dialogsAPI = {
             .then(res => res.data)
     },
 
-    getMessagesOnDate(userId: number, date: string) {                             //return messages newest than date
-        return instance.put(`dialogs/${userId}/messages/new?newerThen=${date}`)
+    getMessagesAfterDate(userId: number, date: string) {
+        //return messages newest than date
+
+        return instance.get(`dialogs/${userId}/messages/new?newerThen=${date}`)
             .then(res => res.data)
     },
 
