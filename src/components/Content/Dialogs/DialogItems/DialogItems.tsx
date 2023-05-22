@@ -36,7 +36,12 @@ const DialogItem: React.FC<PropsType & DialogsResponseType> = (props) => {
             <div className={css.additionalDialogInfo}>
                 <p>online: {formatedDate}</p>
                 {props.hasNewMessages
-                    ? <p className={css.dialogHasMessages}>new messages: {props.newMessagesCount}</p>
+                    ? <>
+
+                        <div data-userMessagesNumber>{props.newMessagesCount}</div>
+                    <p className={css.dialogHasMessages}>new messages </p>
+                    </>
+
                     : <p className={css.dialogHasMessages + ' ' + css.dialogNoMessages}>no new messages</p>}
 
             </div>

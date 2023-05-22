@@ -70,6 +70,7 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
         if (!!selectedUser) {
             // showMessages(selectedUser.userId, currentPage, pageSize, setTotalCount)
             dispatch(showMessages(selectedUser.userId, currentPage, pageSize, setTotalCount))
+            dispatch(requestDialogs())
         }
     }
 
