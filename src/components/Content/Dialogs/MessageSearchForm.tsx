@@ -2,8 +2,6 @@ import { Formik, Form, Field, /* ErrorMessage */ } from 'formik';
 import { FormikHelpers } from 'formik/dist/types';
 import React from 'react';
 import css from './Dialogs.module.css'
-import { ClassAttributes } from 'react';
-
 
 
 const messageSearchFormValidate = (values: any) => {

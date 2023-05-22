@@ -225,6 +225,7 @@ export const Github = () => {
                         pagesInput={pagesInput}
                         settings={setPageInput}
                         onSubmit={(value) => { setPageSize(value) }}
+                        maxNumber={100}
                     /><span>  users per page: {pageSize}</span>
                 </div>
 

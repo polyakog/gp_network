@@ -18,24 +18,22 @@ type PropsType = {
     spamMessage: (messageId: string, delSpamMessage: MessageItemsType) => void
     restoreMessages: (messageId: string) => void
     requestMessages: () => void
-        // addDeletedMessage: (delSpamMessage: MessageItemsType) => void
-    
-    component: string
+    componentType: string
 }
 
 const MessageItem: React.FC<PropsType & MessageItemsType> = React.memo(({ contactPhoto, deleteMessage, spamMessage,
-    restoreMessages, requestMessages, component, ...message }) => {
+    restoreMessages, requestMessages, componentType, ...message }) => {
 
     const myId = useSelector((state: AppStateType) => state.auth.userId)
     const myPhoto = useSelector((state: AppStateType) => state.auth.userPhoto)
-    
+
     const dispatch: AppDispatchType = useDispatch()
-    
+
 
     // let addedAtDate = message.addedAt.split('T')[0]
     // let addedAtTime = message.addedAt.split('T')[1].slice(0, 5)
-        let formatedDate = formatDate(new Date(message.addedAt + 'Z'))
- 
+    let formatedDate = formatDate(new Date(message.addedAt + 'Z'))
+
 
 
     let userPhoto: string = noPhoto
@@ -50,25 +48,20 @@ const MessageItem: React.FC<PropsType & MessageItemsType> = React.memo(({ contac
         message.status = 'deleted'
         deleteMessage(message.id, message)
         requestMessages()
-        console.log('message deleted', message.id, 'status:', message.status)
-
-
+        console.log('message deleting', message.id, 'status:', message.status)
     }
     const onSpamClicked = () => {
         message.status = 'spam'
         spamMessage(message.id, message)
         requestMessages()
-        console.log('message spammed', message.id)
+        console.log('message spamming', message.id)
     }
 
     const onRestoreClicked = () => {
         message.status = ''
         restoreMessages(message.id)
         requestMessages()
-        // dispatch(requestMessages())
-        console.log('message restored', message.id)
-
-
+        console.log('message restoring', message.id)
     }
 
 
@@ -90,7 +83,7 @@ const MessageItem: React.FC<PropsType & MessageItemsType> = React.memo(({ contac
                 <p>{message.id}</p>
                 {message.body}
                 {/* <div className={css.messageDate}> {addedAtDate} @  {addedAtTime}</div> */}
-                <div className={css.messageDate}> 
+                <div className={css.messageDate}>
                     {formatedDate}
                 </div>
 
@@ -103,7 +96,7 @@ const MessageItem: React.FC<PropsType & MessageItemsType> = React.memo(({ contac
                 }
 
                 <div className={css.deletedMessage + ' ' + ((myId === message.senderId) ? css.green : css.grey)}>
-                    {component === 'messages'
+                    {componentType === 'messages'
                         ? <div>
                             <button onClick={onDeleteClicked} data-hint="Delete message">
                                 <DeleteTwoTone style={{ fontSize: '20px' }} />
@@ -119,13 +112,7 @@ const MessageItem: React.FC<PropsType & MessageItemsType> = React.memo(({ contac
                             </button>
                         </div>
                     }
-
-
-
-
                 </div>
-
-
             </div>
         </div>
     )

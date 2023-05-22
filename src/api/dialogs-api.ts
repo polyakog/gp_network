@@ -21,7 +21,7 @@ export const dialogsAPI = {
 
 
     startChat(userId: number) {                                         //start chatting, refresh your companion so that he was on top
-        return instance.put<GetMessagesItemsResponseType>(`dialogs/${userId}`)
+        return instance.put<APIResponseType>(`dialogs/${userId}`)
             .then(response => response.data)
 
 

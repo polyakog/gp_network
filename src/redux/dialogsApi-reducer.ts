@@ -1,6 +1,8 @@
 import { DialogsResponseType, MessageItemsType } from "../types/types";
 import { BaseThunkType, InferActionsTypes } from "./redux-store";
 import { dialogsAPI } from "../api/dialogs-api";
+import { ResultCodesEnum } from "../api/api";
+
 
 
 
@@ -51,7 +53,7 @@ const dialogsApiReducer = (state = initialState, action: ActionsTypes): InitialS
 
             return {
                 ...state,
-                deletedMessageData: [...state.deletedMessageData.filter(m=> m.id!== action.messageId)]
+                deletedMessageData: [...state.deletedMessageData.filter(m => m.id !== action.messageId)]
             };
 
         case types.TOGGLE_IS_FETCHING: {
@@ -96,64 +98,78 @@ export const requestDialogs = (): ThunkType => async (dispatch, getState) => {
     dispatch(actions.setDialogs(data));
 }
 
-export const requestMessages = (userId: number, currenPage: number, pageSize: number, setTotalUsersCount: (totalCount: number) => void): ThunkType => async (dispatch, getState) => {
+export const showMessages = (userId: number, currenPage: number, pageSize: number, setTotalCount: (totalCount: number) => void): ThunkType => async (dispatch, getState) => {
     dispatch(actions.toggleIsFetching(true));
-
     const data = await dialogsAPI.getMessagesList(userId, currenPage, pageSize)
-    setTotalUsersCount(data.totalCount)
+    setTotalCount(data.totalCount)
     dispatch(actions.toggleIsFetching(false));
     dispatch(actions.setMessages(data.items));
-
-    
-
 }
+
+
+// export const showMessages = (userId: number, currentPage: number, pageSize: number, setTotalCount: React.Dispatch<React.SetStateAction<number>>): ThunkType => async (dispatch, getState) => {
+//     // debugger
+//     dispatch(requestMessages(userId, currentPage, pageSize, setTotalCount))
+
+// }
+
 export const startChatting = (userId: number): ThunkType => async (dispatch, getState) => {
     const data = await dialogsAPI.startChat(userId)
-
+    if (data.resultCode === ResultCodesEnum.Success) {
+        console.log('START CHATTING')
+    } else (
+        console.error('ERROR: START CHATTING!!!', data.messages)
+    )
 }
 
 export const addMessage = (userId: number, body: string): ThunkType => async (dispatch, getState) => {
     const data = await dialogsAPI.sendMessage(userId, body)
+
+    if (data.resultCode === ResultCodesEnum.Success) {
+        console.log('MESSAGE ADDED SUCCESSFULLY')
+            } else (
+        console.error('ERROR: MESSAGE ADDED!!!', data.messages)
+    )
 }
 
-export const addDeletedMessage = (delSpamMessage: MessageItemsType): ThunkType => async (dispatch, getState) => {
-    dispatch(actions.setDeletedMessage(delSpamMessage))
-}
+// export const addDeletedMessage = (delSpamMessage: MessageItemsType): ThunkType => async (dispatch, getState) => {
+//     dispatch(actions.setDeletedMessage(delSpamMessage))
+// }
 
-export const deleteMessage = (messageId: string, delSpamMessage: MessageItemsType): ThunkType => async (dispatch, getState) => {
+export const deleteMessage = (messageId: string, delMessage: MessageItemsType): ThunkType => async (dispatch, getState) => {
     const data = await dialogsAPI.deleteMessage(messageId)
-    console.log(data)
-    dispatch(addDeletedMessage(delSpamMessage))
-
+    if (data.resultCode === ResultCodesEnum.Success) {
+        console.log('MESSAGE DELETED SUCCESSFULLY')
+        dispatch(actions.setDeletedMessage(delMessage))
+    } else (
+        console.error('ERROR: DELETE!!!', data.messages)
+    )
 }
 
-export const spamMessage = (messageId: string, delSpamMessage: MessageItemsType): ThunkType => async (dispatch, getState) => {
+export const spamMessage = (messageId: string, delMessage: MessageItemsType): ThunkType => async (dispatch, getState) => {
     const data = await dialogsAPI.spamMessage(messageId)
-    console.log(data)
-    dispatch(addDeletedMessage(delSpamMessage))
+    if (data.resultCode === ResultCodesEnum.Success) {
+        console.log('MESSAGE SPAMMED SUCCESSFULLY')
+        dispatch(actions.setDeletedMessage(delMessage))
+    } else (
+        console.error('ERROR: SPAM!!!', data.messages)
+    )
 }
 
 export const restoreMessages = (messageId: string): ThunkType => async (dispatch, getState) => {
     const data = await dialogsAPI.restoreMessage(messageId)
-    console.log(data)
-    dispatch(actions.restoredDeletedMessage(messageId))
-
+    if (data.resultCode === ResultCodesEnum.Success) {
+        console.log('MESSAGE RESTORED SUCCESSFULLY')
+        dispatch(actions.restoredDeletedMessage(messageId))
+    } else (
+        console.error('ERROR: RESTORING MESSAGES!!!', data.messages)
+    )
 }
 
-export const showMessages = (userId: number, currentPage: number, pageSize: number, setTotalCount: React.Dispatch<React.SetStateAction<number>>): ThunkType => async (dispatch, getState) => {
-    // debugger
-        dispatch(requestMessages(userId, currentPage, pageSize, setTotalCount))
-        dispatch(startChatting(userId))
-    
+export const requestMessagesAfterDate = (userId: number, date: string): ThunkType => async (dispatch, getState) => {
+    const data = await dialogsAPI.getMessagesAfterDate(userId, date)
+    dispatch(actions.setMessages(data))
 }
-
-export const requestMessagesAfterDate = (userId: number, date:string): ThunkType => async (dispatch, getState) => {
-        const data = await dialogsAPI.getMessagesAfterDate(userId, date)
-        dispatch(actions.setMessages(data))
-
-}
-
-
 
 
 

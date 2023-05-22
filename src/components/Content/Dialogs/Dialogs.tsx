@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import css from './Dialogs.module.css';
 import DialogItem from './DialogItems/DialogItems';
-import MessageItem from './MessageItems/MessageItems';
 import AddMessageForm from '../../common/Forms/AddMessageForm';
 import { InitialStateType } from '../../../redux/dialogs-reducer';
 import { MessageItemsType } from '../../../types/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDeletedMessages, getDialogs, getIsFetching, getMessages } from '../../../redux/dialogApi-selectors';
 import { AppDispatchType } from '../../../redux/redux-store';
-import { requestDialogs, showMessages, requestMessagesAfterDate } from '../../../redux/dialogsApi-reducer';
+import { requestDialogs, showMessages, requestMessagesAfterDate, startChatting } from '../../../redux/dialogsApi-reducer';
 import Paginator from '../../common/Paginator/Paginator';
-import { CloseCircleOutlined, SettingOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, ReloadOutlined, SettingOutlined } from '@ant-design/icons';
 import { PageNumberSetting } from '../../common/Paginator/PageNumberSettings';
 import { PhotosType } from '../../../types/types';
 import { MessageSearchForm } from './MessageSearchForm';
 import Preloader from '../../common/Preloader/Preloader';
+import { MessagePropsType, MessagesElement } from './MessagesElement';
 
 
 
 type PropsType = {
     dialogsPage: InitialStateType
     requestDialogs: () => void
-    requestMessages: (userId: number, currentPage: number, pageSize: number, setTotalUsersCount: any) => void
+    // requestMessages: (userId: number, currentPage: number, pageSize: number, setTotalUsersCount: any) => void
     addMessage: (userId: number, newMessageText: string) => void
-    deleteMessage: (messageId: string, delSpamMessage: MessageItemsType) => void
+    deleteMessage: (messageId: string, delMessage: MessageItemsType) => void
     spamMessage: (messageId: string) => void
     restoreMessages: (messageId: string) => void
 
@@ -87,6 +87,15 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
         setCurrentPage(1)
     }, [pageSize, selectedUser, totalCount])
 
+    const messageProps: MessagePropsType = {
+        contactPhoto: selectedUser?.photo,
+        deleteMessage,
+        spamMessage,
+        requestMessages,
+        restoreMessages,
+    }
+
+
 
     let dialogElements = dialogs.map(d => (
         <DialogItem
@@ -103,59 +112,7 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
         />
     ))
 
-    let messageElements = messages.map(m => (
-        <MessageItem
-            key={m.id}
-            id={m.id}
-            body={m.body}
-            translatedBody={m.translatedBody}
-            addedAt={m.addedAt}
-            senderId={m.senderId}
-            senderName={m.senderName}
-            recipientId={m.recipientId}
-            viewed={m.viewed}
-            contactPhoto={selectedUser?.photo}
-            deleteMessage={deleteMessage}
-            spamMessage={spamMessage}
-            restoreMessages={restoreMessages}
-            deletedByRecipient={m.deletedByRecipient}
-            deletedBySender={m.deletedByRecipient}
-            isSpam={m.isSpam}
-            recipientName={m.recipientName}
 
-            status={m.status}
-            requestMessages={requestMessages}
-            component='messages'
-        />
-    ));
-
-    let deletedMessageElements = deletedMessages.map(m => (
-        <MessageItem
-            key={m.id}
-            id={m.id}
-            body={m.body}
-            translatedBody={m.translatedBody}
-            addedAt={m.addedAt}
-            senderId={m.senderId}
-            senderName={m.senderName}
-            recipientId={m.recipientId}
-            viewed={m.viewed}
-            contactPhoto={selectedUser?.photo}
-            deleteMessage={deleteMessage}
-            spamMessage={spamMessage}
-            restoreMessages={restoreMessages}
-            deletedByRecipient={m.deletedByRecipient}
-            deletedBySender={m.deletedByRecipient}
-            isSpam={m.isSpam}
-            recipientName={m.recipientName}
-
-            status={m.status}
-            requestMessages={requestMessages}
-            component='deletedMessages'
-
-
-        />
-    ));
 
     const addNewMessage = (values: NewMessageFormType) => {
         if (!!selectedUser) {
@@ -169,10 +126,16 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
     }
 
     const onDateChanged = (date: string) => {
-        console.log(date)
+        console.log('messages from', date)
 
         if (!!selectedUser) {
             dispatch(requestMessagesAfterDate(selectedUser.userId, date))
+        }
+    }
+
+    const onStartChatting = () => {
+        if (!!selectedUser) {
+            dispatch(startChatting(selectedUser.userId))
         }
     }
 
@@ -183,6 +146,15 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
             <div className={css.dialogWindow}>
                 <div className={css.dialogs}>
                     <h4>Dialogs</h4>
+                    {selectedUser &&
+                        <div style={{ marginTop: '-40px', marginLeft: "135px", }}>
+                            <button onClick={onStartChatting} style={{ fontWeight: 'bold', height: '20px' }}>
+                                <ReloadOutlined style={{ margin: '-7px' }} />
+                            </button>
+                        </div>
+
+                    }
+
 
                     <div>                        {/* ____Dialog Box____ */}
                         {dialogElements}
@@ -205,7 +177,8 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
                                     <button onClick={() => setIsRestoredMessage(false)} data-hint="Close restoring"><CloseCircleOutlined /></button>
                                 </div>
                                 <div className={css.deletedMessagesBox}>
-                                    {deletedMessageElements}
+                                    {<MessagesElement messages={deletedMessages} componentType={'deletedMessages'} messageProps={messageProps} />}
+
                                 </div>
                             </div>
 
@@ -219,6 +192,7 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
                                         pagesInput={pagesInput}
                                         settings={setPageInput}
                                         onSubmit={(value) => { setPageSize(value) }}
+                                        maxNumber={20}
                                     />
                                 </div>
 
@@ -227,7 +201,8 @@ const Dialogs: React.FC<PropsType> = ({ addMessage, deleteMessage, spamMessage, 
                                     {selectedUser
                                         ? <div >
                                             <div className={css.preloader}> {isFetching ? <Preloader /> : null}</div>
-                                            {messageElements}
+                                            {<MessagesElement messages={messages} componentType={'messages'} messageProps={messageProps} />}
+
                                         </div>
 
                                         : ''}
