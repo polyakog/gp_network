@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkgp_project=self.webpackChunkgp_project||[]).push([[806],{806:function(e,n,c){c.r(n),c.d(n,{default:function(){return r}});c(2791);var s="News_headName__6DT0x",t=c(184),r=function(){return(0,t.jsxs)("div",{children:[(0,t.jsx)("h1",{className:s,children:"News"}),"No content"]})}}}]);
+//# sourceMappingURL=806.1db9297f.chunk.js.map
