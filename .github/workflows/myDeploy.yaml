@@ -14,8 +14,8 @@ jobs:
         - name: Checkout # клонируем репозиторый
           uses: actions/checkout@v2
 
-        # - name: Install dependencies
-          # run: npm install --force # устанавливаем зависимости
+        - name: Install dependencies
+          run: npm install --force # устанавливаем зависимости
 
         - name: Test
           run: npm test # запускаем скрипт тестами
